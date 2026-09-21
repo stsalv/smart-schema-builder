@@ -1,0 +1,568 @@
+/*!
+ * Smart Schema Builder - admin styles.
+ * Single source of truth for the admin UI, organized by component.
+ * Rule: fix issues by editing the relevant section in place,
+ * never append ad-hoc override blocks at the bottom of this file.
+ */
+
+/* ==========================================================================
+   1. Base and WP component overrides
+   --------------------------------------------------------------------------
+   The !important declarations below exist only where WordPress components
+   win by specificity (triple-class emotion selectors, 0,3,0) or where WP
+   button styles fill stroke icons. Each case is commented.
+   ========================================================================== */
+
+.ssb-wrap {
+	max-width: 1400px;
+	margin: 20px auto 40px;
+	padding: 0 20px;
+}
+
+/* Horizontal rows for paired controls (radio + color, radio + select). */
+.ssb-admin-row {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 24px;
+	margin: 8px 0;
+}
+.ssb-admin-row > * {
+	flex: 1 1 240px;
+	margin-top: 0;
+}
+.ssb-admin-row .components-radio-control {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+.ssb-admin-row .components-radio-control .components-radio-control__option {
+	margin-top: 0;
+}
+.ssb-tags-row .ssb-color-field {
+	margin: 0;
+}
+
+/* Two-column layout for item settings in the editor. */
+.ssb-item-settings {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 12px 32px;
+	align-items: start;
+	margin-top: 12px;
+}
+.ssb-item-settings__col {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	min-width: 0;
+}
+.ssb-item-settings__col .ssb-color-field,
+.ssb-item-settings__col .ssb-icon-picker,
+.ssb-item-settings__col .ssb-fieldset {
+	margin: 0;
+}
+@media (max-width: 782px) {
+	.ssb-item-settings {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Component labels: emotion styles set uppercase/11px/600 with (0,3,0). */
+.ssb-wrap [class*="__label"] {
+	text-transform: none !important;
+	font-size: 12px !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
+	color: #50575e !important;
+}
+
+/* Toggle/checkbox labels are stretchable flex items; hug them to the text
+   so clicks on empty space do not toggle the control. */
+.ssb-wrap .components-toggle-control label,
+.ssb-wrap .components-checkbox-control label {
+	flex: 0 0 auto !important;
+	width: auto !important;
+}
+
+/* Stroke icons must never be filled inside WP buttons. */
+.ssb-icon-picker svg,
+.ssb-icon-picker svg * {
+	fill: none !important;
+	stroke: currentColor !important;
+	stroke-width: 2 !important;
+	stroke-linecap: round !important;
+	stroke-linejoin: round !important;
+}
+
+/* ==========================================================================
+   2. Schemas list (CSS grid, deterministic columns)
+   ========================================================================== */
+
+.ssb-list__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 20px;
+}
+.ssb-list__header h1 {
+	margin: 0;
+	font-size: 23px;
+	font-weight: 400;
+	color: #1d2327;
+}
+.ssb-list__actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.ssb-import-label {
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.ssb-list-table {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.ssb-list-row {
+	display: grid;
+	grid-template-columns: 70px minmax(220px, 1fr) 110px 90px 170px 230px;
+	gap: 12px;
+	align-items: center;
+	padding: 10px 16px;
+	border-top: 1px solid #f0f0f1;
+}
+.ssb-list-row:first-child {
+	border-top: 0;
+}
+.ssb-list-row--head {
+	background: #f6f7f7;
+	color: #50575e;
+	font-weight: 600;
+}
+.ssb-list-row:not(.ssb-list-row--head):nth-child(even) {
+	background: #f9f9f9;
+}
+.ssb-list-title a {
+	color: #2271b1;
+	font-weight: 600;
+	text-decoration: none;
+	overflow-wrap: break-word;
+}
+.ssb-list-title a:hover {
+	color: #135e96;
+	text-decoration: underline;
+}
+.ssb-list-actions {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	gap: 8px;
+}
+.ssb-status {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 10px;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.4;
+}
+.ssb-status--publish {
+	background: #e6f4ea;
+	color: #137333;
+}
+.ssb-status--draft {
+	background: #fef7e0;
+	color: #946300;
+}
+.ssb-list__loading,
+.ssb-list__empty {
+	padding: 40px;
+	text-align: center;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+}
+
+/* Narrow screens: hide Blocks and Modified columns. */
+@media (max-width: 1100px) {
+	.ssb-list-row {
+		grid-template-columns: 60px minmax(160px, 1fr) 100px 200px;
+	}
+	.ssb-list-row > :nth-child(4),
+	.ssb-list-row > :nth-child(5) {
+		display: none;
+	}
+}
+
+/* ==========================================================================
+   3. Editor header and save state
+   ========================================================================== */
+
+.ssb-editor__header {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 16px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #dcdcde;
+}
+.ssb-editor__title {
+	flex: 0 1 480px;
+	margin: 0;
+}
+.ssb-editor__title input {
+	font-size: 18px;
+	font-weight: 600;
+}
+.ssb-editor__actions {
+	display: flex;
+	gap: 8px;
+	margin-left: auto;
+	flex-shrink: 0;
+}
+.ssb-save-state {
+	font-size: 12px;
+	color: #646970;
+}
+.ssb-save-state--saving {
+	color: #996800;
+}
+.ssb-save-state--error {
+	color: #b32d2e;
+}
+
+/* ==========================================================================
+   4. Tabs
+   ========================================================================== */
+
+.ssb-tabs .components-tab-panel__tabs {
+	margin-bottom: 20px;
+	border-bottom: 1px solid #dcdcde;
+}
+
+/* ==========================================================================
+   5. General tab
+   ========================================================================== */
+
+.ssb-general .components-toggle-control {
+	margin-top: 16px;
+}
+.ssb-general .components-checkbox-control {
+	margin-top: 12px;
+}
+
+/* ==========================================================================
+   6. Icon picker
+   ========================================================================== */
+
+.ssb-icon-picker {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 12px 0;
+}
+.ssb-icon-trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+.ssb-icon-picker img {
+	max-width: 24px;
+	max-height: 24px;
+}
+.ssb-icon-grid {
+	display: grid;
+	grid-template-columns: repeat(8, 40px);
+	gap: 8px;
+	margin: 12px 0;
+}
+.ssb-icon-grid button {
+	width: 40px;
+	height: 40px;
+	display: grid;
+	place-items: center;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+	cursor: pointer;
+}
+.ssb-icon-grid button:hover,
+.ssb-icon-grid button.is-active {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+.ssb-icon-media-tab {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 8px 0;
+}
+
+/* ==========================================================================
+   7. Color field
+   ========================================================================== */
+
+.ssb-color-field {
+	margin: 4px 0;
+}
+.ssb-color-field__label {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 12px;
+	color: #646970;
+}
+.ssb-color-field__swatches {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+.ssb-color-field__swatches button {
+	width: 24px;
+	height: 24px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px #dcdcde;
+	cursor: pointer;
+}
+.ssb-color-field__swatches button.is-active {
+	box-shadow: 0 0 0 2px #2271b1;
+}
+.ssb-color-field__custom {
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px #dcdcde;
+	cursor: pointer;
+	background: transparent;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.ssb-color-field__custom::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+.ssb-color-field__custom::-webkit-color-swatch {
+	border: none;
+	border-radius: 50%;
+}
+.ssb-color-field__custom::-moz-color-swatch {
+	border: none;
+	border-radius: 50%;
+}
+
+/* ==========================================================================
+   8. Fieldset and per-format download rows
+   ========================================================================== */
+
+.ssb-fieldset {
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 16px;
+	margin: 20px 0;
+}
+.ssb-fieldset legend {
+	font-weight: 600;
+	padding: 0 6px;
+}
+.ssb-fieldset > p.description {
+	margin-top: 0;
+}
+
+.ssb-dl-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px 24px;
+	align-items: flex-start;
+	padding: 14px 0;
+	border-top: 1px solid #f0f0f1;
+}
+.ssb-dl-colors {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.ssb-dl-row:first-of-type {
+	border-top: 0;
+	padding-top: 8px;
+}
+.ssb-dl-row__enable {
+	margin-top: 26px;
+}
+.ssb-dl-row .ssb-icon-picker {
+	margin-top: 24px;
+}
+.ssb-dl-row__size,
+.ssb-dl-row .ssb-color-field {
+	margin-top: 0;
+}
+.ssb-dl-row__size .components-radio-control__option {
+	margin-top: 0;
+}
+
+/* ==========================================================================
+   9. Blocks, groups and items
+   ========================================================================== */
+
+.ssb-block-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	padding: 16px;
+	margin-bottom: 16px;
+}
+.ssb-block-card__head {
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+.ssb-block-card__head > .components-text-control {
+	flex: 1 1 240px;
+}
+.ssb-block-card__head > .components-select-control {
+	flex: 0 1 260px;
+}
+
+.ssb-group-card {
+	border: 1px solid #dcdcde;
+	border-left: 4px solid #2271b1;
+	border-radius: 4px;
+	padding: 16px;
+	margin: 12px 0;
+	background: #f9f9f9;
+}
+.ssb-group-card__top {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+}
+.ssb-group-card__controls {
+	flex: 1 1 380px;
+	max-width: 460px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+.ssb-group-card__side {
+	margin-left: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 10px;
+}
+.ssb-group-card__items {
+	margin-top: 14px;
+}
+
+.ssb-item-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 16px;
+	margin: 12px 0;
+}
+.ssb-item-card__row {
+	display: flex;
+	align-items: flex-end;
+	gap: 12px;
+}
+.ssb-item-card__row > .components-text-control {
+	flex: 1;
+	margin-top: 0;
+}
+.ssb-item-card .components-base-control {
+	margin-top: 12px;
+}
+.ssb-item-card > .components-button.is-link {
+	margin-top: 10px;
+}
+.ssb-item-card .ssb-fieldset {
+	margin: 12px 0 0;
+}
+
+/* Checkbox rhythm inside fieldsets (Tags). Emotion BaseControl margins
+   win by specificity, hence !important. */
+.ssb-fieldset .components-checkbox-control {
+	margin-top: 8px !important;
+}
+.ssb-fieldset .components-checkbox-control:first-of-type {
+	margin-top: 0 !important;
+}
+
+.ssb-block-card__separator {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 24px;
+	padding: 4px 0 8px;
+}
+.ssb-block-card__separator .ssb-color-field {
+	margin-top: 0;
+}
+.ssb-block-card__separator > p.description {
+	flex-basis: 100%;
+	margin: 0;
+}
+
+.ssb-move {
+	display: inline-flex;
+	gap: 2px;
+}
+
+/* ==========================================================================
+   10. Tags tab
+   ========================================================================== */
+
+.ssb-tags-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+.ssb-tags-row > .components-text-control {
+	flex: 1;
+	margin: 0;
+}
+
+/* Statistics page. */
+.ssb-stats { margin: 20px 0 40px; }
+.ssb-stats table { width: 100%; }
+.ssb-stats th { font-weight: 600; }
+.ssb-stats__empty { text-align: center; color: #64697b; padding: 24px; }
+.ssb-stats td { vertical-align: middle; }
+.ssb-stats .description { font-size: 12px; color: #64697b; }
+.ssb-stats-edit { display: flex; flex-direction: column; gap: 12px; max-width: 320px; }
+.ssb-stats-edit__actions { display: flex; gap: 8px; margin-top: 8px; }
+
+/* Wider inputs: block name and item title match the group title width. */
+.ssb-input--wide {
+	flex: 1 1 320px;
+	max-width: 560px;
+}
+
+/* Tags tab: label input +50% width; palette wraps to its own line on narrow screens. */
+.ssb-tags-row {
+	flex-wrap: wrap;
+}
+.ssb-tags-row .ssb-input--tag {
+	flex: 0 1 300px;
+}
+@media (max-width: 782px) {
+	.ssb-tags-row .ssb-color-field {
+		flex: 1 1 100%;
+	}
+}

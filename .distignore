@@ -1,0 +1,10 @@
+/node_modules
+/src
+/.git
+/languages/*.mo
+/languages/*.po
+/languages/*.po.bak
+.distignore
+webpack.config.js
+package.json
+package-lock.json

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruleset name="StSalv Smart Schema Builder">
+    <description>Coding standards gate for StSalv Smart Schema Builder (wp.org-aligned, full WordPress standard).</description>
+
+    <file>.</file>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/build/*</exclude-pattern>
+    <exclude-pattern>/tests/*</exclude-pattern>
+    <exclude-pattern>/languages/*</exclude-pattern>
+    <exclude-pattern>*.asset.php</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="parallel" value="8"/>
+    <arg value="sp"/>
+
+    <!-- Full WordPress standard. -->
+    <rule ref="WordPress">
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+    </rule>
+
+    <!-- Our custom capabilities are registered in ssb_add_capabilities(). -->
+    <rule ref="WordPress.WP.Capabilities">
+        <properties>
+            <property name="custom_capabilities" type="array">
+                <element value="ssb_edit_schemas"/>
+                <element value="ssb_manage_settings"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Admin list tables legitimately load up to 200 schemas. -->
+    <rule ref="WordPress.WP.PostsPerPage">
+        <properties>
+            <property name="posts_per_page" value="200" type="integer"/>
+        </properties>
+    </rule>
+
+    <!-- Text domain for i18n (updated after plugin rename). -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="stsalv-smart-schema-builder"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Our 3-char prefix (SSB_/ssb_) is unique and intentionally short. -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound"/>
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound"/>
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound"/>
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound"/>
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
+    </rule>
+</ruleset>

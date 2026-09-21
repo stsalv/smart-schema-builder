@@ -1,0 +1,114 @@
+{
+  "title": "New Employee Onboarding",
+  "status": "publish",
+  "config": {
+    "schema_version": 1,
+    "title": "New Employee Onboarding",
+    "description": "Who welcomes a new joiner, which tools and accesses are ready on day one, and how the first 90 days are reviewed.",
+    "eyebrow": "People ops · HR · IT",
+    "titleSize": "standard",
+    "titleFont": "",
+    "logoSize": "standard",
+    "logoColor": "#1a4fa0",
+    "icon": { "type": "builtin", "value": "route" },
+    "showIcon": true,
+    "numbering": true,
+    "download": {
+      "orientation": "landscape",
+      "multipage": true,
+      "pdf": { "enabled": true, "label": "Download PDF", "icon": { "type": "builtin", "value": "download" }, "iconSize": "standard", "color": "#1a4fa0", "hoverColor": "" },
+      "png": { "enabled": true, "label": "Download PNG", "icon": { "type": "builtin", "value": "download" }, "iconSize": "standard", "color": "#1a4fa0", "hoverColor": "" },
+      "json": { "enabled": false, "label": "Download JSON", "icon": { "type": "builtin", "value": "download" }, "iconSize": "standard", "color": "#1a4fa0", "hoverColor": "" }
+    },
+    "footer": { "left": "%title · %cnt roles", "right": "Edition %yyyy." },
+    "tags": [
+      { "id": "t_hr", "label": "HR", "color": "#7c3aed" },
+      { "id": "t_it", "label": "IT", "color": "#0d9488" },
+      { "id": "t_manager", "label": "Manager", "color": "#be123c" }
+    ],
+    "blocks": [
+      {
+        "id": "b_week1",
+        "title": "First week",
+        "layout": "hub",
+        "icon": null,
+        "color": "#64748b",
+        "groups": [
+          {
+            "id": "g_people",
+            "title": "People",
+            "color": "#7c3aed",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_buddy", "title": "Buddy", "short": "Friendly go-to person", "full": "A peer volunteer who answers everyday questions, invites the joiner to lunches and introduces informal team norms.", "tags": [ "t_manager" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_manager", "title": "Line manager", "short": "Sets goals and expectations", "full": "Runs the day-one welcome, agrees on the 30/60/90 plan and schedules weekly one-to-ones for the first quarter.", "tags": [ "t_manager" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_hr", "title": "HR partner", "short": "Contract, policies, benefits", "full": "Walks through the contract, company policies and benefits, and collects all signed documents.", "tags": [ "t_hr" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          },
+          {
+            "id": "g_tools",
+            "title": "Tools & access",
+            "color": "#0d9488",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_it", "title": "IT support", "short": "Laptop and accounts on day one", "full": "Prepares the laptop, email and messenger accounts so everything works before the joiner logs in for the first time.", "tags": [ "t_it" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_access", "title": "Access provisioning", "short": "Repos, trackers, VPN", "full": "Grants repository, tracker and VPN access according to the role checklist; revokes nothing-on-day-one gaps.", "tags": [ "t_it" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          },
+          {
+            "id": "g_knowledge",
+            "title": "Knowledge",
+            "color": "#2563eb",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_team_intro", "title": "Team intro", "short": "Who does what on the team", "full": "", "tags": [ "t_manager" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_docs", "title": "Docs walkthrough", "short": "Handbook and architecture notes", "full": "", "tags": [ "t_hr" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "b_sep",
+        "title": "Probation · first 90 days",
+        "layout": "separator",
+        "icon": null,
+        "color": "#64748b",
+        "groups": []
+      },
+      {
+        "id": "b_growth",
+        "title": "Growth & feedback",
+        "layout": "columns",
+        "icon": null,
+        "color": "#64748b",
+        "groups": [
+          {
+            "id": "g_checkpoints",
+            "title": "Checkpoints",
+            "color": "#be123c",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_review30", "title": "30-day review", "short": "First feedback loop", "full": "", "tags": [ "t_manager" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_review90", "title": "90-day review", "short": "Probation decision", "full": "", "tags": [ "t_manager", "t_hr" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          },
+          {
+            "id": "g_learning",
+            "title": "Learning",
+            "color": "#ea8a00",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_mentor", "title": "Mentor", "short": "Craft and code reviews", "full": "", "tags": [ "t_manager" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_training", "title": "Training plan", "short": "Courses and certifications", "full": "", "tags": [ "t_hr" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

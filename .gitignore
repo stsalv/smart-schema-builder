@@ -1,0 +1,13 @@
+node_modules/
+vendor/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.wp-env/
+npm-debug.log
+yarn-error.log
+*.zip

@@ -1,0 +1,828 @@
+# Russian translation for Smart Schema Builder.
+# Copyright (C) 2026 stsalv
+# This file is distributed under the same license as the Smart Schema Builder package.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: StSalv Smart Schema Builder 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/stsalv-smart-"
+"schema-builder\n"
+"POT-Creation-Date: 2026-09-21T22:53:17+03:00\n"
+"PO-Revision-Date: 2026-09-19 12:00+0300\n"
+"Last-Translator: stsalv\n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. Plugin Name of the plugin
+#: stsalv-smart-schema-builder.php
+msgid "StSalv Smart Schema Builder"
+msgstr "StSalv Smart Schema Builder"
+
+#. Plugin URI of the plugin
+#: stsalv-smart-schema-builder.php
+msgid "https://stsalv.ru/smart-schema-builder/"
+msgstr ""
+
+#. Description of the plugin
+#: stsalv-smart-schema-builder.php
+msgid ""
+"Build, manage and publish interactive role/process schema maps with filters, "
+"modal descriptions and PDF/PNG/JSON exports."
+msgstr ""
+"Создавайте, управляйте и публикуйте интерактивные карты ролей и процессов с "
+"фильтрами, модальными описаниями и экспортом в PDF/PNG/JSON."
+
+#. Author of the plugin
+#: stsalv-smart-schema-builder.php
+msgid "stsalv"
+msgstr ""
+
+#. Author URI of the plugin
+#: stsalv-smart-schema-builder.php
+msgid "https://stsalv.ru/"
+msgstr ""
+
+#: includes/admin/class-ssb-admin.php:71
+msgid "Smart Schema Builder"
+msgstr "StSalv Smart Schema Builder"
+
+#: includes/admin/class-ssb-admin.php:72
+msgid "Smart Schemas"
+msgstr "Умные схемы"
+
+#: includes/admin/class-ssb-admin.php:82 includes/class-ssb-cpt.php:84
+msgid "All Schemas"
+msgstr "Все схемы"
+
+#: includes/admin/class-ssb-admin.php:83
+msgid "All schemas"
+msgstr "Все схемы"
+
+#: includes/admin/class-ssb-admin.php:91 includes/admin/class-ssb-admin.php:92
+msgid "Statistics"
+msgstr "Статистика"
+
+#: includes/admin/class-ssb-admin.php:178
+#: includes/admin/class-ssb-admin.php:216
+#: includes/admin/class-ssb-admin.php:267
+#: includes/admin/class-ssb-admin.php:330
+#: includes/admin/class-ssb-admin.php:355
+#: includes/admin/class-ssb-admin.php:390
+msgid "Permission denied."
+msgstr "Доступ запрещён."
+
+#: includes/admin/class-ssb-admin.php:233
+#: includes/admin/class-ssb-admin.php:285
+#: includes/admin/class-ssb-admin.php:361 includes/class-ssb-io.php:69
+#: includes/class-ssb-io.php:72 includes/class-ssb-io.php:125
+#: includes/class-ssb-io.php:131
+msgid "Schema not found."
+msgstr "Схема не найдена."
+
+#: includes/admin/class-ssb-admin.php:240
+msgid ""
+"Schema configuration is damaged. Re-import the schema JSON or recreate the "
+"schema."
+msgstr ""
+"Конфигурация схемы повреждена. Переимпортируйте JSON схемы или создайте её "
+"заново."
+
+#: includes/admin/class-ssb-admin.php:279
+msgid "Invalid configuration."
+msgstr "Некорректная конфигурация."
+
+#: includes/admin/class-ssb-admin.php:298
+msgid "Untitled Schema"
+msgstr "Схема без названия"
+
+#: includes/admin/class-ssb-admin.php:335
+msgid "Invalid ID."
+msgstr "Некорректный ID."
+
+#: includes/admin/class-ssb-admin.php:340
+msgid "Failed to delete schema."
+msgstr "Не удалось удалить схему."
+
+#: includes/admin/class-ssb-admin.php:397
+msgid "Invalid import file."
+msgstr "Некорректный файл импорта."
+
+#: includes/admin/class-ssb-admin.php:400
+msgid "Imported Schema"
+msgstr "Импортированная схема"
+
+#: includes/admin/class-ssb-admin.php:409
+msgid "Target schema not found."
+msgstr "Целевая схема не найдена."
+
+#: includes/admin/views/stats-page.php:13
+msgid "Smart Schema Builder — Statistics"
+msgstr "Smart Schema Builder — Статистика"
+
+#: includes/class-ssb-block.php:118 src/admin/components/SchemaList.js:145
+#: src/block/index.js:62 src/block/index.js:72
+msgid "Smart Schema"
+msgstr "Умная схема"
+
+#: includes/class-ssb-block.php:119
+msgid "Renders a configured schema map."
+msgstr "Отображает настроенную карту схемы."
+
+#: includes/class-ssb-block.php:215
+msgid "Select a schema in the block settings on the right."
+msgstr "Выберите схему в настройках блока справа."
+
+#: includes/class-ssb-cpt.php:76
+msgctxt "post type general name"
+msgid "Schemas"
+msgstr "Схемы"
+
+#: includes/class-ssb-cpt.php:77
+msgctxt "post type singular name"
+msgid "Schema"
+msgstr "Схема"
+
+#: includes/class-ssb-cpt.php:78
+msgctxt "admin menu"
+msgid "Schemas"
+msgstr "Схемы"
+
+#: includes/class-ssb-cpt.php:79 src/admin/components/SchemaList.js:119
+msgid "Add New"
+msgstr "Добавить"
+
+#: includes/class-ssb-cpt.php:80
+msgid "Add New Schema"
+msgstr "Новая схема"
+
+#: includes/class-ssb-cpt.php:81
+msgid "New Schema"
+msgstr "Новая схема"
+
+#: includes/class-ssb-cpt.php:82
+msgid "Edit Schema"
+msgstr "Редактировать схему"
+
+#: includes/class-ssb-cpt.php:83
+msgid "View Schema"
+msgstr "Посмотреть схему"
+
+#: includes/class-ssb-cpt.php:85
+msgid "Search Schemas"
+msgstr "Поиск схем"
+
+#: includes/class-ssb-cpt.php:86
+msgid "No schemas found."
+msgstr "Схемы не найдены."
+
+#: includes/class-ssb-cpt.php:87
+msgid "No schemas found in Trash."
+msgstr "В корзине схем нет."
+
+#: includes/class-ssb-cpt.php:178
+msgid "Download PDF"
+msgstr "Скачать PDF"
+
+#: includes/class-ssb-cpt.php:189
+msgid "Download PNG"
+msgstr "Скачать PNG"
+
+#: includes/class-ssb-cpt.php:200
+msgid "Download JSON"
+msgstr "Скачать JSON"
+
+#. translators: %title: schema title placeholder, %cnt: item count placeholder; both replaced at render time.
+#: includes/class-ssb-cpt.php:212 src/admin/utils/schema-helpers.js:19
+#, php-format
+msgid "%title · %cnt roles"
+msgstr "%title · %cnt ролей"
+
+#: includes/class-ssb-cpt.php:213 src/admin/utils/schema-helpers.js:20
+msgid "Edition %yyyy."
+msgstr "Издание %yyyy."
+
+#: includes/class-ssb-render.php:82
+msgid ""
+"Schema configuration is damaged. See wp-content/debug.log for details or re-"
+"import the schema."
+msgstr ""
+"Конфигурация схемы повреждена. Подробности в wp-content/debug.log, либо "
+"переимпортируйте схему."
+
+#: includes/class-ssb-render.php:84
+msgid "Go to Smart schemas"
+msgstr "К списку схем"
+
+#: includes/class-ssb-render.php:321
+msgid "Schema filters"
+msgstr "Фильтры схемы"
+
+#: src/admin/components/editor/BlocksEditor.js:35
+msgid "Move up"
+msgstr "Вверх"
+
+#: src/admin/components/editor/BlocksEditor.js:36
+msgid "Move down"
+msgstr "Вниз"
+
+#: src/admin/components/editor/BlocksEditor.js:47
+#: src/admin/components/editor/GeneralSettings.js:40
+msgid "Small"
+msgstr "Маленький"
+
+#: src/admin/components/editor/BlocksEditor.js:48
+#: src/admin/components/editor/GeneralSettings.js:41
+#: src/admin/components/editor/GeneralSettings.js:252
+msgid "Standard"
+msgstr "Стандартный"
+
+#: src/admin/components/editor/BlocksEditor.js:49
+#: src/admin/components/editor/GeneralSettings.js:42
+#: src/admin/components/editor/GeneralSettings.js:253
+msgid "Large"
+msgstr "Большой"
+
+#: src/admin/components/editor/BlocksEditor.js:74
+#: src/admin/components/editor/BlocksEditor.js:76
+msgid "Item title"
+msgstr "Название элемента"
+
+#: src/admin/components/editor/BlocksEditor.js:82
+#: src/admin/components/editor/TagsManager.js:71
+#: src/admin/components/SchemaList.js:192
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/admin/components/editor/BlocksEditor.js:86
+msgid "Short description"
+msgstr "Краткое описание"
+
+#: src/admin/components/editor/BlocksEditor.js:92
+msgid "Hide full description and tags"
+msgstr "Скрыть полное описание и метки"
+
+#: src/admin/components/editor/BlocksEditor.js:93
+msgid "Full description and tags"
+msgstr "Полное описание и метки"
+
+#: src/admin/components/editor/BlocksEditor.js:98
+msgid "Full description (HTML allowed)"
+msgstr "Полное описание (поддерживается HTML)"
+
+#: src/admin/components/editor/BlocksEditor.js:105
+msgid "Item icon"
+msgstr "Иконка элемента"
+
+#: src/admin/components/editor/BlocksEditor.js:110
+#: src/admin/components/editor/GeneralSettings.js:249
+msgid "Icon size"
+msgstr "Размер иконки"
+
+#: src/admin/components/editor/BlocksEditor.js:116
+msgid "Background color"
+msgstr "Цвет фона"
+
+#: src/admin/components/editor/BlocksEditor.js:121
+#: src/admin/components/SchemaEditor.js:244
+msgid "Tags"
+msgstr "Метки"
+
+#: src/admin/components/editor/BlocksEditor.js:124
+msgid "No tags yet. Create them in the Tags tab."
+msgstr "Пока нет меток. Создайте их на вкладке «Метки»."
+
+#: src/admin/components/editor/BlocksEditor.js:145
+msgid "Icon text color"
+msgstr "Цвет иконки"
+
+#: src/admin/components/editor/BlocksEditor.js:150
+msgid "Icon background color"
+msgstr "Цвет фона иконки"
+
+#: src/admin/components/editor/BlocksEditor.js:184
+msgid "Group color"
+msgstr "Цвет группы"
+
+#: src/admin/components/editor/BlocksEditor.js:189
+msgid "Group title"
+msgstr "Название группы"
+
+#: src/admin/components/editor/BlocksEditor.js:194
+msgid "Group icon"
+msgstr "Иконка группы"
+
+#: src/admin/components/editor/BlocksEditor.js:199
+msgid "Show short descriptions"
+msgstr "Показывать краткие описания"
+
+#: src/admin/components/editor/BlocksEditor.js:207
+msgid "Delete group"
+msgstr "Удалить группу"
+
+#: src/admin/components/editor/BlocksEditor.js:233
+msgid "Add item"
+msgstr "Добавить элемент"
+
+#: src/admin/components/editor/BlocksEditor.js:268
+msgid "Block name"
+msgstr "Название блока"
+
+#: src/admin/components/editor/BlocksEditor.js:269
+msgid "Block name, e.g. Commercial parties"
+msgstr "Название блока, например «Коммерческие стороны»"
+
+#: src/admin/components/editor/BlocksEditor.js:274
+msgid "Layout"
+msgstr "Раскладка"
+
+#: src/admin/components/editor/BlocksEditor.js:290
+msgid "Delete block"
+msgstr "Удалить блок"
+
+#: src/admin/components/editor/BlocksEditor.js:296
+msgid "Separator icon"
+msgstr "Иконка разделителя"
+
+#: src/admin/components/editor/BlocksEditor.js:301
+msgid "Separator color"
+msgstr "Цвет разделителя"
+
+#: src/admin/components/editor/BlocksEditor.js:306
+msgid ""
+"The separator repeats its icon across the full container width. Groups and "
+"items are not used for this layout."
+msgstr ""
+"Разделитель повторяет иконку по всей ширине контейнера. Группы и элементы в "
+"этой раскладке не используются."
+
+#: src/admin/components/editor/BlocksEditor.js:338
+msgid "Add group"
+msgstr "Добавить группу"
+
+#: src/admin/components/editor/BlocksEditor.js:345
+msgid "Add block"
+msgstr "Добавить блок"
+
+#: src/admin/components/editor/ColorField.js:56
+msgid "Custom color (eyedropper in the browser dialog)"
+msgstr "Произвольный цвет (пипетка в диалоге браузера)"
+
+#: src/admin/components/editor/GeneralSettings.js:90
+msgid "Default (theme font)"
+msgstr "По умолчанию (шрифт темы)"
+
+#: src/admin/components/editor/GeneralSettings.js:92
+msgid "Custom font family…"
+msgstr "Произвольный шрифт…"
+
+#: src/admin/components/editor/GeneralSettings.js:115
+msgid "Eyebrow (short line above the title)"
+msgstr "Надзаголовок (строка над названием)"
+
+#: src/admin/components/editor/GeneralSettings.js:116
+msgid "Example: Logistics · Transport · Foreign trade"
+msgstr "Пример: Логистика · Транспорт · ВЭД"
+
+#: src/admin/components/editor/GeneralSettings.js:121
+msgid "Schema description"
+msgstr "Описание схемы"
+
+#: src/admin/components/editor/GeneralSettings.js:127
+msgid "Logo"
+msgstr "Логотип"
+
+#: src/admin/components/editor/GeneralSettings.js:130
+msgid "Logo size"
+msgstr "Размер логотипа"
+
+#: src/admin/components/editor/GeneralSettings.js:136
+msgid "Logo color"
+msgstr "Цвет логотипа"
+
+#: src/admin/components/editor/GeneralSettings.js:143
+msgid "Show schema icon in the page header"
+msgstr "Показывать иконку схемы в шапке страницы"
+
+#: src/admin/components/editor/GeneralSettings.js:144
+msgid ""
+"Icon set + toggle on: shown on the page and in print forms. Toggle off: used "
+"in print forms only. No icon: nothing is shown."
+msgstr ""
+"Иконка задана + тумблер включён: показывается на странице и в печатных "
+"формах. Тумблер выключен: используется только в печатных формах. Иконка не "
+"задана: ничего не показывается."
+
+#: src/admin/components/editor/GeneralSettings.js:149
+msgid "Schema icon"
+msgstr "Иконка схемы"
+
+#: src/admin/components/editor/GeneralSettings.js:156
+msgid "Title appearance"
+msgstr "Оформление заголовка"
+
+#: src/admin/components/editor/GeneralSettings.js:159
+msgid "Title size"
+msgstr "Размер заголовка"
+
+#: src/admin/components/editor/GeneralSettings.js:165
+msgid "Title font"
+msgstr "Шрифт заголовка"
+
+#: src/admin/components/editor/GeneralSettings.js:166
+msgid "If the font is not available on the site, the default font is used."
+msgstr "Если шрифт недоступен на сайте, используется шрифт по умолчанию."
+
+#: src/admin/components/editor/GeneralSettings.js:181
+msgid "Custom font family"
+msgstr "Произвольный шрифт"
+
+#: src/admin/components/editor/GeneralSettings.js:182
+msgid "CSS font-family value, e.g. \"PT Sans\", sans-serif"
+msgstr "Значение CSS font-family, например \"PT Sans\", sans-serif"
+
+#: src/admin/components/editor/GeneralSettings.js:190
+msgid "Automatic numbering of items"
+msgstr "Автоматическая нумерация элементов"
+
+#: src/admin/components/editor/GeneralSettings.js:196
+msgid "Download buttons"
+msgstr "Кнопки скачивания"
+
+#: src/admin/components/editor/GeneralSettings.js:198
+msgid ""
+"Each format is configured independently. Button label is limited to three "
+"words."
+msgstr ""
+"Каждый формат настраивается независимо. Подпись кнопки — не более трёх слов."
+
+#: src/admin/components/editor/GeneralSettings.js:201
+msgid "Orientation (PDF/PNG)"
+msgstr "Ориентация (PDF/PNG)"
+
+#: src/admin/components/editor/GeneralSettings.js:202
+msgid ""
+"Landscape renders a wide composition (1600px), portrait a narrow one (900px)."
+msgstr "Альбомная — широкая композиция (1600px), книжная — узкая (900px)."
+
+#: src/admin/components/editor/GeneralSettings.js:205
+msgid "Landscape"
+msgstr "Альбомная"
+
+#: src/admin/components/editor/GeneralSettings.js:206
+msgid "Portrait"
+msgstr "Книжная"
+
+#: src/admin/components/editor/GeneralSettings.js:211
+msgid "Multi-page for tall schemas (PDF)"
+msgstr "Многостраничность для высоких схем (PDF)"
+
+#: src/admin/components/editor/GeneralSettings.js:212
+msgid ""
+"On: full-width pages sliced by height. Off: the whole schema shrunk onto a "
+"single page (small for tall schemas)."
+msgstr ""
+"Вкл: полные страницы, нарезанные по высоте. Выкл: вся схема уменьшена на "
+"один лист (мелкая для высоких схем)."
+
+#: src/admin/components/editor/GeneralSettings.js:230
+msgid "Button label"
+msgstr "Подпись кнопки"
+
+#: src/admin/components/editor/GeneralSettings.js:243
+msgid "Button icon"
+msgstr "Иконка кнопки"
+
+#: src/admin/components/editor/GeneralSettings.js:259
+msgid "Color"
+msgstr "Цвет"
+
+#: src/admin/components/editor/GeneralSettings.js:264
+msgid "Hover color"
+msgstr "Цвет при наведении"
+
+#: src/admin/components/editor/GeneralSettings.js:277
+msgid "Schema signature (footer)"
+msgstr "Подпись схемы (футер)"
+
+#. translators: %1$dd, %mm, %yyyy, %yy, %2$cnt and %title are literal placeholders for the schema footer signature, substituted on the front end (not sprintf specifiers). Keep them verbatim in translations.
+#: src/admin/components/editor/GeneralSettings.js:282
+msgid ""
+"Variables: %1$dd - day, %mm - month, %yyyy - year (4 digits), %yy - year (2 "
+"digits), %2$cnt - item count, %title - schema title. Variables are "
+"substituted when the schema is rendered."
+msgstr ""
+"Переменные: %1$dd — день, %mm — месяц, %yyyy — год (4 цифры), %yy — год (2 "
+"цифры), %2$cnt — количество элементов, %title — название схемы. Переменные "
+"подставляются при отрисовке схемы."
+
+#: src/admin/components/editor/GeneralSettings.js:286
+msgid "Left text"
+msgstr "Левый текст"
+
+#: src/admin/components/editor/GeneralSettings.js:291
+msgid "Right text"
+msgstr "Правый текст"
+
+#: src/admin/components/editor/IconPicker.js:66
+msgid "Select icon (SVG only)"
+msgstr "Выбор иконки (только SVG)"
+
+#: src/admin/components/editor/IconPicker.js:69
+msgid "Use this file"
+msgstr "Использовать этот файл"
+
+#: src/admin/components/editor/IconPicker.js:74
+msgid "Only SVG files can be used as icons."
+msgstr "В качестве иконок можно использовать только SVG-файлы."
+
+#: src/admin/components/editor/IconPicker.js:91
+msgid "Not set"
+msgstr "Не задано"
+
+#: src/admin/components/editor/IconPicker.js:103
+msgid "Icon"
+msgstr "Иконка"
+
+#: src/admin/components/editor/IconPicker.js:107
+msgid "Clear"
+msgstr "Очистить"
+
+#: src/admin/components/editor/IconPicker.js:112
+msgid "Select icon"
+msgstr "Выбор иконки"
+
+#: src/admin/components/editor/IconPicker.js:117
+msgid "Built-in set"
+msgstr "Встроенный набор"
+
+#: src/admin/components/editor/IconPicker.js:118
+msgid "Media library (SVG)"
+msgstr "Медиатека (SVG)"
+
+#: src/admin/components/editor/IconPicker.js:129
+msgid "Choose from media library"
+msgstr "Выбрать из медиатеки"
+
+#: src/admin/components/editor/IconPicker.js:132
+msgid ""
+"Only SVG files are shown. SVGs using currentColor inherit the configured "
+"color."
+msgstr "Показаны только SVG-файлы. SVG с currentColor наследуют заданный цвет."
+
+#: src/admin/components/editor/TagsManager.js:53
+msgid ""
+"Tags are rendered on the front end as toggle switches. Deleting a tag also "
+"removes it from all items."
+msgstr ""
+"На фронтенде метки отрисовываются как переключатели. Удаление метки удаляет "
+"её и из всех элементов."
+
+#: src/admin/components/editor/TagsManager.js:59
+#: src/admin/components/editor/TagsManager.js:61
+msgid "Tag label"
+msgstr "Подпись метки"
+
+#: src/admin/components/editor/TagsManager.js:66
+msgid "Tag color"
+msgstr "Цвет метки"
+
+#: src/admin/components/editor/TagsManager.js:76
+msgid "Add tag"
+msgstr "Добавить метку"
+
+#: src/admin/components/SchemaEditor.js:193
+msgid "Saved"
+msgstr "Сохранено"
+
+#: src/admin/components/SchemaEditor.js:194
+msgid "Unsaved changes..."
+msgstr "Несохранённые изменения..."
+
+#: src/admin/components/SchemaEditor.js:195
+msgid "Saving..."
+msgstr "Сохранение..."
+
+#: src/admin/components/SchemaEditor.js:196
+msgid "Save error"
+msgstr "Ошибка сохранения"
+
+#: src/admin/components/SchemaEditor.js:203
+msgid "Back to list"
+msgstr "К списку"
+
+#: src/admin/components/SchemaEditor.js:207
+#: src/admin/components/SchemaEditor.js:209
+msgid "Schema title"
+msgstr "Название схемы"
+
+#: src/admin/components/SchemaEditor.js:215
+#: src/admin/components/SchemaList.js:169
+msgid "Published"
+msgstr "Опубликовано"
+
+#: src/admin/components/SchemaEditor.js:216
+#: src/admin/components/SchemaList.js:170
+msgid "Draft"
+msgstr "Черновик"
+
+#: src/admin/components/SchemaEditor.js:223
+msgid "Save draft"
+msgstr "Сохранить черновик"
+
+#: src/admin/components/SchemaEditor.js:227
+msgid "Update"
+msgstr "Обновить"
+
+#: src/admin/components/SchemaEditor.js:228
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: src/admin/components/SchemaEditor.js:235
+msgid "Could not save the schema. Please try again."
+msgstr "Не удалось сохранить схему. Попробуйте ещё раз."
+
+#: src/admin/components/SchemaEditor.js:242
+msgid "General"
+msgstr "Общие"
+
+#: src/admin/components/SchemaEditor.js:243
+#: src/admin/components/SchemaList.js:147
+msgid "Blocks"
+msgstr "Блоки"
+
+#. translators: %s: schema title; used in a confirmation dialog.
+#: src/admin/components/SchemaList.js:45
+msgid "Delete schema \"%s\"? This action cannot be undone."
+msgstr "Удалить схему «%s»? Это действие нельзя отменить."
+
+#: src/admin/components/SchemaList.js:51
+msgid "Schema deleted."
+msgstr "Схема удалена."
+
+#: src/admin/components/SchemaList.js:86
+msgid "Invalid file: missing \"config\" field."
+msgstr "Некорректный файл: отсутствует поле «config»."
+
+#. translators: %s: schema title; used in a success toast.
+#: src/admin/components/SchemaList.js:92
+msgid "Schema \"%s\" imported."
+msgstr "Схема «%s» импортирована."
+
+#: src/admin/components/SchemaList.js:106
+msgid "Schemas"
+msgstr "Схемы"
+
+#: src/admin/components/SchemaList.js:109
+msgid "Import"
+msgstr "Импорт"
+
+#: src/admin/components/SchemaList.js:138
+msgid "No schemas yet. Click \"Add New\" to create your first schema."
+msgstr "Схем пока нет. Нажмите «Добавить», чтобы создать первую схему."
+
+#: src/admin/components/SchemaList.js:144
+msgid "ID"
+msgstr "ID"
+
+#: src/admin/components/SchemaList.js:146
+msgid "Status"
+msgstr "Статус"
+
+#: src/admin/components/SchemaList.js:148
+msgid "Modified"
+msgstr "Изменено"
+
+#: src/admin/components/SchemaList.js:149 src/admin/components/StatsPage.js:95
+msgid "Actions"
+msgstr "Действия"
+
+#: src/admin/components/SchemaList.js:162
+msgid "(no title)"
+msgstr "(без названия)"
+
+#: src/admin/components/SchemaList.js:177 src/admin/components/StatsPage.js:132
+msgid "Edit"
+msgstr "Редактировать"
+
+#: src/admin/components/SchemaList.js:181
+msgid "Export"
+msgstr "Экспорт"
+
+#: src/admin/components/StatsPage.js:48
+msgid "Reset all counters for this schema?"
+msgstr "Сбросить все счётчики этой схемы?"
+
+#: src/admin/components/StatsPage.js:88 src/block/index.js:44
+msgid "Schema"
+msgstr "Схема"
+
+#: src/admin/components/StatsPage.js:89 src/admin/components/StatsPage.js:150
+msgid "Modal opens"
+msgstr "Открытий модалки"
+
+#: src/admin/components/StatsPage.js:90 src/admin/components/StatsPage.js:156
+msgid "PDF downloads"
+msgstr "Скачиваний PDF"
+
+#: src/admin/components/StatsPage.js:91 src/admin/components/StatsPage.js:162
+msgid "PNG downloads"
+msgstr "Скачиваний PNG"
+
+#: src/admin/components/StatsPage.js:92 src/admin/components/StatsPage.js:168
+msgid "JSON downloads"
+msgstr "Скачиваний JSON"
+
+#: src/admin/components/StatsPage.js:93
+msgid "First hit"
+msgstr "Первый хит"
+
+#: src/admin/components/StatsPage.js:94
+msgid "Last hit"
+msgstr "Последний хит"
+
+#: src/admin/components/StatsPage.js:102
+msgid "No schemas yet."
+msgstr "Схем пока нет."
+
+#: src/admin/components/StatsPage.js:135
+msgid "Reset"
+msgstr "Сбросить"
+
+#: src/admin/components/StatsPage.js:144
+msgid "Edit counters"
+msgstr "Править счётчики"
+
+#: src/admin/components/StatsPage.js:173
+msgid "Save"
+msgstr "Сохранить"
+
+#: src/admin/components/StatsPage.js:174
+msgid "Cancel"
+msgstr "Отмена"
+
+#: src/admin/utils/schema-helpers.js:97
+msgid "Sequence (row with arrows)"
+msgstr "Последовательность (ряд со стрелками)"
+
+#: src/admin/utils/schema-helpers.js:98
+msgid "Columns (groups as columns)"
+msgstr "Колонки (группы как колонки)"
+
+#: src/admin/utils/schema-helpers.js:99
+msgid "Hub (stack, accent first card)"
+msgstr "Стек (первая карточка — акцент)"
+
+#: src/admin/utils/schema-helpers.js:100
+msgid "Panel (compact vertical list)"
+msgstr "Панель (компактный вертикальный список)"
+
+#: src/admin/utils/schema-helpers.js:101
+msgid "Separator (repeating divider)"
+msgstr "Разделитель (повторяющаяся линия)"
+
+#: src/block/index.js:29
+msgid "— Select a schema —"
+msgstr "— Выберите схему —"
+
+#. translators: %s: schema title; used in the Gutenberg block selector.
+#: src/block/index.js:36
+msgid "%s (draft)"
+msgstr "%s (черновик)"
+
+#: src/block/index.js:46
+msgid "Schema to render"
+msgstr "Схема для отображения"
+
+#: src/block/index.js:54
+msgid "Schemas are managed under Smart Schemas in the admin menu."
+msgstr "Схемы управляются в разделе «Умные схемы» меню админки."
+
+#: src/block/index.js:63
+msgid "Choose a schema in the block settings on the right."
+msgstr "Выберите схему в настройках блока справа."
+
+#: src/block/index.js:73
+msgid "The schema rendered empty: it is a draft or its config is damaged."
+msgstr "Схема отображается пустой: это черновик или конфигурация повреждена."
+
+#: src/frontend/download.js:184
+msgid "Role descriptions"
+msgstr "Описания ролей"
+
+#: src/frontend/index.js:240
+msgid "Close"
+msgstr "Закрыть"
+
+#. translators: %1$d: count of active filters, %2$d: count of matched items.
+#: src/frontend/index.js:383
+msgid "Active filters: %1$d. Matched items: %2$d."
+msgstr "Активных фильтров: %1$d. Элементов в выборке: %2$d."
+
+#: src/frontend/index.js:385
+msgid "Filters reset."
+msgstr "Фильтры сброшены."

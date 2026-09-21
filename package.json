@@ -1,0 +1,41 @@
+{
+  "name": "stsalv-smart-schema-builder",
+  "version": "1.0.0",
+  "description": "Interactive schema maps for WordPress — build, publish and export with tags, PDF/PNG/JSON.",
+  "author": "stsalv",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://stsalv.ru/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stsalv/smart-schema-builder.git"
+  },
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint:css": "wp-scripts lint-style 'src/**/*.css'",
+    "lint:js": "wp-scripts lint-js 'src/**/*.js'",
+    "format": "wp-scripts format src/",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "packages-update": "wp-scripts packages-update",
+    "check-licenses": "wp-scripts check-licenses --prod --gpl2"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^10.0.0",
+    "@wordpress/scripts": "^35.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "core-js@3.50.0": true,
+    "core-js-pure@3.50.0": true,
+    "unrs-resolver@1.12.2": true,
+    "fs-ext-extra-prebuilt@2.2.7": true
+  },
+  "dependencies": {
+    "html-to-image": "^1.11.13",
+    "jspdf": "^4.2.1"
+  }
+}

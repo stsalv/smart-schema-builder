@@ -1,0 +1,136 @@
+{
+  "title": "E-commerce Order Fulfillment",
+  "status": "publish",
+  "config": {
+    "schema_version": 1,
+    "title": "E-commerce Order Fulfillment",
+    "description": "End-to-end map of the roles and handoffs from checkout to delivery, including support and finance touchpoints.",
+    "eyebrow": "Retail · Operations · Logistics",
+    "titleSize": "standard",
+    "titleFont": "",
+    "logoSize": "standard",
+    "logoColor": "#1a4fa0",
+    "icon": { "type": "builtin", "value": "route" },
+    "showIcon": true,
+    "numbering": true,
+    "download": {
+      "orientation": "landscape",
+      "multipage": true,
+      "pdf": { "enabled": true, "label": "Download PDF", "icon": { "type": "builtin", "value": "download" }, "iconSize": "standard", "color": "#1a4fa0", "hoverColor": "" },
+      "png": { "enabled": true, "label": "Download PNG", "icon": { "type": "builtin", "value": "download" }, "iconSize": "standard", "color": "#1a4fa0", "hoverColor": "" },
+      "json": { "enabled": true, "label": "Download JSON", "icon": { "type": "builtin", "value": "download" }, "iconSize": "standard", "color": "#1a4fa0", "hoverColor": "" }
+    },
+    "footer": { "left": "%title · %cnt roles", "right": "Edition %yyyy." },
+    "tags": [
+      { "id": "t_internal", "label": "Internal", "color": "#2563eb" },
+      { "id": "t_partner", "label": "Partner", "color": "#ea8a00" },
+      { "id": "t_customer", "label": "Customer facing", "color": "#16a34a" }
+    ],
+    "blocks": [
+      {
+        "id": "b_checkout",
+        "title": "Checkout & payment",
+        "layout": "sequence",
+        "icon": null,
+        "color": "#64748b",
+        "groups": [
+          {
+            "id": "g_intake",
+            "title": "Order intake",
+            "color": "#2563eb",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_customer", "title": "Customer", "short": "Places the order and pays online", "full": "The customer browses the storefront, adds items to the cart and completes checkout. Every downstream step is triggered by this event.", "tags": [ "t_customer" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_storefront", "title": "Storefront", "short": "Validates cart and reserves stock", "full": "The web storefront validates cart contents, reserves stock and passes the order payload to the payment step.", "tags": [ "t_internal" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_payment", "title": "Payment gateway", "short": "Authorizes and captures payment", "full": "An external payment gateway authorizes and captures the payment. The platform never stores raw card data.", "tags": [ "t_partner" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_fraud", "title": "Fraud check", "short": "Scores risky transactions", "full": "A risk engine scores the transaction; flagged orders are routed to manual review before fulfillment starts.", "tags": [ "t_partner" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "b_sep",
+        "title": "Fulfillment zone · warehouse & carriers",
+        "layout": "separator",
+        "icon": null,
+        "color": "#64748b",
+        "groups": []
+      },
+      {
+        "id": "b_warehouse",
+        "title": "Warehouse & delivery",
+        "layout": "columns",
+        "icon": null,
+        "color": "#64748b",
+        "groups": [
+          {
+            "id": "g_wh",
+            "title": "Warehouse",
+            "color": "#0d9488",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_picker", "title": "Picker", "short": "Collects items from shelves", "full": "", "tags": [ "t_internal" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_packer", "title": "Packer", "short": "Packs and labels parcels", "full": "", "tags": [ "t_internal" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_inventory", "title": "Inventory controller", "short": "Keeps stock counts accurate", "full": "", "tags": [ "t_internal" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          },
+          {
+            "id": "g_carrier",
+            "title": "Carrier",
+            "color": "#ea8a00",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_dispatch", "title": "Dispatch coordinator", "short": "Books delivery slots", "full": "", "tags": [ "t_partner" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_courier", "title": "Courier", "short": "Delivers to the door", "full": "", "tags": [ "t_partner" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_pickup", "title": "Pickup point", "short": "Holds parcels for collection", "full": "", "tags": [ "t_partner" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          },
+          {
+            "id": "g_care",
+            "title": "Customer care",
+            "color": "#16a34a",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_support", "title": "Support agent", "short": "Answers where-is-my-order requests", "full": "Handles where-is-my-order requests, proactively notifies about delays and keeps the customer informed until delivery.", "tags": [ "t_customer" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_returns", "title": "Returns clerk", "short": "Processes refunds and swaps", "full": "", "tags": [ "t_internal" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "b_money",
+        "title": "Money & records",
+        "layout": "panel",
+        "icon": null,
+        "color": "#64748b",
+        "groups": [
+          {
+            "id": "g_fin",
+            "title": "Finance",
+            "color": "#7c3aed",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_bookkeeper", "title": "Bookkeeper", "short": "Reconciles gateway payouts", "full": "", "tags": [ "t_internal" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" },
+              { "id": "i_tax", "title": "Tax accountant", "short": "Files VAT and sales reports", "full": "", "tags": [ "t_partner" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          },
+          {
+            "id": "g_analytics",
+            "title": "Analytics",
+            "color": "#be123c",
+            "icon": null,
+            "showShortDesc": true,
+            "items": [
+              { "id": "i_analyst", "title": "Sales analyst", "short": "Tracks conversion and margins", "full": "", "tags": [ "t_internal" ], "icon": null, "iconSize": "standard", "bg": "", "fg": "", "iconBg": "" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
