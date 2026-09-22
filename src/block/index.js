@@ -1,7 +1,7 @@
 /**
  * Smart Schema block: editor UI with live server-side preview.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { registerBlockType } from '@wordpress/blocks';
@@ -17,13 +17,13 @@ import './editor.css';
  * @since 1.0.0
  * @type {string}
  */
-const BLOCK_NAME = 'ssb/schema';
+const BLOCK_NAME = 'stssb/schema';
 
 registerBlockType( BLOCK_NAME, {
 	edit: ( { attributes, setAttributes } ) => {
 		const blockProps = useBlockProps();
 		const schemaId = attributes.schemaId || 0;
-		const data = window.ssbBlockEditor || { schemas: [] };
+		const data = window.stssbBlockEditor || { schemas: [] };
 
 		const options = [
 			{ value: '0', label: __('— Select a schema —', 'stsalv-smart-schema-builder') },

@@ -2,7 +2,7 @@
 /**
  * Built-in stroke icon registry shared by admin and front-end renderers.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Icon set: keys match the JavaScript BUILTIN_ICONS map.
  */
-class SSB_Icons {
+class STSSB_Icons {
 
 	/**
 	 * Inner SVG markup for every built-in icon (24x24 viewBox).
@@ -52,7 +52,7 @@ class SSB_Icons {
 	 * @param string $css_class CSS class for the svg element.
 	 * @return string SVG markup or empty string for unknown keys.
 	 */
-	public static function svg( $name, $css_class = 'ssb-icon' ) {
+	public static function svg( $name, $css_class = 'stssb-icon' ) {
 		$map = self::get_map();
 		if ( ! isset( $map[ $name ] ) ) {
 			return '';

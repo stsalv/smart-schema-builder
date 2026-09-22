@@ -13,63 +13,63 @@
    button styles fill stroke icons. Each case is commented.
    ========================================================================== */
 
-.ssb-wrap {
+.stssb-wrap {
 	max-width: 1400px;
 	margin: 20px auto 40px;
 	padding: 0 20px;
 }
 
 /* Horizontal rows for paired controls (radio + color, radio + select). */
-.ssb-admin-row {
+.stssb-admin-row {
 	display: flex;
 	align-items: flex-start;
 	flex-wrap: wrap;
 	gap: 24px;
 	margin: 8px 0;
 }
-.ssb-admin-row > * {
+.stssb-admin-row > * {
 	flex: 1 1 240px;
 	margin-top: 0;
 }
-.ssb-admin-row .components-radio-control {
+.stssb-admin-row .components-radio-control {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px;
 }
-.ssb-admin-row .components-radio-control .components-radio-control__option {
+.stssb-admin-row .components-radio-control .components-radio-control__option {
 	margin-top: 0;
 }
-.ssb-tags-row .ssb-color-field {
+.stssb-tags-row .stssb-color-field {
 	margin: 0;
 }
 
 /* Two-column layout for item settings in the editor. */
-.ssb-item-settings {
+.stssb-item-settings {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 	gap: 12px 32px;
 	align-items: start;
 	margin-top: 12px;
 }
-.ssb-item-settings__col {
+.stssb-item-settings__col {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 	min-width: 0;
 }
-.ssb-item-settings__col .ssb-color-field,
-.ssb-item-settings__col .ssb-icon-picker,
-.ssb-item-settings__col .ssb-fieldset {
+.stssb-item-settings__col .stssb-color-field,
+.stssb-item-settings__col .stssb-icon-picker,
+.stssb-item-settings__col .stssb-fieldset {
 	margin: 0;
 }
 @media (max-width: 782px) {
-	.ssb-item-settings {
+	.stssb-item-settings {
 		grid-template-columns: 1fr;
 	}
 }
 
 /* Component labels: emotion styles set uppercase/11px/600 with (0,3,0). */
-.ssb-wrap [class*="__label"] {
+.stssb-wrap [class*="__label"] {
 	text-transform: none !important;
 	font-size: 12px !important;
 	font-weight: 500 !important;
@@ -79,15 +79,15 @@
 
 /* Toggle/checkbox labels are stretchable flex items; hug them to the text
    so clicks on empty space do not toggle the control. */
-.ssb-wrap .components-toggle-control label,
-.ssb-wrap .components-checkbox-control label {
+.stssb-wrap .components-toggle-control label,
+.stssb-wrap .components-checkbox-control label {
 	flex: 0 0 auto !important;
 	width: auto !important;
 }
 
 /* Stroke icons must never be filled inside WP buttons. */
-.ssb-icon-picker svg,
-.ssb-icon-picker svg * {
+.stssb-icon-picker svg,
+.stssb-icon-picker svg * {
 	fill: none !important;
 	stroke: currentColor !important;
 	stroke-width: 2 !important;
@@ -99,7 +99,7 @@
    2. Schemas list (CSS grid, deterministic columns)
    ========================================================================== */
 
-.ssb-list__header {
+.stssb-list__header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -107,31 +107,31 @@
 	gap: 12px;
 	margin-bottom: 20px;
 }
-.ssb-list__header h1 {
+.stssb-list__header h1 {
 	margin: 0;
 	font-size: 23px;
 	font-weight: 400;
 	color: #1d2327;
 }
-.ssb-list__actions {
+.stssb-list__actions {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 }
-.ssb-import-label {
+.stssb-import-label {
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
 }
 
-.ssb-list-table {
+.stssb-list-table {
 	background: #fff;
 	border: 1px solid #c3c4c7;
 	border-radius: 4px;
 	overflow: hidden;
 }
-.ssb-list-row {
+.stssb-list-row {
 	display: grid;
 	grid-template-columns: 70px minmax(220px, 1fr) 110px 90px 170px 230px;
 	gap: 12px;
@@ -139,34 +139,34 @@
 	padding: 10px 16px;
 	border-top: 1px solid #f0f0f1;
 }
-.ssb-list-row:first-child {
+.stssb-list-row:first-child {
 	border-top: 0;
 }
-.ssb-list-row--head {
+.stssb-list-row--head {
 	background: #f6f7f7;
 	color: #50575e;
 	font-weight: 600;
 }
-.ssb-list-row:not(.ssb-list-row--head):nth-child(even) {
+.stssb-list-row:not(.stssb-list-row--head):nth-child(even) {
 	background: #f9f9f9;
 }
-.ssb-list-title a {
+.stssb-list-title a {
 	color: #2271b1;
 	font-weight: 600;
 	text-decoration: none;
 	overflow-wrap: break-word;
 }
-.ssb-list-title a:hover {
+.stssb-list-title a:hover {
 	color: #135e96;
 	text-decoration: underline;
 }
-.ssb-list-actions {
+.stssb-list-actions {
 	display: flex;
 	align-items: center;
 	flex-wrap: nowrap;
 	gap: 8px;
 }
-.ssb-status {
+.stssb-status {
 	display: inline-block;
 	padding: 2px 8px;
 	border-radius: 10px;
@@ -174,16 +174,16 @@
 	font-weight: 500;
 	line-height: 1.4;
 }
-.ssb-status--publish {
+.stssb-status--publish {
 	background: #e6f4ea;
 	color: #137333;
 }
-.ssb-status--draft {
+.stssb-status--draft {
 	background: #fef7e0;
 	color: #946300;
 }
-.ssb-list__loading,
-.ssb-list__empty {
+.stssb-list__loading,
+.stssb-list__empty {
 	padding: 40px;
 	text-align: center;
 	background: #fff;
@@ -193,11 +193,11 @@
 
 /* Narrow screens: hide Blocks and Modified columns. */
 @media (max-width: 1100px) {
-	.ssb-list-row {
+	.stssb-list-row {
 		grid-template-columns: 60px minmax(160px, 1fr) 100px 200px;
 	}
-	.ssb-list-row > :nth-child(4),
-	.ssb-list-row > :nth-child(5) {
+	.stssb-list-row > :nth-child(4),
+	.stssb-list-row > :nth-child(5) {
 		display: none;
 	}
 }
@@ -206,7 +206,7 @@
    3. Editor header and save state
    ========================================================================== */
 
-.ssb-editor__header {
+.stssb-editor__header {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
@@ -215,28 +215,28 @@
 	padding-bottom: 16px;
 	border-bottom: 1px solid #dcdcde;
 }
-.ssb-editor__title {
+.stssb-editor__title {
 	flex: 0 1 480px;
 	margin: 0;
 }
-.ssb-editor__title input {
+.stssb-editor__title input {
 	font-size: 18px;
 	font-weight: 600;
 }
-.ssb-editor__actions {
+.stssb-editor__actions {
 	display: flex;
 	gap: 8px;
 	margin-left: auto;
 	flex-shrink: 0;
 }
-.ssb-save-state {
+.stssb-save-state {
 	font-size: 12px;
 	color: #646970;
 }
-.ssb-save-state--saving {
+.stssb-save-state--saving {
 	color: #996800;
 }
-.ssb-save-state--error {
+.stssb-save-state--error {
 	color: #b32d2e;
 }
 
@@ -244,7 +244,7 @@
    4. Tabs
    ========================================================================== */
 
-.ssb-tabs .components-tab-panel__tabs {
+.stssb-tabs .components-tab-panel__tabs {
 	margin-bottom: 20px;
 	border-bottom: 1px solid #dcdcde;
 }
@@ -253,10 +253,10 @@
    5. General tab
    ========================================================================== */
 
-.ssb-general .components-toggle-control {
+.stssb-general .components-toggle-control {
 	margin-top: 16px;
 }
-.ssb-general .components-checkbox-control {
+.stssb-general .components-checkbox-control {
 	margin-top: 12px;
 }
 
@@ -264,28 +264,28 @@
    6. Icon picker
    ========================================================================== */
 
-.ssb-icon-picker {
+.stssb-icon-picker {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	margin: 12px 0;
 }
-.ssb-icon-trigger {
+.stssb-icon-trigger {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
 }
-.ssb-icon-picker img {
+.stssb-icon-picker img {
 	max-width: 24px;
 	max-height: 24px;
 }
-.ssb-icon-grid {
+.stssb-icon-grid {
 	display: grid;
 	grid-template-columns: repeat(8, 40px);
 	gap: 8px;
 	margin: 12px 0;
 }
-.ssb-icon-grid button {
+.stssb-icon-grid button {
 	width: 40px;
 	height: 40px;
 	display: grid;
@@ -295,12 +295,12 @@
 	background: #fff;
 	cursor: pointer;
 }
-.ssb-icon-grid button:hover,
-.ssb-icon-grid button.is-active {
+.stssb-icon-grid button:hover,
+.stssb-icon-grid button.is-active {
 	border-color: #2271b1;
 	box-shadow: 0 0 0 1px #2271b1;
 }
-.ssb-icon-media-tab {
+.stssb-icon-media-tab {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -312,22 +312,22 @@
    7. Color field
    ========================================================================== */
 
-.ssb-color-field {
+.stssb-color-field {
 	margin: 4px 0;
 }
-.ssb-color-field__label {
+.stssb-color-field__label {
 	display: block;
 	margin-bottom: 6px;
 	font-size: 12px;
 	color: #646970;
 }
-.ssb-color-field__swatches {
+.stssb-color-field__swatches {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 6px;
 }
-.ssb-color-field__swatches button {
+.stssb-color-field__swatches button {
 	width: 24px;
 	height: 24px;
 	border: 2px solid #fff;
@@ -335,10 +335,10 @@
 	box-shadow: 0 0 0 1px #dcdcde;
 	cursor: pointer;
 }
-.ssb-color-field__swatches button.is-active {
+.stssb-color-field__swatches button.is-active {
 	box-shadow: 0 0 0 2px #2271b1;
 }
-.ssb-color-field__custom {
+.stssb-color-field__custom {
 	width: 24px;
 	height: 24px;
 	padding: 0;
@@ -350,14 +350,14 @@
 	-webkit-appearance: none;
 	appearance: none;
 }
-.ssb-color-field__custom::-webkit-color-swatch-wrapper {
+.stssb-color-field__custom::-webkit-color-swatch-wrapper {
 	padding: 0;
 }
-.ssb-color-field__custom::-webkit-color-swatch {
+.stssb-color-field__custom::-webkit-color-swatch {
 	border: none;
 	border-radius: 50%;
 }
-.ssb-color-field__custom::-moz-color-swatch {
+.stssb-color-field__custom::-moz-color-swatch {
 	border: none;
 	border-radius: 50%;
 }
@@ -366,21 +366,21 @@
    8. Fieldset and per-format download rows
    ========================================================================== */
 
-.ssb-fieldset {
+.stssb-fieldset {
 	border: 1px solid #dcdcde;
 	border-radius: 4px;
 	padding: 16px;
 	margin: 20px 0;
 }
-.ssb-fieldset legend {
+.stssb-fieldset legend {
 	font-weight: 600;
 	padding: 0 6px;
 }
-.ssb-fieldset > p.description {
+.stssb-fieldset > p.description {
 	margin-top: 0;
 }
 
-.ssb-dl-row {
+.stssb-dl-row {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px 24px;
@@ -388,27 +388,27 @@
 	padding: 14px 0;
 	border-top: 1px solid #f0f0f1;
 }
-.ssb-dl-colors {
+.stssb-dl-colors {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 }
 
-.ssb-dl-row:first-of-type {
+.stssb-dl-row:first-of-type {
 	border-top: 0;
 	padding-top: 8px;
 }
-.ssb-dl-row__enable {
+.stssb-dl-row__enable {
 	margin-top: 26px;
 }
-.ssb-dl-row .ssb-icon-picker {
+.stssb-dl-row .stssb-icon-picker {
 	margin-top: 24px;
 }
-.ssb-dl-row__size,
-.ssb-dl-row .ssb-color-field {
+.stssb-dl-row__size,
+.stssb-dl-row .stssb-color-field {
 	margin-top: 0;
 }
-.ssb-dl-row__size .components-radio-control__option {
+.stssb-dl-row__size .components-radio-control__option {
 	margin-top: 0;
 }
 
@@ -416,28 +416,28 @@
    9. Blocks, groups and items
    ========================================================================== */
 
-.ssb-block-card {
+.stssb-block-card {
 	background: #fff;
 	border: 1px solid #c3c4c7;
 	border-radius: 6px;
 	padding: 16px;
 	margin-bottom: 16px;
 }
-.ssb-block-card__head {
+.stssb-block-card__head {
 	display: flex;
 	align-items: flex-end;
 	flex-wrap: wrap;
 	gap: 12px;
 	margin-bottom: 12px;
 }
-.ssb-block-card__head > .components-text-control {
+.stssb-block-card__head > .components-text-control {
 	flex: 1 1 240px;
 }
-.ssb-block-card__head > .components-select-control {
+.stssb-block-card__head > .components-select-control {
 	flex: 0 1 260px;
 }
 
-.ssb-group-card {
+.stssb-group-card {
 	border: 1px solid #dcdcde;
 	border-left: 4px solid #2271b1;
 	border-radius: 4px;
@@ -445,80 +445,80 @@
 	margin: 12px 0;
 	background: #f9f9f9;
 }
-.ssb-group-card__top {
+.stssb-group-card__top {
 	display: flex;
 	align-items: flex-start;
 	gap: 16px;
 }
-.ssb-group-card__controls {
+.stssb-group-card__controls {
 	flex: 1 1 380px;
 	max-width: 460px;
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
 }
-.ssb-group-card__side {
+.stssb-group-card__side {
 	margin-left: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	gap: 10px;
 }
-.ssb-group-card__items {
+.stssb-group-card__items {
 	margin-top: 14px;
 }
 
-.ssb-item-card {
+.stssb-item-card {
 	background: #fff;
 	border: 1px solid #dcdcde;
 	border-radius: 4px;
 	padding: 16px;
 	margin: 12px 0;
 }
-.ssb-item-card__row {
+.stssb-item-card__row {
 	display: flex;
 	align-items: flex-end;
 	gap: 12px;
 }
-.ssb-item-card__row > .components-text-control {
+.stssb-item-card__row > .components-text-control {
 	flex: 1;
 	margin-top: 0;
 }
-.ssb-item-card .components-base-control {
+.stssb-item-card .components-base-control {
 	margin-top: 12px;
 }
-.ssb-item-card > .components-button.is-link {
+.stssb-item-card > .components-button.is-link {
 	margin-top: 10px;
 }
-.ssb-item-card .ssb-fieldset {
+.stssb-item-card .stssb-fieldset {
 	margin: 12px 0 0;
 }
 
 /* Checkbox rhythm inside fieldsets (Tags). Emotion BaseControl margins
    win by specificity, hence !important. */
-.ssb-fieldset .components-checkbox-control {
+.stssb-fieldset .components-checkbox-control {
 	margin-top: 8px !important;
 }
-.ssb-fieldset .components-checkbox-control:first-of-type {
+.stssb-fieldset .components-checkbox-control:first-of-type {
 	margin-top: 0 !important;
 }
 
-.ssb-block-card__separator {
+.stssb-block-card__separator {
 	display: flex;
 	align-items: flex-start;
 	flex-wrap: wrap;
 	gap: 24px;
 	padding: 4px 0 8px;
 }
-.ssb-block-card__separator .ssb-color-field {
+.stssb-block-card__separator .stssb-color-field {
 	margin-top: 0;
 }
-.ssb-block-card__separator > p.description {
+.stssb-block-card__separator > p.description {
 	flex-basis: 100%;
 	margin: 0;
 }
 
-.ssb-move {
+.stssb-move {
 	display: inline-flex;
 	gap: 2px;
 }
@@ -527,42 +527,42 @@
    10. Tags tab
    ========================================================================== */
 
-.ssb-tags-row {
+.stssb-tags-row {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 8px;
 }
-.ssb-tags-row > .components-text-control {
+.stssb-tags-row > .components-text-control {
 	flex: 1;
 	margin: 0;
 }
 
 /* Statistics page. */
-.ssb-stats { margin: 20px 0 40px; }
-.ssb-stats table { width: 100%; }
-.ssb-stats th { font-weight: 600; }
-.ssb-stats__empty { text-align: center; color: #64697b; padding: 24px; }
-.ssb-stats td { vertical-align: middle; }
-.ssb-stats .description { font-size: 12px; color: #64697b; }
-.ssb-stats-edit { display: flex; flex-direction: column; gap: 12px; max-width: 320px; }
-.ssb-stats-edit__actions { display: flex; gap: 8px; margin-top: 8px; }
+.stssb-stats { margin: 20px 0 40px; }
+.stssb-stats table { width: 100%; }
+.stssb-stats th { font-weight: 600; }
+.stssb-stats__empty { text-align: center; color: #64697b; padding: 24px; }
+.stssb-stats td { vertical-align: middle; }
+.stssb-stats .description { font-size: 12px; color: #64697b; }
+.stssb-stats-edit { display: flex; flex-direction: column; gap: 12px; max-width: 320px; }
+.stssb-stats-edit__actions { display: flex; gap: 8px; margin-top: 8px; }
 
 /* Wider inputs: block name and item title match the group title width. */
-.ssb-input--wide {
+.stssb-input--wide {
 	flex: 1 1 320px;
 	max-width: 560px;
 }
 
 /* Tags tab: label input +50% width; palette wraps to its own line on narrow screens. */
-.ssb-tags-row {
+.stssb-tags-row {
 	flex-wrap: wrap;
 }
-.ssb-tags-row .ssb-input--tag {
+.stssb-tags-row .stssb-input--tag {
 	flex: 0 1 300px;
 }
 @media (max-width: 782px) {
-	.ssb-tags-row .ssb-color-field {
+	.stssb-tags-row .stssb-color-field {
 		flex: 1 1 100%;
 	}
 }

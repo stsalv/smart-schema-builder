@@ -2,7 +2,7 @@
 /**
  * Import/export helpers and the public JSON download endpoint.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -15,18 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Handles schema JSON download for guests via the public REST route and
  * for logged-in editors via admin-ajax. Draft schemas are downloadable
- * only by users holding the `ssb_edit_schemas` capability; guests and
+ * only by users holding the `stssb_edit_schemas` capability; guests and
  * unprivileged users receive 404 for them.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_IO {
+class STSSB_IO {
 
 	/**
 	 * Singleton instance.
 	 *
-	 * @var SSB_IO|null
+	 * @var STSSB_IO|null
 	 */
 	private static $instance = null;
 
@@ -34,7 +34,7 @@ class SSB_IO {
 	 * Get the singleton.
 	 *
 	 * @since 1.0.0
-	 * @return SSB_IO
+	 * @return STSSB_IO
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -50,8 +50,8 @@ class SSB_IO {
 	 */
 	private function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
-		add_action( 'wp_ajax_ssb_download_json', array( $this, 'ajax_download_json' ) );
-		add_action( 'wp_ajax_nopriv_ssb_download_json', array( $this, 'ajax_download_json' ) );
+		add_action( 'wp_ajax_stssb_download_json', array( $this, 'ajax_download_json' ) );
+		add_action( 'wp_ajax_nopriv_stssb_download_json', array( $this, 'ajax_download_json' ) );
 	}
 
 	/**
@@ -61,17 +61,17 @@ class SSB_IO {
 	 * @return void
 	 */
 	public function ajax_download_json() {
-		check_ajax_referer( 'ssb_public', 'nonce' );
+		check_ajax_referer( 'stssb_public', 'nonce' );
 		$id     = isset( $_GET['schema_id'] ) ? absint( $_GET['schema_id'] ) : 0;
 		$post   = get_post( $id );
 		$status = $post ? get_post_status( $post ) : false;
-		if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type || ! $status ) {
+		if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type || ! $status ) {
 			wp_send_json_error( array( 'message' => __( 'Schema not found.', 'stsalv-smart-schema-builder' ) ), 404 );
 		}
-		if ( 'publish' !== $status && ! current_user_can( 'ssb_edit_schemas' ) ) {
+		if ( 'publish' !== $status && ! current_user_can( 'stssb_edit_schemas' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Schema not found.', 'stsalv-smart-schema-builder' ) ), 404 );
 		}
-		$config = json_decode( (string) get_post_meta( $id, SSB_CPT::META_CONFIG, true ), true );
+		$config = json_decode( (string) get_post_meta( $id, STSSB_CPT::META_CONFIG, true ), true );
 		if ( ! is_array( $config ) ) {
 			$config = array();
 		}
@@ -92,7 +92,7 @@ class SSB_IO {
 	 */
 	public function register_rest_routes() {
 		register_rest_route(
-			'ssb/v1',
+			'stssb/v1',
 			'/download-json/(?P<id>\d+)',
 			array(
 				'methods'             => 'GET',
@@ -121,16 +121,16 @@ class SSB_IO {
 		$id     = (int) $request->get_param( 'id' );
 		$post   = get_post( $id );
 		$status = $post ? get_post_status( $post ) : false;
-		if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type || ! $status ) {
-			return new WP_Error( 'ssb_not_found', __( 'Schema not found.', 'stsalv-smart-schema-builder' ), array( 'status' => 404 ) );
+		if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type || ! $status ) {
+			return new WP_Error( 'stssb_not_found', __( 'Schema not found.', 'stsalv-smart-schema-builder' ), array( 'status' => 404 ) );
 		}
 		// Published schemas are downloadable by everyone. Drafts require the
 		// schema editor capability; unauthorized requests still get 404 so
 		// we don't leak the existence of draft content.
-		if ( 'publish' !== $status && ! current_user_can( 'ssb_edit_schemas' ) ) {
-			return new WP_Error( 'ssb_not_found', __( 'Schema not found.', 'stsalv-smart-schema-builder' ), array( 'status' => 404 ) );
+		if ( 'publish' !== $status && ! current_user_can( 'stssb_edit_schemas' ) ) {
+			return new WP_Error( 'stssb_not_found', __( 'Schema not found.', 'stsalv-smart-schema-builder' ), array( 'status' => 404 ) );
 		}
-		$config = json_decode( (string) get_post_meta( $id, SSB_CPT::META_CONFIG, true ), true );
+		$config = json_decode( (string) get_post_meta( $id, STSSB_CPT::META_CONFIG, true ), true );
 		if ( ! is_array( $config ) ) {
 			$config = array();
 		}

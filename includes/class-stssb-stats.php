@@ -3,7 +3,7 @@
  * Statistics: hit counters per schema (modal opens + downloads by format),
  * public REST endpoint for recording hits, admin UI to list/reset/edit.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -15,20 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Statistics: hit counters per schema and admin management.
  *
  * Tracks per-schema counters (modal opens and downloads by format) in
- * the `_ssb_stats` post meta as JSON. Exposes a public REST endpoint
- * (`POST /ssb/v1/stats-hit`) for recording hits from the front end,
+ * the `_stssb_stats` post meta as JSON. Exposes a public REST endpoint
+ * (`POST /stssb/v1/stats-hit`) for recording hits from the front end,
  * and admin ajax handlers for listing, resetting and manually editing
  * the counters in the Statistics admin page.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_Stats {
+class STSSB_Stats {
 
 	/**
 	 * Singleton instance.
 	 *
-	 * @var SSB_Stats|null
+	 * @var STSSB_Stats|null
 	 */
 	private static $instance = null;
 
@@ -36,7 +36,7 @@ class SSB_Stats {
 	 * Get the singleton.
 	 *
 	 * @since 1.0.0
-	 * @return SSB_Stats
+	 * @return STSSB_Stats
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -52,9 +52,9 @@ class SSB_Stats {
 	 */
 	private function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
-		add_action( 'wp_ajax_ssb_stats_list', array( $this, 'ajax_list' ) );
-		add_action( 'wp_ajax_ssb_stats_reset', array( $this, 'ajax_reset' ) );
-		add_action( 'wp_ajax_ssb_stats_edit', array( $this, 'ajax_edit' ) );
+		add_action( 'wp_ajax_stssb_stats_list', array( $this, 'ajax_list' ) );
+		add_action( 'wp_ajax_stssb_stats_reset', array( $this, 'ajax_reset' ) );
+		add_action( 'wp_ajax_stssb_stats_edit', array( $this, 'ajax_edit' ) );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class SSB_Stats {
 	 */
 	public function register_rest_routes() {
 		register_rest_route(
-			'ssb/v1',
+			'stssb/v1',
 			'/stats-hit',
 			array(
 				'methods'             => 'POST',
@@ -89,7 +89,7 @@ class SSB_Stats {
 	 * Permission callback for the public stats-hit endpoint.
 	 *
 	 * Published schemas accept hits from anyone (front-end visitors). Draft
-	 * schemas require the ssb_edit_schemas capability; guests receive 404 so
+	 * schemas require the stssb_edit_schemas capability; guests receive 404 so
 	 * we do not leak the existence of draft content.
 	 *
 	 * @since 1.0.0
@@ -99,14 +99,14 @@ class SSB_Stats {
 	public function rest_hit_permission( $request ) {
 		$id = (int) $request->get_param( 'schema_id' );
 		if ( ! $id ) {
-			return new WP_Error( 'ssb_invalid_id', 'Invalid schema ID.', array( 'status' => 400 ) );
+			return new WP_Error( 'stssb_invalid_id', 'Invalid schema ID.', array( 'status' => 400 ) );
 		}
 		$post = get_post( $id );
-		if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type ) {
-			return new WP_Error( 'ssb_not_found', 'Schema not found.', array( 'status' => 404 ) );
+		if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type ) {
+			return new WP_Error( 'stssb_not_found', 'Schema not found.', array( 'status' => 404 ) );
 		}
-		if ( 'publish' !== get_post_status( $post ) && ! current_user_can( 'ssb_edit_schemas' ) ) {
-			return new WP_Error( 'ssb_not_found', 'Schema not found.', array( 'status' => 404 ) );
+		if ( 'publish' !== get_post_status( $post ) && ! current_user_can( 'stssb_edit_schemas' ) ) {
+			return new WP_Error( 'stssb_not_found', 'Schema not found.', array( 'status' => 404 ) );
 		}
 		return true;
 	}
@@ -122,12 +122,12 @@ class SSB_Stats {
 		$id    = (int) $request->get_param( 'schema_id' );
 		$event = (string) $request->get_param( 'event' );
 		$post  = get_post( $id );
-		if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type ) {
-			return new WP_Error( 'ssb_not_found', 'Unknown schema', array( 'status' => 404 ) );
+		if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type ) {
+			return new WP_Error( 'stssb_not_found', 'Unknown schema', array( 'status' => 404 ) );
 		}
 		$ok = self::record_hit( $id, $event );
 		if ( ! $ok ) {
-			return new WP_Error( 'ssb_invalid_event', 'Unknown event', array( 'status' => 400 ) );
+			return new WP_Error( 'stssb_invalid_event', 'Unknown event', array( 'status' => 400 ) );
 		}
 		return rest_ensure_response( array( 'ok' => true ) );
 	}
@@ -159,7 +159,7 @@ class SSB_Stats {
 		if ( empty( $stats['firstHit'] ) ) {
 			$stats['firstHit'] = $stats['lastHit'];
 		}
-		update_post_meta( $id, SSB_CPT::META_STATS, wp_slash( wp_json_encode( $stats ) ) );
+		update_post_meta( $id, STSSB_CPT::META_STATS, wp_slash( wp_json_encode( $stats ) ) );
 		return true;
 	}
 
@@ -171,10 +171,10 @@ class SSB_Stats {
 	 * @return array Stats array.
 	 */
 	public static function read( $id ) {
-		$raw   = (string) get_post_meta( $id, SSB_CPT::META_STATS, true );
+		$raw   = (string) get_post_meta( $id, STSSB_CPT::META_STATS, true );
 		$stats = json_decode( $raw, true );
 		if ( ! is_array( $stats ) ) {
-			return SSB_CPT::get_default_stats();
+			return STSSB_CPT::get_default_stats();
 		}
 		$stats['modalOpens'] = (int) ( $stats['modalOpens'] ?? 0 );
 		$stats['downloads']  = is_array( $stats['downloads'] ?? null ) ? $stats['downloads'] : array();
@@ -193,13 +193,13 @@ class SSB_Stats {
 	 * @return void
 	 */
 	public function ajax_list() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_manage_settings' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_manage_settings' ) ) {
 			wp_send_json_error( array( 'message' => 'Permission denied.' ), 403 );
 		}
 		$posts = get_posts(
 			array(
-				'post_type'      => SSB_CPT::POST_TYPE,
+				'post_type'      => STSSB_CPT::POST_TYPE,
 				'posts_per_page' => 200,
 				'post_status'    => array( 'publish', 'draft' ),
 				'orderby'        => 'title',
@@ -213,7 +213,7 @@ class SSB_Stats {
 				'id'         => $p->ID,
 				'title'      => $p->post_title,
 				'status'     => $p->post_status,
-				'editUrl'    => admin_url( 'admin.php?page=' . SSB_Admin::EDIT_SLUG . '&schema=' . $p->ID ),
+				'editUrl'    => admin_url( 'admin.php?page=' . STSSB_Admin::EDIT_SLUG . '&schema=' . $p->ID ),
 				'modalOpens' => $stats['modalOpens'],
 				'downloads'  => $stats['downloads'],
 				'firstHit'   => $stats['firstHit'] ? date_i18n( get_option( 'date_format' ) . ' H:i', $stats['firstHit'] ) : '',
@@ -230,15 +230,15 @@ class SSB_Stats {
 	 * @return void
 	 */
 	public function ajax_reset() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_manage_settings' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_manage_settings' ) ) {
 			wp_send_json_error( array( 'message' => 'Permission denied.' ), 403 );
 		}
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
-		if ( ! $id || SSB_CPT::POST_TYPE !== get_post_type( $id ) ) {
+		if ( ! $id || STSSB_CPT::POST_TYPE !== get_post_type( $id ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid schema.' ), 400 );
 		}
-		update_post_meta( $id, SSB_CPT::META_STATS, wp_slash( wp_json_encode( SSB_CPT::get_default_stats() ) ) );
+		update_post_meta( $id, STSSB_CPT::META_STATS, wp_slash( wp_json_encode( STSSB_CPT::get_default_stats() ) ) );
 		wp_send_json_success( array( 'id' => $id ) );
 	}
 
@@ -249,12 +249,12 @@ class SSB_Stats {
 	 * @return void
 	 */
 	public function ajax_edit() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_manage_settings' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_manage_settings' ) ) {
 			wp_send_json_error( array( 'message' => 'Permission denied.' ), 403 );
 		}
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
-		if ( ! $id || SSB_CPT::POST_TYPE !== get_post_type( $id ) ) {
+		if ( ! $id || STSSB_CPT::POST_TYPE !== get_post_type( $id ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid schema.' ), 400 );
 		}
 		$stats = self::read( $id );
@@ -267,7 +267,7 @@ class SSB_Stats {
 				$stats['downloads'][ $format ] = absint( $_POST[ $key ] );
 			}
 		}
-		update_post_meta( $id, SSB_CPT::META_STATS, wp_slash( wp_json_encode( $stats ) ) );
+		update_post_meta( $id, STSSB_CPT::META_STATS, wp_slash( wp_json_encode( $stats ) ) );
 		wp_send_json_success(
 			array(
 				'id'    => $id,

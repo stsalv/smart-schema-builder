@@ -2,7 +2,7 @@
  * Schema helpers: unique IDs, icon set, palettes, layout presets,
  * reorder utilities, download normalization and entity factories.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 

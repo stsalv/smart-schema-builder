@@ -2,7 +2,7 @@
 /**
  * Template tags for Smart Schema Builder.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -17,6 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param int $id Schema post ID.
  * @return string Schema HTML.
  */
-function ssb_schema( $id ) {
-	return SSB_Block::render_schema( (int) $id );
+function stssb_schema( $id ) {
+	return STSSB_Block::render_schema( (int) $id );
 }

@@ -1,7 +1,7 @@
 /**
  * Admin: statistics page with table, reset and manual edit.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { useEffect, useState } from '@wordpress/element';
@@ -22,9 +22,9 @@ const StatsPage = () => {
 	 */
 	const load = async () => {
 		const fd = new FormData();
-		fd.append( 'action', 'ssb_stats_list' );
-		fd.append( 'nonce', window.ssbAdmin.adminNonce );
-		const res = await fetch( window.ssbAdmin.ajaxUrl, {
+		fd.append( 'action', 'stssb_stats_list' );
+		fd.append( 'nonce', window.stssbAdmin.adminNonce );
+		const res = await fetch( window.stssbAdmin.ajaxUrl, {
 			method: 'POST',
 			body: fd,
 			credentials: 'same-origin',
@@ -49,10 +49,10 @@ const StatsPage = () => {
 			return;
 		}
 		const fd = new FormData();
-		fd.append( 'action', 'ssb_stats_reset' );
-		fd.append( 'nonce', window.ssbAdmin.adminNonce );
+		fd.append( 'action', 'stssb_stats_reset' );
+		fd.append( 'nonce', window.stssbAdmin.adminNonce );
 		fd.append( 'id', id );
-		await fetch( window.ssbAdmin.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' } );
+		await fetch( window.stssbAdmin.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' } );
 		await load();
 	};
 
@@ -64,14 +64,14 @@ const StatsPage = () => {
 	 */
 	const saveEdit = async () => {
 		const fd = new FormData();
-		fd.append( 'action', 'ssb_stats_edit' );
-		fd.append( 'nonce', window.ssbAdmin.adminNonce );
+		fd.append( 'action', 'stssb_stats_edit' );
+		fd.append( 'nonce', window.stssbAdmin.adminNonce );
 		fd.append( 'id', editing.id );
 		fd.append( 'modalOpens', draft.modalOpens || 0 );
 		fd.append( 'download_pdf', draft.download_pdf || 0 );
 		fd.append( 'download_png', draft.download_png || 0 );
 		fd.append( 'download_json', draft.download_json || 0 );
-		await fetch( window.ssbAdmin.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' } );
+		await fetch( window.stssbAdmin.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' } );
 		setEditing( null );
 		await load();
 	};
@@ -81,7 +81,7 @@ const StatsPage = () => {
 	}
 
 	return (
-		<div className="ssb-stats">
+		<div className="stssb-stats">
 			<table className="widefat striped">
 				<thead>
 					<tr>
@@ -98,7 +98,7 @@ const StatsPage = () => {
 				<tbody>
 					{ 0 === rows.length && (
 						<tr>
-							<td colSpan={ 8 } className="ssb-stats__empty">
+							<td colSpan={ 8 } className="stssb-stats__empty">
 								{ __('No schemas yet.', 'stsalv-smart-schema-builder') }
 							</td>
 						</tr>
@@ -144,7 +144,7 @@ const StatsPage = () => {
 					title={ __('Edit counters', 'stsalv-smart-schema-builder') + ' — ' + editing.title }
 					onRequestClose={ () => setEditing( null ) }
 				>
-					<div className="ssb-stats-edit">
+					<div className="stssb-stats-edit">
 						<TextControl
 							type="number"
 							label={ __('Modal opens', 'stsalv-smart-schema-builder') }
@@ -169,7 +169,7 @@ const StatsPage = () => {
 							value={ draft.download_json || 0 }
 							onChange={ ( next ) => setDraft( { ...draft, download_json: parseInt( next, 10 ) || 0 } ) }
 						/>
-						<div className="ssb-stats-edit__actions">
+						<div className="stssb-stats-edit__actions">
 							<Button variant="primary" onClick={ saveEdit }>{ __('Save', 'stsalv-smart-schema-builder') }</Button>
 							<Button variant="tertiary" onClick={ () => setEditing( null ) }>{ __('Cancel', 'stsalv-smart-schema-builder') }</Button>
 						</div>

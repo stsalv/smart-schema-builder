@@ -2,7 +2,7 @@
  * Smart Schema Builder front-end interactivity: tag filters with AND logic,
  * URL state, accessible modal and JSON download.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -75,7 +75,7 @@ const writeUrlState = ( param, tags ) => {
  * @return {void}
  */
 const recordHit = ( root, event ) => {
-	const front = window.ssbFront || {};
+	const front = window.stssbFront || {};
 	if ( ! front.restUrl || ! root ) {
 		return;
 	}
@@ -92,7 +92,7 @@ const recordHit = ( root, event ) => {
 		credentials: 'same-origin',
 		headers,
 		body: JSON.stringify( { schema_id: parseInt( id, 10 ), event } ),
-	} ).catch( ( err ) => console.error( '[SSB] stats-hit failed:', err ) );
+	} ).catch( ( err ) => console.error( '[STSSB] stats-hit failed:', err ) );
 };
 
 /**
@@ -107,10 +107,10 @@ const recordHit = ( root, event ) => {
  * @return {void}
  */
 const downloadJson = ( schemaId ) => {
-	const front = window.ssbFront || {};
+	const front = window.stssbFront || {};
 	const restUrl = front.restUrl ? front.restUrl + 'download-json/' + encodeURIComponent( schemaId ) : '';
 	const ajaxUrl = front.ajaxUrl
-		? front.ajaxUrl + '?action=ssb_download_json&nonce=' + encodeURIComponent( front.nonce || '' )
+		? front.ajaxUrl + '?action=stssb_download_json&nonce=' + encodeURIComponent( front.nonce || '' )
 			+ '&schema_id=' + encodeURIComponent( schemaId )
 		: '';
 
@@ -153,10 +153,10 @@ const downloadJson = ( schemaId ) => {
 
 	if ( restUrl ) {
 		tryDownload( restUrl, true ).catch( ( error ) => {
-			console.error( '[SSB] REST JSON export failed, falling back to ajax:', error );
+			console.error( '[STSSB] REST JSON export failed, falling back to ajax:', error );
 			if ( ajaxUrl ) {
 				tryDownload( ajaxUrl, false ).catch( ( fallbackError ) =>
-					console.error( '[SSB] JSON export failed:', fallbackError )
+					console.error( '[STSSB] JSON export failed:', fallbackError )
 				);
 			}
 		} );
@@ -164,11 +164,11 @@ const downloadJson = ( schemaId ) => {
 	}
 	if ( ajaxUrl ) {
 		tryDownload( ajaxUrl, false ).catch( ( error ) =>
-			console.error( '[SSB] JSON export failed:', error )
+			console.error( '[STSSB] JSON export failed:', error )
 		);
 		return;
 	}
-	console.error( '[SSB] No download endpoint available.' );
+	console.error( '[STSSB] No download endpoint available.' );
 };
 
 /**
@@ -183,19 +183,19 @@ let downloadPromise = null;
  * Load the download bundle on first use.
  *
  * @since 1.0.0
- * @return {Promise<Object>} The window.ssbDownload API.
+ * @return {Promise<Object>} The window.stssbDownload API.
  */
 const ensureDownloadLib = () => {
-	if ( window.ssbDownload ) {
-		return Promise.resolve( window.ssbDownload );
+	if ( window.stssbDownload ) {
+		return Promise.resolve( window.stssbDownload );
 	}
 	if ( downloadPromise ) {
 		return downloadPromise;
 	}
 	downloadPromise = new Promise( ( resolve, reject ) => {
 		const script = document.createElement( 'script' );
-		script.src = ( window.ssbFront && window.ssbFront.downloadUrl ) || '/wp-content/plugins/stsalv-smart-schema-builder/build/download.js';
-		script.onload = () => resolve( window.ssbDownload );
+		script.src = ( window.stssbFront && window.stssbFront.downloadUrl ) || '/wp-content/plugins/stsalv-smart-schema-builder/build/download.js';
+		script.onload = () => resolve( window.stssbDownload );
 		script.onerror = reject;
 		document.head.appendChild( script );
 	} );
@@ -227,27 +227,27 @@ const modal = {
 			return this.el;
 		}
 		const el = document.createElement( 'div' );
-		el.className = 'ssb-modal';
+		el.className = 'stssb-modal';
 		el.setAttribute( 'role', 'dialog' );
 		el.setAttribute( 'aria-modal', 'true' );
-		el.setAttribute( 'aria-labelledby', 'ssb-modal-title' );
+		el.setAttribute( 'aria-labelledby', 'stssb-modal-title' );
 		el.hidden = true;
 		el.innerHTML =
-			'<div class="ssb-modal__backdrop" data-ssb-close="1"></div>' +
-			'<div class="ssb-modal__panel">' +
-			'<header class="ssb-modal__head"><div class="ssb-modal__heading"><h3 id="ssb-modal-title"></h3><div class="ssb-modal-tags" hidden></div></div>' +
-			'<button type="button" class="ssb-modal__close" data-ssb-close="1" aria-label="' +
+			'<div class="stssb-modal__backdrop" data-stssb-close="1"></div>' +
+			'<div class="stssb-modal__panel">' +
+			'<header class="stssb-modal__head"><div class="stssb-modal__heading"><h3 id="stssb-modal-title"></h3><div class="stssb-modal-tags" hidden></div></div>' +
+			'<button type="button" class="stssb-modal__close" data-stssb-close="1" aria-label="' +
 			__('Close', 'stsalv-smart-schema-builder') + '">&times;</button></header>' +
-			'<div class="ssb-modal__body"></div></div>';
+			'<div class="stssb-modal__body"></div></div>';
 		document.body.appendChild( el );
 		this.el = el;
-		this.panel = el.querySelector( '.ssb-modal__panel' );
-		this.body = el.querySelector( '.ssb-modal__body' );
-		this.title = el.querySelector( '#ssb-modal-title' );
-		this.tags = el.querySelector( '.ssb-modal-tags' );
+		this.panel = el.querySelector( '.stssb-modal__panel' );
+		this.body = el.querySelector( '.stssb-modal__body' );
+		this.title = el.querySelector( '#stssb-modal-title' );
+		this.tags = el.querySelector( '.stssb-modal-tags' );
 
 		el.addEventListener( 'click', ( event ) => {
-			if ( event.target.closest( '[data-ssb-close]' ) ) {
+			if ( event.target.closest( '[data-stssb-close]' ) ) {
 				this.close();
 			}
 		} );
@@ -278,28 +278,28 @@ const modal = {
 	open( card ) {
 		this.ensure();
 		this.lastFocused = document.activeElement;
-		const title = card.querySelector( '.ssb-card-title' );
+		const title = card.querySelector( '.stssb-card-title' );
 		this.title.textContent = title ? title.textContent : '';
 		this.tags.innerHTML = '';
 		( card.dataset.tags || '' ).split( /\s+/ ).filter( Boolean ).forEach( ( id ) => {
-			const btn = card.closest( '.ssb-root' ).querySelector( '.ssb-tag[data-tag="' + id + '"]' );
+			const btn = card.closest( '.stssb-root' ).querySelector( '.stssb-tag[data-tag="' + id + '"]' );
 			if ( ! btn ) {
 				return;
 			}
 			const span = document.createElement( 'span' );
-			span.className = 'ssb-modal-tag';
-			span.style.setProperty( '--ssb-tag-color', btn.style.getPropertyValue( '--ssb-tag-color' ) || '#0f172a' );
+			span.className = 'stssb-modal-tag';
+			span.style.setProperty( '--stssb-tag-color', btn.style.getPropertyValue( '--stssb-tag-color' ) || '#0f172a' );
 			span.textContent = btn.textContent.trim();
 			this.tags.appendChild( span );
 		} );
 		this.tags.hidden = ! this.tags.childNodes.length;
 
-		const full = card.querySelector( '.ssb-card-full' );
+		const full = card.querySelector( '.stssb-card-full' );
 		this.body.innerHTML = full ? full.innerHTML : '';
-		recordHit( card.closest( '.ssb-root' ), 'modal_open' );
+		recordHit( card.closest( '.stssb-root' ), 'modal_open' );
 		this.el.hidden = false;
-		document.documentElement.classList.add( 'ssb-modal-open' );
-		this.el.querySelector( '.ssb-modal__close' ).focus();
+		document.documentElement.classList.add( 'stssb-modal-open' );
+		this.el.querySelector( '.stssb-modal__close' ).focus();
 	},
 
 	/**
@@ -313,7 +313,7 @@ const modal = {
 			return;
 		}
 		this.el.hidden = true;
-		document.documentElement.classList.remove( 'ssb-modal-open' );
+		document.documentElement.classList.remove( 'stssb-modal-open' );
 		if ( this.lastFocused ) {
 			this.lastFocused.focus();
 		}
@@ -356,22 +356,22 @@ const modal = {
 const applyState = ( ctrl ) => {
 	const active = ctrl.state.tags;
 	const filtering = active.length > 0;
-	ctrl.root.classList.toggle( 'ssb-filtering', filtering );
+	ctrl.root.classList.toggle( 'stssb-filtering', filtering );
 	let matched = 0;
 	ctrl.cards.forEach( ( card ) => {
 		const tags = cardTags( card );
 		const hit = filtering && active.every( ( id ) => tags.includes( id ) );
-		card.classList.toggle( 'ssb-hit', hit );
-		card.classList.toggle( 'ssb-dim', filtering && ! hit );
+		card.classList.toggle( 'stssb-hit', hit );
+		card.classList.toggle( 'stssb-dim', filtering && ! hit );
 		if ( hit ) {
 			matched++;
 		}
 	} );
 	ctrl.groups.forEach( ( group ) => {
-		const groupCards = Array.from( group.querySelectorAll( '.ssb-card[data-tags]' ) );
+		const groupCards = Array.from( group.querySelectorAll( '.stssb-card[data-tags]' ) );
 		const allDim = filtering && groupCards.length &&
-			groupCards.every( ( card ) => card.classList.contains( 'ssb-dim' ) );
-		group.classList.toggle( 'ssb-all-dim', allDim );
+			groupCards.every( ( card ) => card.classList.contains( 'stssb-dim' ) );
+		group.classList.toggle( 'stssb-all-dim', allDim );
 	} );
 	ctrl.buttons.forEach( ( button ) => {
 		button.setAttribute( 'aria-pressed', active.includes( button.dataset.tag ) ? 'true' : 'false' );
@@ -413,18 +413,18 @@ const syncAcross = ( schemaId, param, tags ) => {
  */
 const initRoot = ( root ) => {
 	const schemaId = root.dataset.schemaId || '0';
-	const param = root.dataset.tagsParam || 'ssb_tags_' + schemaId;
+	const param = root.dataset.tagsParam || 'stssb_tags_' + schemaId;
 	const ctrl = {
 		root,
 		schemaId,
 		param,
 		state: { tags: [] },
-		buttons: Array.from( root.querySelectorAll( '.ssb-tag' ) ),
-		cards: Array.from( root.querySelectorAll( '.ssb-card[data-tags]' ) ),
-		groups: Array.from( root.querySelectorAll( '.ssb-group, .ssb-panel' ) ),
+		buttons: Array.from( root.querySelectorAll( '.stssb-tag' ) ),
+		cards: Array.from( root.querySelectorAll( '.stssb-card[data-tags]' ) ),
+		groups: Array.from( root.querySelectorAll( '.stssb-group, .stssb-panel' ) ),
 		live: document.createElement( 'span' ),
 	};
-	ctrl.live.className = 'ssb-sr-only';
+	ctrl.live.className = 'stssb-sr-only';
 	ctrl.live.setAttribute( 'aria-live', 'polite' );
 	root.appendChild( ctrl.live );
 
@@ -439,7 +439,7 @@ const initRoot = ( root ) => {
 	} );
 
 	ctrl.cards.forEach( ( card ) => {
-		if ( ! card.classList.contains( 'ssb-card--clickable' ) ) {
+		if ( ! card.classList.contains( 'stssb-card--clickable' ) ) {
 			return;
 		}
 		card.addEventListener( 'click', () => modal.open( card ) );
@@ -451,7 +451,7 @@ const initRoot = ( root ) => {
 		} );
 	} );
 
-	root.querySelectorAll( '.ssb-download-btn' ).forEach( ( button ) => {
+	root.querySelectorAll( '.stssb-download-btn' ).forEach( ( button ) => {
 		button.addEventListener( 'click', async () => {
 			const format = button.dataset.format;
 			if ( 'json' === format ) {
@@ -463,7 +463,7 @@ const initRoot = ( root ) => {
 			}
 			recordHit( root, 'download_' + format );
 			button.disabled = true;
-			button.classList.add( 'ssb-download-btn--busy' );
+			button.classList.add( 'stssb-download-btn--busy' );
 			try {
 				const api = await ensureDownloadLib();
 				if ( 'png' === format ) {
@@ -475,7 +475,7 @@ const initRoot = ( root ) => {
 				/* Button state is restored in the finally block. */
 			} finally {
 				button.disabled = false;
-				button.classList.remove( 'ssb-download-btn--busy' );
+				button.classList.remove( 'stssb-download-btn--busy' );
 			}
 		} );
 	} );
@@ -495,7 +495,7 @@ const initRoot = ( root ) => {
  * @return {void}
  */
 const boot = () => {
-	document.querySelectorAll( '.ssb-root' ).forEach( ( root ) => {
+	document.querySelectorAll( '.stssb-root' ).forEach( ( root ) => {
 		registry.push( initRoot( root ) );
 	} );
 };

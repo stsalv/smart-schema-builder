@@ -21,9 +21,9 @@ StSalv Smart Schema Builder turns structured role/process maps into responsive, 
 * Tag filters with AND-logic, URL state (shareable links), aria-live announcements and print-aware highlighting.
 * Accessible modal with full descriptions, focus trap, ESC/backdrop close and correct wheel scrolling (Lenis-safe).
 * Print forms: PDF (landscape/portrait, multi-page slicing, appendix pages with role descriptions) and PNG (2x), built client-side with jsPDF and html-to-image; JSON export via public REST endpoint.
-* Gutenberg block with live server-side preview, plus `[smart_schema id="…"]` shortcode and `ssb_schema( $id )` template tag.
+* Gutenberg block with live server-side preview, plus `[stsalv_smart_schema id="…"]` shortcode and `stssb_schema( $id )` template tag.
 * Per-schema statistics: modal opens and downloads by format, admin table with manual edit and reset.
-* Capabilities: `ssb_edit_schemas`, `ssb_manage_settings`; drafts are never exposed to guests.
+* Capabilities: `stssb_edit_schemas`, `stssb_manage_settings`; drafts are never exposed to guests.
 
 = Privacy =
 
@@ -43,7 +43,7 @@ compiled assets (`build/`) with `npm install && npm run build`.
 1. Upload the plugin folder to `/wp-content/plugins/` or install via Plugins → Add New.
 2. Activate StSalv Smart Schema Builder.
 3. Go to Smart Schemas → Add New, configure the map and Publish.
-4. Insert it with the Smart Schema block, `[smart_schema id="123"]` or `ssb_schema( 123 )`.
+4. Insert it with the Smart Schema block, `[stsalv_smart_schema id="123"]` or `stssb_schema( 123 )`.
 
 == Frequently Asked Questions ==
 
@@ -51,7 +51,7 @@ compiled assets (`build/`) with `npm install && npm run build`.
 In the visitor's browser (jsPDF + html-to-image). Nothing is stored on the server.
 
 = Can guests download drafts? =
-No. Drafts render only for logged-in users with `ssb_edit_schemas`; public endpoints return 404 for them.
+No. Drafts render only for logged-in users with `stssb_edit_schemas`; public endpoints return 404 for them.
 
 = My theme fonts look wrong in exports =
 Exports embed computed styles; use web-safe fonts or self-hosted fonts with CORS enabled.

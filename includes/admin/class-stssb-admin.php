@@ -2,7 +2,7 @@
 /**
  * Admin menu pages and ajax handlers for schema CRUD and import/export.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Statistics sub-pages, and wires the admin ajax handlers used by the
  * React editor: list, get, save, delete, export and import.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_Admin {
+class STSSB_Admin {
 
 	const MENU_SLUG  = 'stsalv-smart-schema-builder';
 	const STATS_SLUG = 'stsalv-smart-schema-builder-stats';
@@ -28,7 +28,7 @@ class SSB_Admin {
 	/**
 	 * Singleton instance.
 	 *
-	 * @var SSB_Admin|null
+	 * @var STSSB_Admin|null
 	 */
 	private static $instance = null;
 
@@ -36,7 +36,7 @@ class SSB_Admin {
 	 * Get the singleton.
 	 *
 	 * @since 1.0.0
-	 * @return SSB_Admin
+	 * @return STSSB_Admin
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -52,12 +52,12 @@ class SSB_Admin {
 	 */
 	private function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu_pages' ) );
-		add_action( 'wp_ajax_ssb_list_schemas', array( $this, 'ajax_list_schemas' ) );
-		add_action( 'wp_ajax_ssb_get_schema', array( $this, 'ajax_get_schema' ) );
-		add_action( 'wp_ajax_ssb_save_schema', array( $this, 'ajax_save_schema' ) );
-		add_action( 'wp_ajax_ssb_delete_schema', array( $this, 'ajax_delete_schema' ) );
-		add_action( 'wp_ajax_ssb_export_schema', array( $this, 'ajax_export_schema' ) );
-		add_action( 'wp_ajax_ssb_import_schema', array( $this, 'ajax_import_schema' ) );
+		add_action( 'wp_ajax_stssb_list_schemas', array( $this, 'ajax_list_schemas' ) );
+		add_action( 'wp_ajax_stssb_get_schema', array( $this, 'ajax_get_schema' ) );
+		add_action( 'wp_ajax_stssb_save_schema', array( $this, 'ajax_save_schema' ) );
+		add_action( 'wp_ajax_stssb_delete_schema', array( $this, 'ajax_delete_schema' ) );
+		add_action( 'wp_ajax_stssb_export_schema', array( $this, 'ajax_export_schema' ) );
+		add_action( 'wp_ajax_stssb_import_schema', array( $this, 'ajax_import_schema' ) );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class SSB_Admin {
 		add_menu_page(
 			__( 'Smart Schema Builder', 'stsalv-smart-schema-builder' ),
 			__( 'Smart Schemas', 'stsalv-smart-schema-builder' ),
-			'ssb_edit_schemas',
+			'stssb_edit_schemas',
 			self::MENU_SLUG,
 			array( $this, 'render_schemas_page' ),
 			'dashicons-networking',
@@ -81,7 +81,7 @@ class SSB_Admin {
 			self::MENU_SLUG,
 			__( 'All Schemas', 'stsalv-smart-schema-builder' ),
 			__( 'All schemas', 'stsalv-smart-schema-builder' ),
-			'ssb_edit_schemas',
+			'stssb_edit_schemas',
 			self::MENU_SLUG,
 			array( $this, 'render_schemas_page' )
 		);
@@ -90,7 +90,7 @@ class SSB_Admin {
 			self::MENU_SLUG,
 			__( 'Statistics', 'stsalv-smart-schema-builder' ),
 			__( 'Statistics', 'stsalv-smart-schema-builder' ),
-			'ssb_manage_settings',
+			'stssb_manage_settings',
 			self::STATS_SLUG,
 			array( $this, 'render_stats_page' )
 		);
@@ -106,7 +106,7 @@ class SSB_Admin {
 		$action    = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : 'list'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- view routing, not a state-changing action.
 		$schema_id = isset( $_GET['schema'] ) ? absint( wp_unslash( $_GET['schema'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- view routing, not a state-changing action.
 
-		$views_dir = SSB_PLUGIN_DIR . 'includes/admin/views/';
+		$views_dir = STSSB_PLUGIN_DIR . 'includes/admin/views/';
 		require $views_dir . 'schemas-page.php';
 	}
 
@@ -117,7 +117,7 @@ class SSB_Admin {
 	 * @return void
 	 */
 	public function render_stats_page() {
-		$views_dir = SSB_PLUGIN_DIR . 'includes/admin/views/';
+		$views_dir = STSSB_PLUGIN_DIR . 'includes/admin/views/';
 		require $views_dir . 'stats-page.php';
 	}
 
@@ -173,14 +173,14 @@ class SSB_Admin {
 	 * @return void
 	 */
 	public function ajax_list_schemas() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_edit_schemas' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_edit_schemas' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'stsalv-smart-schema-builder' ) ), 403 );
 		}
 
 		$posts = get_posts(
 			array(
-				'post_type'      => SSB_CPT::POST_TYPE,
+				'post_type'      => STSSB_CPT::POST_TYPE,
 				'posts_per_page' => 200,
 				'post_status'    => array( 'publish', 'draft' ),
 				'orderby'        => 'modified',
@@ -190,7 +190,7 @@ class SSB_Admin {
 
 		$items = array();
 		foreach ( $posts as $p ) {
-			$config      = json_decode( get_post_meta( $p->ID, SSB_CPT::META_CONFIG, true ), true );
+			$config      = json_decode( get_post_meta( $p->ID, STSSB_CPT::META_CONFIG, true ), true );
 			$block_count = is_array( $config ) && isset( $config['blocks'] ) ? count( $config['blocks'] ) : 0;
 			$items[]     = array(
 				'id'          => $p->ID,
@@ -211,8 +211,8 @@ class SSB_Admin {
 	 * @return void
 	 */
 	public function ajax_get_schema() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_edit_schemas' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_edit_schemas' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'stsalv-smart-schema-builder' ) ), 403 );
 		}
 
@@ -223,17 +223,17 @@ class SSB_Admin {
 					'id'     => 0,
 					'title'  => '',
 					'status' => 'draft',
-					'config' => SSB_CPT::get_default_config(),
+					'config' => STSSB_CPT::get_default_config(),
 				)
 			);
 		}
 
 		$post = get_post( $id );
-		if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type ) {
+		if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type ) {
 			wp_send_json_error( array( 'message' => __( 'Schema not found.', 'stsalv-smart-schema-builder' ) ), 404 );
 		}
 
-		$raw    = (string) get_post_meta( $id, SSB_CPT::META_CONFIG, true );
+		$raw    = (string) get_post_meta( $id, STSSB_CPT::META_CONFIG, true );
 		$config = json_decode( $raw, true );
 		if ( ! is_array( $config ) && '' !== $raw ) {
 			wp_send_json_error(
@@ -242,7 +242,7 @@ class SSB_Admin {
 			);
 		}
 		if ( ! is_array( $config ) ) {
-			$config = SSB_CPT::get_default_config();
+			$config = STSSB_CPT::get_default_config();
 		}
 
 		wp_send_json_success(
@@ -262,8 +262,8 @@ class SSB_Admin {
 	 * @return void
 	 */
 	public function ajax_save_schema() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_edit_schemas' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_edit_schemas' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'stsalv-smart-schema-builder' ) ), 403 );
 		}
 
@@ -281,7 +281,7 @@ class SSB_Admin {
 
 		if ( $id ) {
 			$post = get_post( $id );
-			if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type ) {
+			if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type ) {
 				wp_send_json_error( array( 'message' => __( 'Schema not found.', 'stsalv-smart-schema-builder' ) ), 404 );
 			}
 			wp_update_post(
@@ -294,7 +294,7 @@ class SSB_Admin {
 		} else {
 			$id = wp_insert_post(
 				array(
-					'post_type'   => SSB_CPT::POST_TYPE,
+					'post_type'   => STSSB_CPT::POST_TYPE,
 					'post_title'  => $title ? $title : __( 'Untitled Schema', 'stsalv-smart-schema-builder' ),
 					'post_status' => $status,
 				),
@@ -303,12 +303,12 @@ class SSB_Admin {
 			if ( is_wp_error( $id ) ) {
 				wp_send_json_error( array( 'message' => $id->get_error_message() ), 500 );
 			}
-			if ( ! get_post_meta( $id, SSB_CPT::META_STATS, true ) ) {
-				update_post_meta( $id, SSB_CPT::META_STATS, wp_slash( $this->encode_json( SSB_CPT::get_default_stats() ) ) );
+			if ( ! get_post_meta( $id, STSSB_CPT::META_STATS, true ) ) {
+				update_post_meta( $id, STSSB_CPT::META_STATS, wp_slash( $this->encode_json( STSSB_CPT::get_default_stats() ) ) );
 			}
 		}
 
-		update_post_meta( $id, SSB_CPT::META_CONFIG, wp_slash( $this->encode_json( $config_data ) ) );
+		update_post_meta( $id, STSSB_CPT::META_CONFIG, wp_slash( $this->encode_json( $config_data ) ) );
 
 		wp_send_json_success(
 			array(
@@ -325,8 +325,8 @@ class SSB_Admin {
 	 * @return void
 	 */
 	public function ajax_delete_schema() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_manage_settings' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_manage_settings' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'stsalv-smart-schema-builder' ) ), 403 );
 		}
 
@@ -350,27 +350,27 @@ class SSB_Admin {
 	 * @return void
 	 */
 	public function ajax_export_schema() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_edit_schemas' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_edit_schemas' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'stsalv-smart-schema-builder' ) ), 403 );
 		}
 
 		$id   = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 		$post = get_post( $id );
-		if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type ) {
+		if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type ) {
 			wp_send_json_error( array( 'message' => __( 'Schema not found.', 'stsalv-smart-schema-builder' ) ), 404 );
 		}
 
-		$config = json_decode( get_post_meta( $id, SSB_CPT::META_CONFIG, true ), true );
+		$config = json_decode( get_post_meta( $id, STSSB_CPT::META_CONFIG, true ), true );
 		if ( ! is_array( $config ) ) {
-			$config = SSB_CPT::get_default_config();
+			$config = STSSB_CPT::get_default_config();
 		}
 
 		wp_send_json_success(
 			array(
 				'exported_at' => gmdate( 'c' ),
 				'plugin'      => 'stsalv-smart-schema-builder',
-				'version'     => SSB_VERSION,
+				'version'     => STSSB_VERSION,
 				'title'       => $post->post_title,
 				'status'      => $post->post_status,
 				'config'      => $config,
@@ -385,8 +385,8 @@ class SSB_Admin {
 	 * @return void
 	 */
 	public function ajax_import_schema() {
-		check_ajax_referer( 'ssb_admin_nonce', 'nonce' );
-		if ( ! current_user_can( 'ssb_edit_schemas' ) ) {
+		check_ajax_referer( 'stssb_admin_nonce', 'nonce' );
+		if ( ! current_user_can( 'stssb_edit_schemas' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'stsalv-smart-schema-builder' ) ), 403 );
 		}
 
@@ -405,7 +405,7 @@ class SSB_Admin {
 
 		if ( $target_id ) {
 			$post = get_post( $target_id );
-			if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type ) {
+			if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type ) {
 				wp_send_json_error( array( 'message' => __( 'Target schema not found.', 'stsalv-smart-schema-builder' ) ), 404 );
 			}
 			wp_update_post(
@@ -419,7 +419,7 @@ class SSB_Admin {
 		} else {
 			$id = wp_insert_post(
 				array(
-					'post_type'   => SSB_CPT::POST_TYPE,
+					'post_type'   => STSSB_CPT::POST_TYPE,
 					'post_title'  => $title,
 					'post_status' => $status,
 				),
@@ -428,10 +428,10 @@ class SSB_Admin {
 			if ( is_wp_error( $id ) ) {
 				wp_send_json_error( array( 'message' => $id->get_error_message() ), 500 );
 			}
-			update_post_meta( $id, SSB_CPT::META_STATS, wp_slash( $this->encode_json( SSB_CPT::get_default_stats() ) ) );
+			update_post_meta( $id, STSSB_CPT::META_STATS, wp_slash( $this->encode_json( STSSB_CPT::get_default_stats() ) ) );
 		}
 
-		update_post_meta( $id, SSB_CPT::META_CONFIG, wp_slash( $this->encode_json( $config ) ) );
+		update_post_meta( $id, STSSB_CPT::META_CONFIG, wp_slash( $this->encode_json( $config ) ) );
 
 		wp_send_json_success(
 			array(

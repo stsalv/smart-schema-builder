@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-21T22:53:17+03:00\n"
+"POT-Creation-Date: 2026-09-22T08:27:38+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: stsalv-smart-schema-builder\n"
@@ -39,76 +39,76 @@ msgstr ""
 msgid "https://stsalv.ru/"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:71
+#: includes/admin/class-stssb-admin.php:71
 msgid "Smart Schema Builder"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:72
+#: includes/admin/class-stssb-admin.php:72
 msgid "Smart Schemas"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:82
-#: includes/class-ssb-cpt.php:84
+#: includes/admin/class-stssb-admin.php:82
+#: includes/class-stssb-cpt.php:84
 msgid "All Schemas"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:83
+#: includes/admin/class-stssb-admin.php:83
 msgid "All schemas"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:91
-#: includes/admin/class-ssb-admin.php:92
+#: includes/admin/class-stssb-admin.php:91
+#: includes/admin/class-stssb-admin.php:92
 msgid "Statistics"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:178
-#: includes/admin/class-ssb-admin.php:216
-#: includes/admin/class-ssb-admin.php:267
-#: includes/admin/class-ssb-admin.php:330
-#: includes/admin/class-ssb-admin.php:355
-#: includes/admin/class-ssb-admin.php:390
+#: includes/admin/class-stssb-admin.php:178
+#: includes/admin/class-stssb-admin.php:216
+#: includes/admin/class-stssb-admin.php:267
+#: includes/admin/class-stssb-admin.php:330
+#: includes/admin/class-stssb-admin.php:355
+#: includes/admin/class-stssb-admin.php:390
 msgid "Permission denied."
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:233
-#: includes/admin/class-ssb-admin.php:285
-#: includes/admin/class-ssb-admin.php:361
-#: includes/class-ssb-io.php:69
-#: includes/class-ssb-io.php:72
-#: includes/class-ssb-io.php:125
-#: includes/class-ssb-io.php:131
+#: includes/admin/class-stssb-admin.php:233
+#: includes/admin/class-stssb-admin.php:285
+#: includes/admin/class-stssb-admin.php:361
+#: includes/class-stssb-io.php:69
+#: includes/class-stssb-io.php:72
+#: includes/class-stssb-io.php:125
+#: includes/class-stssb-io.php:131
 msgid "Schema not found."
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:240
+#: includes/admin/class-stssb-admin.php:240
 msgid "Schema configuration is damaged. Re-import the schema JSON or recreate the schema."
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:279
+#: includes/admin/class-stssb-admin.php:279
 msgid "Invalid configuration."
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:298
+#: includes/admin/class-stssb-admin.php:298
 msgid "Untitled Schema"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:335
+#: includes/admin/class-stssb-admin.php:335
 msgid "Invalid ID."
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:340
+#: includes/admin/class-stssb-admin.php:340
 msgid "Failed to delete schema."
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:397
+#: includes/admin/class-stssb-admin.php:397
 msgid "Invalid import file."
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:400
+#: includes/admin/class-stssb-admin.php:400
 msgid "Imported Schema"
 msgstr ""
 
-#: includes/admin/class-ssb-admin.php:409
+#: includes/admin/class-stssb-admin.php:409
 msgid "Target schema not found."
 msgstr ""
 
@@ -116,102 +116,102 @@ msgstr ""
 msgid "Smart Schema Builder — Statistics"
 msgstr ""
 
-#: includes/class-ssb-block.php:118
+#: includes/class-stssb-block.php:118
 #: src/admin/components/SchemaList.js:145
 #: src/block/index.js:62
 #: src/block/index.js:72
 msgid "Smart Schema"
 msgstr ""
 
-#: includes/class-ssb-block.php:119
+#: includes/class-stssb-block.php:119
 msgid "Renders a configured schema map."
 msgstr ""
 
-#: includes/class-ssb-block.php:215
+#: includes/class-stssb-block.php:215
 msgid "Select a schema in the block settings on the right."
 msgstr ""
 
-#: includes/class-ssb-cpt.php:76
+#: includes/class-stssb-cpt.php:76
 msgctxt "post type general name"
 msgid "Schemas"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:77
+#: includes/class-stssb-cpt.php:77
 msgctxt "post type singular name"
 msgid "Schema"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:78
+#: includes/class-stssb-cpt.php:78
 msgctxt "admin menu"
 msgid "Schemas"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:79
+#: includes/class-stssb-cpt.php:79
 #: src/admin/components/SchemaList.js:119
 msgid "Add New"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:80
+#: includes/class-stssb-cpt.php:80
 msgid "Add New Schema"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:81
+#: includes/class-stssb-cpt.php:81
 msgid "New Schema"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:82
+#: includes/class-stssb-cpt.php:82
 msgid "Edit Schema"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:83
+#: includes/class-stssb-cpt.php:83
 msgid "View Schema"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:85
+#: includes/class-stssb-cpt.php:85
 msgid "Search Schemas"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:86
+#: includes/class-stssb-cpt.php:86
 msgid "No schemas found."
 msgstr ""
 
-#: includes/class-ssb-cpt.php:87
+#: includes/class-stssb-cpt.php:87
 msgid "No schemas found in Trash."
 msgstr ""
 
-#: includes/class-ssb-cpt.php:178
+#: includes/class-stssb-cpt.php:178
 msgid "Download PDF"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:189
+#: includes/class-stssb-cpt.php:189
 msgid "Download PNG"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:200
+#: includes/class-stssb-cpt.php:200
 msgid "Download JSON"
 msgstr ""
 
 #. translators: %title: schema title placeholder, %cnt: item count placeholder; both replaced at render time.
-#: includes/class-ssb-cpt.php:212
+#: includes/class-stssb-cpt.php:212
 #: src/admin/utils/schema-helpers.js:19
 #, php-format,js-format
 msgid "%title · %cnt roles"
 msgstr ""
 
-#: includes/class-ssb-cpt.php:213
+#: includes/class-stssb-cpt.php:213
 #: src/admin/utils/schema-helpers.js:20
 msgid "Edition %yyyy."
 msgstr ""
 
-#: includes/class-ssb-render.php:82
+#: includes/class-stssb-render.php:82
 msgid "Schema configuration is damaged. See wp-content/debug.log for details or re-import the schema."
 msgstr ""
 
-#: includes/class-ssb-render.php:84
+#: includes/class-stssb-render.php:84
 msgid "Go to Smart schemas"
 msgstr ""
 
-#: includes/class-ssb-render.php:321
+#: includes/class-stssb-render.php:321
 msgid "Schema filters"
 msgstr ""
 

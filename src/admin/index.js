@@ -5,7 +5,7 @@
  * Each mountpoint is detected independently so this script can run safely
  * on any admin page (it does nothing where neither element is present).
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { createRoot } from '@wordpress/element';
@@ -15,7 +15,7 @@ import './styles/admin.scss';
 
 document.addEventListener( 'DOMContentLoaded', () => {
     // Editor / list page mountpoint (action + optional schemaId).
-    const rootEl = document.getElementById( 'ssb-admin-root' );
+    const rootEl = document.getElementById( 'stssb-admin-root' );
     if ( rootEl ) {
         const action   = rootEl.dataset.action || 'list';
         const schemaId = parseInt( rootEl.dataset.schemaId || '0', 10 ) || 0;
@@ -23,7 +23,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
     }
 
     // Statistics page mountpoint.
-    const statsEl = document.getElementById( 'ssb-stats-root' );
+    const statsEl = document.getElementById( 'stssb-stats-root' );
     if ( statsEl ) {
         createRoot( statsEl ).render( <StatsPage /> );
     }

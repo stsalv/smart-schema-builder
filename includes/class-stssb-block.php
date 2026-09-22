@@ -2,7 +2,7 @@
 /**
  * Insertion points: Gutenberg block, shortcode and template tag.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -13,20 +13,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Insertion points: Gutenberg block, shortcode and template tag.
  *
- * Registers the `[smart_schema]` shortcode and the `ssb/schema` Gutenberg
+ * Registers the `[stsalv_smart_schema]` shortcode and the `stssb/schema` Gutenberg
  * block (dynamic, server-rendered, apiVersion 3). Provides the shared
  * render entry point used by the shortcode, the block and the
- * `ssb_schema()` template tag.
+ * `stssb_schema()` template tag.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_Block {
+class STSSB_Block {
 
 	/**
 	 * Singleton instance.
 	 *
-	 * @var SSB_Block|null
+	 * @var STSSB_Block|null
 	 */
 	private static $instance = null;
 
@@ -34,7 +34,7 @@ class SSB_Block {
 	 * Get the singleton.
 	 *
 	 * @since 1.0.0
-	 * @return SSB_Block
+	 * @return STSSB_Block
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -56,24 +56,24 @@ class SSB_Block {
 	}
 
 	/**
-	 * Register the [smart_schema] shortcode.
+	 * Register the [stsalv_smart_schema] shortcode.
 	 *
 	 * @since 1.0.0
 	 * @return void
 	 */
 	public function register_shortcode() {
-		add_shortcode( 'smart_schema', array( $this, 'shortcode' ) );
+		add_shortcode( 'stsalv_smart_schema', array( $this, 'shortcode' ) );
 	}
 
 	/**
-	 * Shortcode callback: [smart_schema id="123"].
+	 * Shortcode callback: [stsalv_smart_schema id="123"].
 	 *
 	 * @since 1.0.0
 	 * @param array $atts Shortcode attributes.
 	 * @return string Schema HTML.
 	 */
 	public function shortcode( $atts ) {
-		$atts = shortcode_atts( array( 'id' => 0 ), $atts, 'smart_schema' );
+		$atts = shortcode_atts( array( 'id' => 0 ), $atts, 'stsalv_smart_schema' );
 		return self::render_schema( (int) $atts['id'] );
 	}
 
@@ -84,17 +84,17 @@ class SSB_Block {
 	 * @return void
 	 */
 	public function register_block() {
-		$asset_file = SSB_PLUGIN_DIR . 'build/block/index.asset.php';
+		$asset_file = STSSB_PLUGIN_DIR . 'build/block/index.asset.php';
 		$asset      = file_exists( $asset_file )
 			? require $asset_file
 			: array(
 				'dependencies' => array(),
-				'version'      => SSB_VERSION,
+				'version'      => STSSB_VERSION,
 			);
 
 		wp_register_script(
-			'ssb-schema-editor',
-			SSB_PLUGIN_URL . 'build/block/index.js',
+			'stssb-schema-editor',
+			STSSB_PLUGIN_URL . 'build/block/index.js',
 			array_merge(
 				$asset['dependencies'],
 				array( 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-server-side-render' )
@@ -102,17 +102,17 @@ class SSB_Block {
 			$asset['version'],
 			true
 		);
-		wp_set_script_translations( 'ssb-schema-editor', 'stsalv-smart-schema-builder' );
+		wp_set_script_translations( 'stssb-schema-editor', 'stsalv-smart-schema-builder' );
 
 		wp_register_style(
-			'ssb-schema-editor-style',
-			SSB_PLUGIN_URL . 'build/block/index.css',
+			'stssb-schema-editor-style',
+			STSSB_PLUGIN_URL . 'build/block/index.css',
 			array(),
-			SSB_VERSION
+			STSSB_VERSION
 		);
 
 		register_block_type(
-			'ssb/schema',
+			'stssb/schema',
 			array(
 				'api_version'     => 3,
 				'title'           => __( 'Smart Schema', 'stsalv-smart-schema-builder' ),
@@ -131,9 +131,9 @@ class SSB_Block {
 					'align'  => array( 'wide', 'full' ),
 					'anchor' => true,
 				),
-				'editor_script'   => 'ssb-schema-editor',
-				'editor_style'    => 'ssb-schema-editor-style',
-				'style'           => 'ssb-frontend',
+				'editor_script'   => 'stssb-schema-editor',
+				'editor_style'    => 'stssb-schema-editor-style',
+				'style'           => 'stssb-frontend',
 				'render_callback' => array( $this, 'render_block' ),
 			)
 		);
@@ -148,7 +148,7 @@ class SSB_Block {
 	public function editor_assets() {
 		$schemas = get_posts(
 			array(
-				'post_type'      => SSB_CPT::POST_TYPE,
+				'post_type'      => STSSB_CPT::POST_TYPE,
 				'post_status'    => array( 'publish', 'draft' ),
 				'posts_per_page' => 200,
 				'orderby'        => 'title',
@@ -164,11 +164,11 @@ class SSB_Block {
 			);
 		}
 		wp_localize_script(
-			'ssb-schema-editor',
-			'ssbBlockEditor',
+			'stssb-schema-editor',
+			'stssbBlockEditor',
 			array(
 				'schemas'  => $list,
-				'adminUrl' => admin_url( 'admin.php?page=' . SSB_Admin::MENU_SLUG ),
+				'adminUrl' => admin_url( 'admin.php?page=' . STSSB_Admin::MENU_SLUG ),
 			)
 		);
 	}
@@ -192,10 +192,10 @@ class SSB_Block {
 			return;
 		}
 		$content = (string) $post->post_content;
-		if ( false === strpos( $content, 'wp:ssb/schema' ) && false === stripos( $content, '[smart_schema' ) ) {
+		if ( false === strpos( $content, 'wp:stssb/schema' ) && false === stripos( $content, '[stsalv_smart_schema' ) ) {
 			return;
 		}
-		wp_enqueue_style( 'ssb-frontend' );
+		wp_enqueue_style( 'stssb-frontend' );
 	}
 
 	/**
@@ -210,8 +210,8 @@ class SSB_Block {
 		$id      = isset( $attributes['schemaId'] ) ? (int) $attributes['schemaId'] : 0;
 		$wrapper = '<div ' . get_block_wrapper_attributes() . '>';
 		if ( ! $id ) {
-			if ( current_user_can( 'ssb_edit_schemas' ) ) {
-				return $wrapper . '<div class="ssb-block-empty">' .
+			if ( current_user_can( 'stssb_edit_schemas' ) ) {
+				return $wrapper . '<div class="stssb-block-empty">' .
 					esc_html__( 'Select a schema in the block settings on the right.', 'stsalv-smart-schema-builder' ) .
 					'</div></div>';
 			}
@@ -231,6 +231,6 @@ class SSB_Block {
 		if ( ! $id ) {
 			return '';
 		}
-		return SSB_Render::render( $id );
+		return STSSB_Render::render( $id );
 	}
 }

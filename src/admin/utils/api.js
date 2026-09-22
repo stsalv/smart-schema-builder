@@ -1,12 +1,12 @@
 /**
  * Admin AJAX wrapper with base64-safe JSON transport.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
-const ajaxUrl = () => window.ssbAdmin?.ajaxUrl || '/wp-admin/admin-ajax.php';
-const nonce = () => window.ssbAdmin?.adminNonce || '';
+const ajaxUrl = () => window.stssbAdmin?.ajaxUrl || '/wp-admin/admin-ajax.php';
+const nonce = () => window.stssbAdmin?.adminNonce || '';
 
 /**
  * Encode a JSON-serializable value to base64 (UTF-8 safe).
@@ -74,10 +74,10 @@ async function call( action, method = 'GET', data = null ) {
 	return json.data;
 }
 
-export const listSchemas = () => call( 'ssb_list_schemas' );
-export const getSchema = ( id ) => call( 'ssb_get_schema', 'GET', { id } );
-export const saveSchema = ( payload ) => call( 'ssb_save_schema', 'POST', payload );
-export const deleteSchema = ( id ) => call( 'ssb_delete_schema', 'POST', { id } );
-export const exportSchema = ( id ) => call( 'ssb_export_schema', 'GET', { id } );
+export const listSchemas = () => call( 'stssb_list_schemas' );
+export const getSchema = ( id ) => call( 'stssb_get_schema', 'GET', { id } );
+export const saveSchema = ( payload ) => call( 'stssb_save_schema', 'POST', payload );
+export const deleteSchema = ( id ) => call( 'stssb_delete_schema', 'POST', { id } );
+export const exportSchema = ( id ) => call( 'stssb_export_schema', 'GET', { id } );
 export const importSchema = ( id, importData ) =>
-	call( 'ssb_import_schema', 'POST', { id, import: importData } );
+	call( 'stssb_import_schema', 'POST', { id, import: importData } );
