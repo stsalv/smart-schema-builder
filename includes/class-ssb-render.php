@@ -60,7 +60,7 @@ class SSB_Render {
 				// site admin can diagnose the issue from wp-content/debug.log or
 				// the host's PHP error log.
 				$err_code = json_last_error();
-				$err_msg  = function_exists( 'json_last_error_msg' ) ? json_last_error_msg() : 'unknown';
+				$err_msg  = json_last_error_msg();
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 					error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- intentional, gated by WP_DEBUG.
 						sprintf(
