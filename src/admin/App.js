@@ -2,7 +2,7 @@
  * Admin app root: switches between the schemas list and the schema editor
  * based on the initial action and the user's navigation.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { useState, useCallback } from '@wordpress/element';
@@ -33,7 +33,7 @@ const App = ( { initialAction, initialSchemaId } ) => {
     const openList = useCallback( () => {
         setView( { action: 'list', schemaId: 0 } );
         if ( window.history && window.history.replaceState ) {
-            window.history.replaceState( {}, '', window.ssbAdmin?.listUrl || window.location.href );
+            window.history.replaceState( {}, '', window.stssbAdmin?.listUrl || window.location.href );
         }
     }, [] );
 
@@ -46,7 +46,7 @@ const App = ( { initialAction, initialSchemaId } ) => {
      */
     const openEditor = useCallback( ( id ) => {
         setView( { action: 'edit', schemaId: id || 0 } );
-        const baseUrl = window.ssbAdmin?.editUrl || window.location.href;
+        const baseUrl = window.stssbAdmin?.editUrl || window.location.href;
         const sep     = baseUrl.indexOf( '?' ) === -1 ? '?' : '&';
         if ( window.history && window.history.replaceState ) {
             window.history.replaceState( {}, '', `${ baseUrl }${ sep }action=edit&schema=${ id || 0 }` );

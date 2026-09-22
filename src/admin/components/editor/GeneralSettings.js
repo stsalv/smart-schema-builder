@@ -1,7 +1,7 @@
 /**
  * Editor tab: general schema settings.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { useState } from '@wordpress/element';
@@ -85,7 +85,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 	const footer = config.footer || {};
 	const [ customFontOpen, setCustomFontOpen ] = useState( false );
 
-	const themeFonts = window.ssbAdmin?.themeFonts || [];
+	const themeFonts = window.stssbAdmin?.themeFonts || [];
 	const fontOptions = [
 		{ value: '', label: __('Default (theme font)', 'stsalv-smart-schema-builder') },
 		...themeFonts.map( ( f ) => ( { value: f.value, label: f.label } ) ),
@@ -110,7 +110,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 		} );
 
 	return (
-		<div className="ssb-general">
+		<div className="stssb-general">
 			<TextControl
 				label={ __('Eyebrow (short line above the title)', 'stsalv-smart-schema-builder') }
 				help={ __('Example: Logistics · Transport · Foreign trade', 'stsalv-smart-schema-builder') }
@@ -123,9 +123,9 @@ const GeneralSettings = ( { config, onPatch } ) => {
 				onChange={ ( next ) => onPatch( { description: next } ) }
 			/>
 
-			<fieldset className="ssb-fieldset">
+			<fieldset className="stssb-fieldset">
 				<legend>{ __('Logo', 'stsalv-smart-schema-builder') }</legend>
-				<div className="ssb-admin-row">
+				<div className="stssb-admin-row">
 					<RadioControl
 						label={ __('Logo size', 'stsalv-smart-schema-builder') }
 						selected={ config.logoSize || 'standard' }
@@ -139,7 +139,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 					/>
 				</div>
 				<ToggleControl
-					className="ssb-general__toggle"
+					className="stssb-general__toggle"
 					label={ __('Show schema icon in the page header', 'stsalv-smart-schema-builder') }
 					help={ __('Icon set + toggle on: shown on the page and in print forms. Toggle off: used in print forms only. No icon: nothing is shown.', 'stsalv-smart-schema-builder') }
 					checked={ !! config.showIcon }
@@ -152,9 +152,9 @@ const GeneralSettings = ( { config, onPatch } ) => {
 				/>
 			</fieldset>
 
-			<fieldset className="ssb-fieldset">
+			<fieldset className="stssb-fieldset">
 				<legend>{ __('Title appearance', 'stsalv-smart-schema-builder') }</legend>
-				<div className="ssb-admin-row">
+				<div className="stssb-admin-row">
 					<RadioControl
 						label={ __('Title size', 'stsalv-smart-schema-builder') }
 						selected={ config.titleSize || 'standard' }
@@ -192,7 +192,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 				onChange={ ( next ) => onPatch( { numbering: next } ) }
 			/>
 
-			<fieldset className="ssb-fieldset">
+			<fieldset className="stssb-fieldset">
 				<legend>{ __('Download buttons', 'stsalv-smart-schema-builder') }</legend>
 				<p className="description">
 					{ __('Each format is configured independently. Button label is limited to three words.', 'stsalv-smart-schema-builder') }
@@ -216,9 +216,9 @@ const GeneralSettings = ( { config, onPatch } ) => {
 				{ DOWNLOAD_FORMATS.map( ( format ) => {
 					const row = download[ format.key ] || {};
 					return (
-						<div className="ssb-dl-row" key={ format.key }>
+						<div className="stssb-dl-row" key={ format.key }>
 							<CheckboxControl
-								className="ssb-dl-row__enable"
+								className="stssb-dl-row__enable"
 								label={ format.label }
 								checked={ !! row.enabled }
 								onChange={ ( next ) => patchFormat( format.key, { enabled: next } ) }
@@ -226,7 +226,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 							{ !! row.enabled && (
 								<>
 									<TextControl
-										className="ssb-dl-row__label"
+										className="stssb-dl-row__label"
 										label={ __('Button label', 'stsalv-smart-schema-builder') }
 										value={ row.label || '' }
 										onChange={ ( next ) =>
@@ -245,7 +245,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 										onChange={ ( next ) => patchFormat( format.key, { icon: next } ) }
 									/>
 									<RadioControl
-										className="ssb-dl-row__size"
+										className="stssb-dl-row__size"
 										label={ __('Icon size', 'stsalv-smart-schema-builder') }
 										selected={ row.iconSize || 'standard' }
 										options={ [
@@ -254,7 +254,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 										] }
 										onChange={ ( next ) => patchFormat( format.key, { iconSize: next } ) }
 									/>
-									<div className="ssb-dl-colors">
+									<div className="stssb-dl-colors">
 										<ColorField
 											label={ __('Color', 'stsalv-smart-schema-builder') }
 											value={ row.color || '#1a4fa0' }
@@ -273,7 +273,7 @@ const GeneralSettings = ( { config, onPatch } ) => {
 				} ) }
 			</fieldset>
 
-			<fieldset className="ssb-fieldset">
+			<fieldset className="stssb-fieldset">
 				<legend>{ __('Schema signature (footer)', 'stsalv-smart-schema-builder') }</legend>
 				<p className="description">
 					

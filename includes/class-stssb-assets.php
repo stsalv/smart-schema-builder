@@ -2,7 +2,7 @@
 /**
  * Front-end asset registration and enqueue logic.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -17,15 +17,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * rendering. Provides runtime data (AJAX URL, nonces, translations) via
  * wp_localize_script. Handles late-render fallback when wp_head already fired.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_Assets {
+class STSSB_Assets {
 
 	/**
 	 * Singleton instance.
 	 *
-	 * @var SSB_Assets|null
+	 * @var STSSB_Assets|null
 	 */
 	private static $instance = null;
 
@@ -40,7 +40,7 @@ class SSB_Assets {
 	 * Get the singleton.
 	 *
 	 * @since 1.0.0
-	 * @return SSB_Assets
+	 * @return STSSB_Assets
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -69,12 +69,12 @@ class SSB_Assets {
 	 */
 	private static function asset() {
 		if ( null === self::$asset ) {
-			$file        = SSB_PLUGIN_DIR . 'build/frontend.asset.php';
+			$file        = STSSB_PLUGIN_DIR . 'build/frontend.asset.php';
 			self::$asset = file_exists( $file )
 				? require $file
 				: array(
 					'dependencies' => array(),
-					'version'      => SSB_VERSION,
+					'version'      => STSSB_VERSION,
 				);
 		}
 		return self::$asset;
@@ -88,9 +88,9 @@ class SSB_Assets {
 	 */
 	public function register() {
 		$asset = self::asset();
-		wp_register_script( 'ssb-frontend', SSB_PLUGIN_URL . 'build/frontend.js', $asset['dependencies'], $asset['version'], true );
-		wp_register_style( 'ssb-frontend', SSB_PLUGIN_URL . 'build/frontend.css', array(), $asset['version'] );
-		wp_set_script_translations( 'ssb-frontend', 'stsalv-smart-schema-builder' );
+		wp_register_script( 'stssb-frontend', STSSB_PLUGIN_URL . 'build/frontend.js', $asset['dependencies'], $asset['version'], true );
+		wp_register_style( 'stssb-frontend', STSSB_PLUGIN_URL . 'build/frontend.css', array(), $asset['version'] );
+		wp_set_script_translations( 'stssb-frontend', 'stsalv-smart-schema-builder' );
 	}
 
 	/**
@@ -105,7 +105,7 @@ class SSB_Assets {
 			return;
 		}
 		$content = (string) get_post_field( 'post_content', get_queried_object_id() );
-		if ( false === stripos( $content, '[smart_schema' ) && false === strpos( $content, 'wp:ssb/schema' ) ) {
+		if ( false === stripos( $content, '[stsalv_smart_schema' ) && false === strpos( $content, 'wp:stssb/schema' ) ) {
 			return;
 		}
 		self::enqueue_frontend();
@@ -118,17 +118,17 @@ class SSB_Assets {
 	 * @return void
 	 */
 	public static function enqueue_frontend() {
-		wp_enqueue_script( 'ssb-frontend' );
-		wp_enqueue_style( 'ssb-frontend' );
+		wp_enqueue_script( 'stssb-frontend' );
+		wp_enqueue_style( 'stssb-frontend' );
 		wp_localize_script(
-			'ssb-frontend',
-			'ssbFront',
+			'stssb-frontend',
+			'stssbFront',
 			array(
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'nonce'       => wp_create_nonce( 'ssb_public' ),
-				'restUrl'     => esc_url_raw( rest_url( 'ssb/v1/' ) ),
+				'nonce'       => wp_create_nonce( 'stssb_public' ),
+				'restUrl'     => esc_url_raw( rest_url( 'stssb/v1/' ) ),
 				'restNonce'   => wp_create_nonce( 'wp_rest' ),
-				'downloadUrl' => add_query_arg( 'ver', self::asset( 'version' ), SSB_PLUGIN_URL . 'build/download.js' ),
+				'downloadUrl' => add_query_arg( 'ver', self::asset( 'version' ), STSSB_PLUGIN_URL . 'build/download.js' ),
 			)
 		);
 	}
@@ -141,26 +141,26 @@ class SSB_Assets {
 	 * @return string Late link tag or empty string.
 	 */
 	public static function ensure_frontend() {
-		wp_enqueue_script( 'ssb-frontend' );
+		wp_enqueue_script( 'stssb-frontend' );
 		wp_localize_script(
-			'ssb-frontend',
-			'ssbFront',
+			'stssb-frontend',
+			'stssbFront',
 			array(
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'nonce'       => wp_create_nonce( 'ssb_public' ),
-				'restUrl'     => esc_url_raw( rest_url( 'ssb/v1/' ) ),
+				'nonce'       => wp_create_nonce( 'stssb_public' ),
+				'restUrl'     => esc_url_raw( rest_url( 'stssb/v1/' ) ),
 				'restNonce'   => wp_create_nonce( 'wp_rest' ),
-				'downloadUrl' => add_query_arg( 'ver', self::asset( 'version' ), SSB_PLUGIN_URL . 'build/download.js' ),
+				'downloadUrl' => add_query_arg( 'ver', self::asset( 'version' ), STSSB_PLUGIN_URL . 'build/download.js' ),
 			)
 		);
-		if ( wp_style_is( 'ssb-frontend', 'enqueued' ) || wp_style_is( 'ssb-frontend', 'done' ) ) {
+		if ( wp_style_is( 'stssb-frontend', 'enqueued' ) || wp_style_is( 'stssb-frontend', 'done' ) ) {
 			return '';
 		}
 		if ( ! did_action( 'wp_head' ) ) {
-			wp_enqueue_style( 'ssb-frontend' );
+			wp_enqueue_style( 'stssb-frontend' );
 			return '';
 		}
 		$asset = self::asset();
-		return '<link rel="stylesheet" id="ssb-frontend-late-css" href="' . esc_url( add_query_arg( 'ver', $asset['version'], SSB_PLUGIN_URL . 'build/frontend.css' ) ) . '" media="all" />'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet -- late-render fallback when wp_head already fired.
+		return '<style id="stssb-frontend-late-css">@import url("' . esc_url( add_query_arg( 'ver', $asset['version'], STSSB_PLUGIN_URL . 'build/frontend.css' ) ) . '");</style>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet -- late-render fallback when wp_head already fired.
 	}
 }

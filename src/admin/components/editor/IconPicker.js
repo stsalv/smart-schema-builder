@@ -1,7 +1,7 @@
 /**
  * Icon picker: built-in SVG set plus WordPress media library (SVG only).
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { useState } from '@wordpress/element';
@@ -91,14 +91,14 @@ const IconPicker = ( { value, onChange, label } ) => {
 			return <span className="description">{ __('Not set', 'stsalv-smart-schema-builder') }</span>;
 		}
 		if ( 'media' === value.type && value.url ) {
-			return <img className="ssb-icon-media" src={ value.url } alt="" width="24" height="24" />;
+			return <img className="stssb-icon-media" src={ value.url } alt="" width="24" height="24" />;
 		}
 		return <IconPreview name={ value.value } />;
 	};
 
 	return (
-		<div className="ssb-icon-picker">
-			<Button variant="secondary" className="ssb-icon-trigger" onClick={ () => setOpen( true ) }>
+		<div className="stssb-icon-picker">
+			<Button variant="secondary" className="stssb-icon-trigger" onClick={ () => setOpen( true ) }>
 				{ renderCurrent() }
 				<span>{ label || __('Icon', 'stsalv-smart-schema-builder') }</span>
 			</Button>
@@ -114,14 +114,14 @@ const IconPicker = ( { value, onChange, label } ) => {
 				>
 					<TabPanel
 						tabs={ [
-							{ name: 'builtin', title: __('Built-in set', 'stsalv-smart-schema-builder'), className: 'ssb-tab' },
-							{ name: 'media', title: __('Media library (SVG)', 'stsalv-smart-schema-builder'), className: 'ssb-tab' },
+							{ name: 'builtin', title: __('Built-in set', 'stsalv-smart-schema-builder'), className: 'stssb-tab' },
+							{ name: 'media', title: __('Media library (SVG)', 'stsalv-smart-schema-builder'), className: 'stssb-tab' },
 						] }
 					>
 						{ ( tab ) => {
 							if ( 'media' === tab.name ) {
 								return (
-									<div className="ssb-icon-media-tab">
+									<div className="stssb-icon-media-tab">
 										{ value && 'media' === value.type && value.url && (
 											<img src={ value.url } alt="" width="48" height="48" />
 										) }
@@ -135,7 +135,7 @@ const IconPicker = ( { value, onChange, label } ) => {
 								);
 							}
 							return (
-								<div className="ssb-icon-grid">
+								<div className="stssb-icon-grid">
 									{ Object.keys( BUILTIN_ICONS ).map( ( name ) => (
 										<button
 											key={ name }

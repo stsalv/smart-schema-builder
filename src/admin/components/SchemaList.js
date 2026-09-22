@@ -1,7 +1,7 @@
 /**
  * Schemas list screen.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { useEffect, useState, useCallback } from '@wordpress/element';
@@ -101,11 +101,11 @@ const SchemaList = ( { onEdit, onNew } ) => {
 	};
 
 	return (
-		<div className="ssb-list">
-			<div className="ssb-list__header">
+		<div className="stssb-list">
+			<div className="stssb-list__header">
 				<h1>{ __('Schemas', 'stsalv-smart-schema-builder') }</h1>
-				<div className="ssb-list__actions">
-					<label className="ssb-import-label button">
+				<div className="stssb-list__actions">
+					<label className="stssb-import-label button">
 						{ importBusy ? <Spinner /> : __('Import', 'stsalv-smart-schema-builder') }
 						<input
 							type="file"
@@ -132,28 +132,28 @@ const SchemaList = ( { onEdit, onNew } ) => {
 			) }
 
 			{ loading ? (
-				<div className="ssb-list__loading"><Spinner /></div>
+				<div className="stssb-list__loading"><Spinner /></div>
 			) : schemas.length === 0 ? (
-				<div className="ssb-list__empty">
+				<div className="stssb-list__empty">
 					<p>{ __('No schemas yet. Click "Add New" to create your first schema.', 'stsalv-smart-schema-builder') }</p>
 				</div>
 			) : (
-				<table className="wp-list-table widefat striped ssb-table">
+				<table className="wp-list-table widefat striped stssb-table">
 					<thead>
 						<tr>
-							<th className="ssb-col-id">{ __('ID', 'stsalv-smart-schema-builder') }</th>
-							<th className="ssb-col-title">{ __('Smart Schema', 'stsalv-smart-schema-builder') }</th>
-							<th className="ssb-col-status">{ __('Status', 'stsalv-smart-schema-builder') }</th>
-							<th className="ssb-col-blocks">{ __('Blocks', 'stsalv-smart-schema-builder') }</th>
-							<th className="ssb-col-modified">{ __('Modified', 'stsalv-smart-schema-builder') }</th>
-							<th className="ssb-col-actions">{ __('Actions', 'stsalv-smart-schema-builder') }</th>
+							<th className="stssb-col-id">{ __('ID', 'stsalv-smart-schema-builder') }</th>
+							<th className="stssb-col-title">{ __('Smart Schema', 'stsalv-smart-schema-builder') }</th>
+							<th className="stssb-col-status">{ __('Status', 'stsalv-smart-schema-builder') }</th>
+							<th className="stssb-col-blocks">{ __('Blocks', 'stsalv-smart-schema-builder') }</th>
+							<th className="stssb-col-modified">{ __('Modified', 'stsalv-smart-schema-builder') }</th>
+							<th className="stssb-col-actions">{ __('Actions', 'stsalv-smart-schema-builder') }</th>
 						</tr>
 					</thead>
 					<tbody>
 						{ schemas.map( ( s ) => (
 							<tr key={ s.id }>
-								<td className="ssb-col-id">{ s.id }</td>
-								<td className="ssb-col-title">
+								<td className="stssb-col-id">{ s.id }</td>
+								<td className="stssb-col-title">
 									<strong>
 										<a
 											href="#edit"
@@ -163,16 +163,16 @@ const SchemaList = ( { onEdit, onNew } ) => {
 										</a>
 									</strong>
 								</td>
-								<td className="ssb-col-status">
-									<span className={ `ssb-status ssb-status--${ s.status }` }>
+								<td className="stssb-col-status">
+									<span className={ `stssb-status stssb-status--${ s.status }` }>
 										{ s.status === 'publish'
 											? __('Published', 'stsalv-smart-schema-builder')
 											: __('Draft', 'stsalv-smart-schema-builder') }
 									</span>
 								</td>
-								<td className="ssb-col-blocks">{ s.block_count }</td>
-								<td className="ssb-col-modified">{ s.modified }</td>
-								<td className="ssb-col-actions">
+								<td className="stssb-col-blocks">{ s.block_count }</td>
+								<td className="stssb-col-modified">{ s.modified }</td>
+								<td className="stssb-col-actions">
 									<Button variant="secondary" isSmall onClick={ () => onEdit( s.id ) }>
 										{ __('Edit', 'stsalv-smart-schema-builder') }
 									</Button>
@@ -180,7 +180,7 @@ const SchemaList = ( { onEdit, onNew } ) => {
 									<Button variant="tertiary" isSmall onClick={ () => handleExport( s.id ) }>
 										{ __('Export', 'stsalv-smart-schema-builder') }
 									</Button>
-									{ window.ssbAdmin?.userCan?.manage && (
+									{ window.stssbAdmin?.userCan?.manage && (
 										<>
 											{ ' ' }
 											<Button

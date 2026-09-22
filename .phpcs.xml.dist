@@ -22,12 +22,12 @@
         <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
     </rule>
 
-    <!-- Our custom capabilities are registered in ssb_add_capabilities(). -->
+    <!-- Our custom capabilities are registered in stssb_add_capabilities(). -->
     <rule ref="WordPress.WP.Capabilities">
         <properties>
             <property name="custom_capabilities" type="array">
-                <element value="ssb_edit_schemas"/>
-                <element value="ssb_manage_settings"/>
+                <element value="stssb_edit_schemas"/>
+                <element value="stssb_manage_settings"/>
             </property>
         </properties>
     </rule>
@@ -48,7 +48,7 @@
         </properties>
     </rule>
 
-    <!-- Our 3-char prefix (SSB_/ssb_) is unique and intentionally short. -->
+    <!-- Our 3-char prefix (STSSB_/stssb_) is unique and intentionally short. -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound"/>
         <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound"/>

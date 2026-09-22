@@ -2,7 +2,7 @@
 /**
  * Custom post type registration and meta field setup.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -12,23 +12,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Custom post type registration and meta field setup.
  *
- * Registers the `ssb_schema` post type with custom capabilities and two
- * meta fields: `_ssb_config` (JSON configuration) and `_ssb_stats` (JSON
+ * Registers the `stssb_schema` post type with custom capabilities and two
+ * meta fields: `_stssb_config` (JSON configuration) and `_stssb_stats` (JSON
  * statistics). Provides default configuration and statistics arrays.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_CPT {
+class STSSB_CPT {
 
-	const POST_TYPE   = 'ssb_schema';
-	const META_CONFIG = '_ssb_config';
-	const META_STATS  = '_ssb_stats';
+	const POST_TYPE   = 'stssb_schema';
+	const META_CONFIG = '_stssb_config';
+	const META_STATS  = '_stssb_stats';
 
 	/**
 	 * Singleton instance.
 	 *
-	 * @var SSB_CPT|null
+	 * @var STSSB_CPT|null
 	 */
 	private static $instance = null;
 
@@ -36,7 +36,7 @@ class SSB_CPT {
 	 * Get the singleton.
 	 *
 	 * @since 1.0.0
-	 * @return SSB_CPT
+	 * @return STSSB_CPT
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -66,7 +66,7 @@ class SSB_CPT {
 	}
 
 	/**
-	 * Register the `ssb_schema` post type with custom capabilities.
+	 * Register the `stssb_schema` post type with custom capabilities.
 	 *
 	 * @since 1.0.0
 	 * @return void
@@ -99,14 +99,14 @@ class SSB_CPT {
 			'capability_type'    => 'post',
 			// Remove map_meta_cap — control capabilities manually.
 			'capabilities'       => array(
-				'edit_post'          => 'ssb_edit_schemas',
-				'read_post'          => 'ssb_edit_schemas',
-				'delete_post'        => 'ssb_manage_settings',
-				'edit_posts'         => 'ssb_edit_schemas',
-				'edit_others_posts'  => 'ssb_edit_schemas',
-				'publish_posts'      => 'ssb_edit_schemas',
-				'read_private_posts' => 'ssb_edit_schemas',
-				'create_posts'       => 'ssb_edit_schemas',
+				'edit_post'          => 'stssb_edit_schemas',
+				'read_post'          => 'stssb_edit_schemas',
+				'delete_post'        => 'stssb_manage_settings',
+				'edit_posts'         => 'stssb_edit_schemas',
+				'edit_others_posts'  => 'stssb_edit_schemas',
+				'publish_posts'      => 'stssb_edit_schemas',
+				'read_private_posts' => 'stssb_edit_schemas',
+				'create_posts'       => 'stssb_edit_schemas',
 			),
 			'has_archive'        => false,
 			'hierarchical'       => false,
@@ -121,7 +121,7 @@ class SSB_CPT {
 	 * Register meta fields for schema configuration and statistics.
 	 *
 	 * Both meta fields are stored as JSON strings and require the
-	 * `ssb_edit_schemas` capability for updates.
+	 * `stssb_edit_schemas` capability for updates.
 	 *
 	 * @since 1.0.0
 	 * @return void
@@ -138,7 +138,7 @@ class SSB_CPT {
 			},
 			// We allow updates to everyone who can edit posts of this type.
 			'auth_callback'     => static function () {
-				return current_user_can( 'ssb_edit_schemas' );
+				return current_user_can( 'stssb_edit_schemas' );
 			},
 		);
 		register_post_meta( self::POST_TYPE, self::META_CONFIG, $args_config );

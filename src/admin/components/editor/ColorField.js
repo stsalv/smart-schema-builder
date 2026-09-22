@@ -4,7 +4,7 @@
  * The native input[type=color] opens the browser color dialog which
  * includes an eyedropper tool in Chromium-based browsers.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { __ } from '@wordpress/i18n';
@@ -37,9 +37,9 @@ const toInputHex = ( value ) => {
  * @return {Element} Field element.
  */
 const ColorField = ( { value, onChange, label } ) => (
-	<div className="ssb-color-field">
-		<span className="ssb-color-field__label">{ label }</span>
-		<div className="ssb-color-field__swatches">
+	<div className="stssb-color-field">
+		<span className="stssb-color-field__label">{ label }</span>
+		<div className="stssb-color-field__swatches">
 			{ PALETTES.map( ( palette ) => (
 				<button
 					key={ palette.color }
@@ -52,7 +52,7 @@ const ColorField = ( { value, onChange, label } ) => (
 			) ) }
 			<input
 				type="color"
-				className="ssb-color-field__custom"
+				className="stssb-color-field__custom"
 				title={ __('Custom color (eyedropper in the browser dialog)', 'stsalv-smart-schema-builder') }
 				value={ toInputHex( value ) }
 				onChange={ ( event ) => onChange( event.target.value ) }

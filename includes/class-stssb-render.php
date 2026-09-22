@@ -6,7 +6,7 @@
  * are passed as inline CSS custom properties, and the shared stylesheet
  * contains no per-schema rules, so multiple schemas coexist safely.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -20,13 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Each render call produces a self-contained HTML fragment with a unique
  * root id, inline CSS custom properties for group colors, and no shared
  * per-schema rules, so multiple schemas on one page coexist safely.
- * Handles publication visibility (drafts require `ssb_edit_schemas`),
+ * Handles publication visibility (drafts require `stssb_edit_schemas`),
  * damaged-config diagnostics, and late-render asset fallback.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_Render {
+class STSSB_Render {
 
 	/**
 	 * Per-request counter for unique instance ids.
@@ -44,14 +44,14 @@ class SSB_Render {
 	 */
 	public static function render( $schema_id ) {
 		$post = get_post( (int) $schema_id );
-		if ( ! $post || SSB_CPT::POST_TYPE !== $post->post_type ) {
+		if ( ! $post || STSSB_CPT::POST_TYPE !== $post->post_type ) {
 			return '';
 		}
-		if ( 'publish' !== get_post_status( $post ) && ! current_user_can( 'ssb_edit_schemas' ) ) {
+		if ( 'publish' !== get_post_status( $post ) && ! current_user_can( 'stssb_edit_schemas' ) ) {
 			return '';
 		}
 
-		$raw    = (string) get_post_meta( $post->ID, SSB_CPT::META_CONFIG, true );
+		$raw    = (string) get_post_meta( $post->ID, STSSB_CPT::META_CONFIG, true );
 		$config = json_decode( $raw, true );
 
 		if ( ! is_array( $config ) ) {
@@ -60,11 +60,11 @@ class SSB_Render {
 				// site admin can diagnose the issue from wp-content/debug.log or
 				// the host's PHP error log.
 				$err_code = json_last_error();
-				$err_msg  = function_exists( 'json_last_error_msg' ) ? json_last_error_msg() : 'unknown';
+				$err_msg  = json_last_error_msg();
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 					error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- intentional, gated by WP_DEBUG.
 						sprintf(
-							'[SSB] Schema #%d config is damaged (JSON error %d: %s). Raw length: %d bytes.',
+							'[STSSB] Schema #%d config is damaged (JSON error %d: %s). Raw length: %d bytes.',
 							$post->ID,
 							$err_code,
 							$err_msg,
@@ -76,11 +76,11 @@ class SSB_Render {
 
 			// Show a diagnostic banner only to logged-in users who can edit schemas,
 			// so regular visitors still see a clean page.
-			if ( current_user_can( 'ssb_edit_schemas' ) ) {
+			if ( current_user_can( 'stssb_edit_schemas' ) ) {
 				return sprintf(
-					'<div class="ssb-error" role="alert">%s <a href="%s">%s</a></div>',
+					'<div class="stssb-error" role="alert">%s <a href="%s">%s</a></div>',
 					esc_html__( 'Schema configuration is damaged. See wp-content/debug.log for details or re-import the schema.', 'stsalv-smart-schema-builder' ),
-					esc_url( admin_url( 'admin.php?page=' . SSB_Admin::MENU_SLUG ) ),
+					esc_url( admin_url( 'admin.php?page=' . STSSB_Admin::MENU_SLUG ) ),
 					esc_html__( 'Go to Smart schemas', 'stsalv-smart-schema-builder' )
 				);
 			}
@@ -99,23 +99,23 @@ class SSB_Render {
 		}
 
 		++self::$instance_counter;
-		$instance_id = 'ssb-' . $post->ID . '-' . self::$instance_counter;
+		$instance_id = 'stssb-' . $post->ID . '-' . self::$instance_counter;
 		$numbering   = ! empty( $config['numbering'] );
 
 		$out   = array();
-		$out[] = SSB_Assets::ensure_frontend();
+		$out[] = STSSB_Assets::ensure_frontend();
 
 		$pub_ts    = (int) get_post_time( 'U', true, $post );
 		$pub_label = $pub_ts ? date_i18n( get_option( 'date_format' ), $pub_ts ) : '';
 
 		$orientation = 'portrait' === ( $config['download']['orientation'] ?? 'landscape' ) ? 'portrait' : 'landscape';
 		$multipage   = empty( $config['download']['multipage'] ) ? '0' : '1';
-		$out[]       = '<div class="ssb-root" id="' . esc_attr( $instance_id ) . '" data-schema-id="' . esc_attr( $post->ID ) . '" data-tags-param="' . esc_attr( 'ssb_tags_' . $post->ID ) . '" data-pub-date="' . esc_attr( $pub_label ) . '" data-orientation="' . esc_attr( $orientation ) . '" data-multipage="' . esc_attr( $multipage ) . '">';
+		$out[]       = '<div class="stssb-root" id="' . esc_attr( $instance_id ) . '" data-schema-id="' . esc_attr( $post->ID ) . '" data-tags-param="' . esc_attr( 'stssb_tags_' . $post->ID ) . '" data-pub-date="' . esc_attr( $pub_label ) . '" data-orientation="' . esc_attr( $orientation ) . '" data-multipage="' . esc_attr( $multipage ) . '">';
 
 		$out[] = self::render_header( $config, $title );
 		// Print-only meta line: publication date plus active filters (filled
 		// client-side). Hidden on screen, revealed in print compositions.
-		$out[] = '<div class="ssb-print-meta" hidden><span class="ssb-print-meta-date">' . esc_html( $pub_label ) . '</span><span class="ssb-print-meta-tags"></span></div>';
+		$out[] = '<div class="stssb-print-meta" hidden><span class="stssb-print-meta-date">' . esc_html( $pub_label ) . '</span><span class="stssb-print-meta-tags"></span></div>';
 
 		$out[] = self::render_tags_bar( $config );
 
@@ -128,7 +128,7 @@ class SSB_Render {
 				continue;
 			}
 			++$head_index;
-			$out[] = '<div class="ssb-block-head"><span class="ssb-idx">' . str_pad( (string) $head_index, 2, '0', STR_PAD_LEFT ) . '</span><h3 class="ssb-block-title">' . esc_html( (string) ( $block['title'] ?? '' ) ) . '</h3></div>';
+			$out[] = '<div class="stssb-block-head"><span class="stssb-idx">' . str_pad( (string) $head_index, 2, '0', STR_PAD_LEFT ) . '</span><h3 class="stssb-block-title">' . esc_html( (string) ( $block['title'] ?? '' ) ) . '</h3></div>';
 			switch ( $layout ) {
 				case 'sequence':
 					$out[] = self::render_sequence( $block, $number, $numbering );
@@ -163,7 +163,7 @@ class SSB_Render {
 	private static function render_header( $config, $title ) {
 		// The logo is rendered whenever an icon is set; with the page toggle
 		// off it is hidden on screen but kept for print forms (PDF/PNG).
-		$icon_html = self::render_icon( $config['icon'] ?? null, 'ssb-logo-icon' );
+		$icon_html = self::render_icon( $config['icon'] ?? null, 'stssb-logo-icon' );
 		$logo_off  = empty( $config['showIcon'] );
 
 		$eyebrow = (string) ( $config['eyebrow'] ?? '' );
@@ -172,7 +172,7 @@ class SSB_Render {
 		if ( ! in_array( $size, array( 'small', 'standard', 'large' ), true ) ) {
 			$size = 'standard';
 		}
-		$title_class = 'ssb-title' . ( 'standard' !== $size ? ' ssb-title--' . $size : '' );
+		$title_class = 'stssb-title' . ( 'standard' !== $size ? ' stssb-title--' . $size : '' );
 
 		$title_style = '';
 		$font        = self::sanitize_font_family( (string) ( $config['titleFont'] ?? '' ) );
@@ -185,19 +185,19 @@ class SSB_Render {
 			$logo_size = 'standard';
 		}
 		$logo_color = self::sanitize_hex( $config['logoColor'] ?? '#1a4fa0', '#1a4fa0' );
-		$logo_style = ' style="--ssb-logo-ink:' . esc_attr( $logo_color )
-			. ';--ssb-logo-tile:' . esc_attr( self::mix( $logo_color, '#ffffff', 0.92 ) ) . '"';
+		$logo_style = ' style="--stssb-logo-ink:' . esc_attr( $logo_color )
+			. ';--stssb-logo-tile:' . esc_attr( self::mix( $logo_color, '#ffffff', 0.92 ) ) . '"';
 
-		$html  = '<header class="ssb-header">';
-		$html .= $icon_html ? '<div class="ssb-logo ssb-logo--' . esc_attr( $logo_size ) . ( $logo_off ? ' ssb-logo--screen-off' : '' ) . '"' . $logo_style . '>' . $icon_html . '</div>' : '';
-		$html .= '<div class="ssb-header-text">';
+		$html  = '<header class="stssb-header">';
+		$html .= $icon_html ? '<div class="stssb-logo stssb-logo--' . esc_attr( $logo_size ) . ( $logo_off ? ' stssb-logo--screen-off' : '' ) . '"' . $logo_style . '>' . $icon_html . '</div>' : '';
+		$html .= '<div class="stssb-header-text">';
 		if ( '' !== trim( $eyebrow ) ) {
-			$html .= '<p class="ssb-eyebrow">' . esc_html( $eyebrow ) . '</p>';
+			$html .= '<p class="stssb-eyebrow">' . esc_html( $eyebrow ) . '</p>';
 		}
 		$html .= '<h2 class="' . esc_attr( $title_class ) . '"' . $title_style . '>' . esc_html( $title ) . '</h2>';
 		$desc  = (string) ( $config['description'] ?? '' );
 		if ( '' !== trim( $desc ) ) {
-			$html .= '<p class="ssb-description">' . esc_html( $desc ) . '</p>';
+			$html .= '<p class="stssb-description">' . esc_html( $desc ) . '</p>';
 		}
 		$html .= '</div>';
 		$html .= self::render_download( $config );
@@ -318,7 +318,7 @@ class SSB_Render {
 		if ( ! $tags ) {
 			return '';
 		}
-		$html = '<div class="ssb-tags" role="group" aria-label="' . esc_attr__( 'Schema filters', 'stsalv-smart-schema-builder' ) . '">';
+		$html = '<div class="stssb-tags" role="group" aria-label="' . esc_attr__( 'Schema filters', 'stsalv-smart-schema-builder' ) . '">';
 		foreach ( $tags as $tag ) {
 			if ( ! is_array( $tag ) || empty( $tag['id'] ) ) {
 				continue;
@@ -329,7 +329,7 @@ class SSB_Render {
 				? $tag['label']
 				: (string) ( $tag['id'] ?? '' );
 
-			$html .= '<button type="button" class="ssb-tag" data-tag="' . esc_attr( $tag['id'] ) . '" aria-pressed="false" style="--ssb-tag-color:' . esc_attr( $tag_color ) . '">' . esc_html( $tag_label ) . '</button>';
+			$html .= '<button type="button" class="stssb-tag" data-tag="' . esc_attr( $tag['id'] ) . '" aria-pressed="false" style="--stssb-tag-color:' . esc_attr( $tag_color ) . '">' . esc_html( $tag_label ) . '</button>';
 		}
 		$html .= '</div>';
 		return $html;
@@ -357,14 +357,14 @@ class SSB_Render {
 					'type'  => 'builtin',
 					'value' => 'download',
 				),
-				'ssb-download-icon' . ( $large ? ' ssb-download-icon--large' : '' )
+				'stssb-download-icon' . ( $large ? ' stssb-download-icon--large' : '' )
 			);
 			$hover       = trim( (string) ( $row['hoverColor'] ?? '' ) );
-			$hover_style = '' !== $hover ? ';--ssb-btn-hover:' . self::sanitize_hex( $hover, '#1a4fa0' ) : '';
+			$hover_style = '' !== $hover ? ';--stssb-btn-hover:' . self::sanitize_hex( $hover, '#1a4fa0' ) : '';
 
-			$buttons .= '<button type="button" class="ssb-download-btn" data-format="' . esc_attr( $format ) . '" style="--ssb-btn-color:' . esc_attr( $color ) . $hover_style . '">' . $icon . '<span class="ssb-download-label">' . esc_html( (string) ( $row['label'] ?? '' ) ) . '</span></button>';
+			$buttons .= '<button type="button" class="stssb-download-btn" data-format="' . esc_attr( $format ) . '" style="--stssb-btn-color:' . esc_attr( $color ) . $hover_style . '">' . $icon . '<span class="stssb-download-label">' . esc_html( (string) ( $row['label'] ?? '' ) ) . '</span></button>';
 		}
-		return $buttons ? '<div class="ssb-download">' . $buttons . '</div>' : '';
+		return $buttons ? '<div class="stssb-download">' . $buttons . '</div>' : '';
 	}
 
 	/**
@@ -387,8 +387,8 @@ class SSB_Render {
 		if ( ! $cards ) {
 			return '';
 		}
-		$arrow = '<span class="ssb-arrow" aria-hidden="true">' . SSB_Icons::svg( 'arrowRight', 'ssb-arrow-icon' ) . '</span>';
-		return '<div class="ssb-sequence">' . implode( $arrow, $cards ) . '</div>';
+		$arrow = '<span class="stssb-arrow" aria-hidden="true">' . STSSB_Icons::svg( 'arrowRight', 'stssb-arrow-icon' ) . '</span>';
+		return '<div class="stssb-sequence">' . implode( $arrow, $cards ) . '</div>';
 	}
 
 	/**
@@ -408,10 +408,10 @@ class SSB_Render {
 			foreach ( (array) ( $group['items'] ?? array() ) as $item ) {
 				$cards .= self::render_card( $item, $number, $numbering, $show_short );
 			}
-			$head   = '<header class="ssb-group-head">' . self::render_icon( $group['icon'] ?? null, 'ssb-group-icon' ) . '<h4 class="ssb-group-title">' . esc_html( (string) ( $group['title'] ?? '' ) ) . '</h4></header>';
-			$cols[] = '<section class="ssb-group" ' . self::color_vars( $group['color'] ?? '#64748b' ) . '>' . $head . $cards . '</section>';
+			$head   = '<header class="stssb-group-head">' . self::render_icon( $group['icon'] ?? null, 'stssb-group-icon' ) . '<h4 class="stssb-group-title">' . esc_html( (string) ( $group['title'] ?? '' ) ) . '</h4></header>';
+			$cols[] = '<section class="stssb-group" ' . self::color_vars( $group['color'] ?? '#64748b' ) . '>' . $head . $cards . '</section>';
 		}
-		return $cols ? '<div class="ssb-columns">' . implode( '', $cols ) . '</div>' : '';
+		return $cols ? '<div class="stssb-columns">' . implode( '', $cols ) . '</div>' : '';
 	}
 
 	/**
@@ -431,7 +431,7 @@ class SSB_Render {
 			$cards          = '';
 			$first_in_group = true;
 			foreach ( (array) ( $group['items'] ?? array() ) as $item ) {
-				$extra          = ( $first_group && $first_in_group ) ? 'ssb-card--accent' : '';
+				$extra          = ( $first_group && $first_in_group ) ? 'stssb-card--accent' : '';
 				$cards         .= self::render_card( $item, $number, $numbering, $show_short, $extra );
 				$first_in_group = false;
 			}
@@ -439,14 +439,14 @@ class SSB_Render {
 				continue;
 			}
 			$gtitle      = (string) ( $group['title'] ?? '' );
-			$gicon       = self::render_icon( $group['icon'] ?? null, 'ssb-group-icon' );
+			$gicon       = self::render_icon( $group['icon'] ?? null, 'stssb-group-icon' );
 			$head        = ( $gicon || '' !== trim( $gtitle ) )
-				? '<header class="ssb-group-head">' . $gicon . ( '' !== trim( $gtitle ) ? '<h4 class="ssb-group-title">' . esc_html( $gtitle ) . '</h4>' : '' ) . '</header>'
+				? '<header class="stssb-group-head">' . $gicon . ( '' !== trim( $gtitle ) ? '<h4 class="stssb-group-title">' . esc_html( $gtitle ) . '</h4>' : '' ) . '</header>'
 				: '';
-			$cols[]      = '<section class="ssb-hub-col" ' . self::color_vars( $group['color'] ?? '#64748b' ) . '>' . $head . $cards . '</section>';
+			$cols[]      = '<section class="stssb-hub-col" ' . self::color_vars( $group['color'] ?? '#64748b' ) . '>' . $head . $cards . '</section>';
 			$first_group = false;
 		}
-		return $cols ? '<div class="ssb-hub">' . implode( '', $cols ) . '</div>' : '';
+		return $cols ? '<div class="stssb-hub">' . implode( '', $cols ) . '</div>' : '';
 	}
 
 	/**
@@ -466,10 +466,10 @@ class SSB_Render {
 			foreach ( (array) ( $group['items'] ?? array() ) as $item ) {
 				$cards .= self::render_card( $item, $number, $numbering, $show_short );
 			}
-			$head     = '<div class="ssb-panel-head">' . self::render_icon( $group['icon'] ?? null, 'ssb-group-icon' ) . '<h4 class="ssb-group-title">' . esc_html( (string) ( $group['title'] ?? '' ) ) . '</h4></div>';
-			$panels[] = '<aside class="ssb-panel" ' . self::color_vars( $group['color'] ?? '#64748b' ) . '>' . $head . $cards . '</aside>';
+			$head     = '<div class="stssb-panel-head">' . self::render_icon( $group['icon'] ?? null, 'stssb-group-icon' ) . '<h4 class="stssb-group-title">' . esc_html( (string) ( $group['title'] ?? '' ) ) . '</h4></div>';
+			$panels[] = '<aside class="stssb-panel" ' . self::color_vars( $group['color'] ?? '#64748b' ) . '>' . $head . $cards . '</aside>';
 		}
-		return $panels ? '<div class="ssb-panels">' . implode( '', $panels ) . '</div>' : '';
+		return $panels ? '<div class="stssb-panels">' . implode( '', $panels ) . '</div>' : '';
 	}
 
 	/**
@@ -482,23 +482,23 @@ class SSB_Render {
 	 */
 	private static function render_separator( $block ) {
 		$color      = self::sanitize_hex( $block['color'] ?? '#64748b', '#64748b' );
-		$line_class = 'ssb-sep-line';
+		$line_class = 'stssb-sep-line';
 		$line_style = '';
 		$icon       = $block['icon'] ?? null;
 		$uri        = '';
 		if ( is_array( $icon ) && 'builtin' === ( $icon['type'] ?? '' ) && ! empty( $icon['value'] ) ) {
-			$uri = SSB_Icons::data_uri( (string) $icon['value'], $color );
+			$uri = STSSB_Icons::data_uri( (string) $icon['value'], $color );
 		} elseif ( is_array( $icon ) && 'media' === ( $icon['type'] ?? '' ) ) {
 			$uri = (string) ( $icon['url'] ?? wp_get_attachment_image_url( (int) ( $icon['value'] ?? 0 ), 'full' ) );
 		}
 		if ( $uri ) {
 			$line_style = ' style="' . esc_attr( "background-image:url('$uri')" ) . '"';
 		} else {
-			$line_class .= ' ssb-sep-line--dashed';
+			$line_class .= ' stssb-sep-line--dashed';
 		}
 		$title = (string) ( $block['title'] ?? '' );
 		$line  = '<span class="' . esc_attr( $line_class ) . '" aria-hidden="true"' . $line_style . '></span>';
-		return '<div class="ssb-sep" style="--ssb-sep-color:' . esc_attr( $color ) . '">' . $line . ( '' !== trim( $title ) ? '<span class="ssb-sep-title">' . esc_html( $title ) . '</span>' : '' ) . $line . '</div>';
+		return '<div class="stssb-sep" style="--stssb-sep-color:' . esc_attr( $color ) . '">' . $line . ( '' !== trim( $title ) ? '<span class="stssb-sep-title">' . esc_html( $title ) . '</span>' : '' ) . $line . '</div>';
 	}
 
 	/**
@@ -524,8 +524,8 @@ class SSB_Render {
 		$fg     = '' !== $fg_raw ? self::sanitize_hex( $fg_raw, '#1e293b' ) : '';
 
 		// An explicit background wins over the automatic hub accent.
-		if ( $bg && false !== strpos( $extra, 'ssb-card--accent' ) ) {
-			$extra = trim( str_replace( 'ssb-card--accent', '', $extra ) );
+		if ( $bg && false !== strpos( $extra, 'stssb-card--accent' ) ) {
+			$extra = trim( str_replace( 'stssb-card--accent', '', $extra ) );
 		}
 
 		$style       = '';
@@ -534,24 +534,24 @@ class SSB_Render {
 		$dark_bg     = $bg && self::is_dark( $bg );
 
 		if ( $bg ) {
-			$style .= '--ssb-card-bg:' . $bg . ';';
+			$style .= '--stssb-card-bg:' . $bg . ';';
 		}
 		// Dark item backgrounds automatically switch text to white and add a
 		// dimmed variant for the short description, mirroring group tints.
 		if ( $dark_bg ) {
-			$style .= '--ssb-card-fg:#ffffff;--ssb-card-fg-muted:rgba(255,255,255,.75);';
+			$style .= '--stssb-card-fg:#ffffff;--stssb-card-fg-muted:rgba(255,255,255,.75);';
 		}
 		if ( $fg ) {
-			$style .= '--ssb-icon-ink:' . $fg . ';';
+			$style .= '--stssb-icon-ink:' . $fg . ';';
 		} elseif ( $dark_bg ) {
-			$style .= '--ssb-icon-ink:#ffffff;';
+			$style .= '--stssb-icon-ink:#ffffff;';
 		}
 		if ( $icon_bg ) {
-			$style .= '--ssb-icon-tile:' . $icon_bg . ';';
+			$style .= '--stssb-icon-tile:' . $icon_bg . ';';
 		} elseif ( $fg ) {
-			$style .= '--ssb-icon-tile:' . self::mix( $fg, $bg ? $bg : '#ffffff', 0.88 ) . ';';
+			$style .= '--stssb-icon-tile:' . self::mix( $fg, $bg ? $bg : '#ffffff', 0.88 ) . ';';
 		} elseif ( $dark_bg ) {
-			$style .= '--ssb-icon-tile:rgba(255,255,255,.18);';
+			$style .= '--stssb-icon-tile:rgba(255,255,255,.18);';
 		}
 
 		$icon_html = '';
@@ -559,24 +559,24 @@ class SSB_Render {
 		if ( $icon ) {
 			$isize     = (string) ( $item['iconSize'] ?? 'standard' );
 			$isize     = in_array( $isize, array( 'small', 'standard', 'large' ), true ) ? $isize : 'standard';
-			$icon_html = '<span class="ssb-card-icon ssb-card-icon--' . esc_attr( $isize ) . '">' . self::render_icon( $icon, 'ssb-card-icon-svg' ) . '</span>';
+			$icon_html = '<span class="stssb-card-icon stssb-card-icon--' . esc_attr( $isize ) . '">' . self::render_icon( $icon, 'stssb-card-icon-svg' ) . '</span>';
 		}
 
-		$classes = 'ssb-card' . ( $clickable ? ' ssb-card--clickable' : '' ) . ( $extra ? ' ' . $extra : '' );
+		$classes = 'stssb-card' . ( $clickable ? ' stssb-card--clickable' : '' ) . ( $extra ? ' ' . $extra : '' );
 
 		$html  = '<div class="' . esc_attr( $classes ) . '" data-tags="' . esc_attr( implode( ' ', $tags ) ) . '"'
 			. ( $style ? ' style="' . esc_attr( $style ) . '"' : '' )
 			. ( $clickable ? ' tabindex="0" role="button"' : '' ) . '>';
-		$html .= $numbering ? '<span class="ssb-num">' . (int) $number . '</span>' : '';
+		$html .= $numbering ? '<span class="stssb-num">' . (int) $number . '</span>' : '';
 		++$number;
 		$html .= $icon_html;
-		$html .= '<div class="ssb-card-body">';
-		$html .= '<p class="ssb-card-title">' . esc_html( (string) ( $item['title'] ?? '' ) ) . '</p>';
+		$html .= '<div class="stssb-card-body">';
+		$html .= '<p class="stssb-card-title">' . esc_html( (string) ( $item['title'] ?? '' ) ) . '</p>';
 		if ( $show_short && '' !== trim( (string) ( $item['short'] ?? '' ) ) ) {
-			$html .= '<p class="ssb-card-short">' . esc_html( (string) $item['short'] ) . '</p>';
+			$html .= '<p class="stssb-card-short">' . esc_html( (string) $item['short'] ) . '</p>';
 		}
 		if ( $clickable ) {
-			$html .= '<div class="ssb-card-full" hidden>' . self::sanitize_full( $full ) . '</div>';
+			$html .= '<div class="stssb-card-full" hidden>' . self::sanitize_full( $full ) . '</div>';
 		}
 		$html .= '</div></div>';
 		return $html;
@@ -621,9 +621,9 @@ class SSB_Render {
 		if ( '' === trim( $left ) && '' === trim( $right ) ) {
 			return '';
 		}
-		return '<div class="ssb-footer">'
-			. '<span class="ssb-footer-left">' . esc_html( $left ) . '</span>'
-			. '<span class="ssb-footer-right">' . esc_html( $right ) . '</span>'
+		return '<div class="stssb-footer">'
+			. '<span class="stssb-footer-left">' . esc_html( $left ) . '</span>'
+			. '<span class="stssb-footer-right">' . esc_html( $right ) . '</span>'
 			. '</div>';
 	}
 
@@ -666,15 +666,15 @@ class SSB_Render {
 	 * @param string $css_class CSS class.
 	 * @return string HTML or empty string.
 	 */
-	private static function render_icon( $icon, $css_class = 'ssb-icon' ) {
+	private static function render_icon( $icon, $css_class = 'stssb-icon' ) {
 		if ( is_string( $icon ) ) {
-			return $icon ? SSB_Icons::svg( $icon, $css_class ) : '';
+			return $icon ? STSSB_Icons::svg( $icon, $css_class ) : '';
 		}
 		if ( ! is_array( $icon ) ) {
 			return '';
 		}
 		if ( 'builtin' === ( $icon['type'] ?? '' ) ) {
-			return SSB_Icons::svg( (string) ( $icon['value'] ?? '' ), $css_class );
+			return STSSB_Icons::svg( (string) ( $icon['value'] ?? '' ), $css_class );
 		}
 		if ( 'media' === ( $icon['type'] ?? '' ) ) {
 			$inline = self::get_inline_svg( (int) ( $icon['value'] ?? 0 ), $css_class );
@@ -796,10 +796,10 @@ class SSB_Render {
 	 */
 	private static function color_vars( $color ) {
 		$accent = self::sanitize_hex( $color, '#64748b' );
-		return 'style="--ssb-accent:' . esc_attr( $accent )
-			. ';--ssb-soft:' . esc_attr( self::mix( $accent, '#ffffff', 0.85 ) )
-			. ';--ssb-tint:' . esc_attr( self::mix( $accent, '#ffffff', 0.94 ) )
-			. ';--ssb-bord:' . esc_attr( self::mix( $accent, '#ffffff', 0.70 ) ) . '"';
+		return 'style="--stssb-accent:' . esc_attr( $accent )
+			. ';--stssb-soft:' . esc_attr( self::mix( $accent, '#ffffff', 0.85 ) )
+			. ';--stssb-tint:' . esc_attr( self::mix( $accent, '#ffffff', 0.94 ) )
+			. ';--stssb-bord:' . esc_attr( self::mix( $accent, '#ffffff', 0.70 ) ) . '"';
 	}
 
 	/**

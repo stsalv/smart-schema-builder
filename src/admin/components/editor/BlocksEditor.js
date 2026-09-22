@@ -1,7 +1,7 @@
 /**
  * Editor tab: blocks, groups and items constructor.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { useState } from '@wordpress/element';
@@ -31,7 +31,7 @@ import ColorField from './ColorField';
  * @return {Element} Buttons group.
  */
 const MoveButtons = ( { onUp, onDown, isFirst, isLast } ) => (
-	<span className="ssb-move">
+	<span className="stssb-move">
 		<Button icon="arrow-up-alt2" label={ __('Move up', 'stsalv-smart-schema-builder') } disabled={ isFirst } onClick={ onUp } isSmall />
 		<Button icon="arrow-down-alt2" label={ __('Move down', 'stsalv-smart-schema-builder') } disabled={ isLast } onClick={ onDown } isSmall />
 	</span>
@@ -67,10 +67,10 @@ const ItemCard = ( { item, tags, onPatch, onMove, onRemove, isFirst, isLast } ) 
 	const [ showDetails, setDetails ] = useState( false );
 
 	return (
-		<div className="ssb-item-card">
-			<div className="ssb-item-card__row">
+		<div className="stssb-item-card">
+			<div className="stssb-item-card__row">
 				<TextControl
-					className="ssb-input--wide"
+					className="stssb-input--wide"
 					label={ __('Item title', 'stsalv-smart-schema-builder') }
 					hideLabelFromVision
 					placeholder={ __('Item title', 'stsalv-smart-schema-builder') }
@@ -99,8 +99,8 @@ const ItemCard = ( { item, tags, onPatch, onMove, onRemove, isFirst, isLast } ) 
 						value={ item.full || '' }
 						onChange={ ( next ) => onPatch( { full: next } ) }
 					/>
-					<div className="ssb-item-settings">
-						<div className="ssb-item-settings__col">
+					<div className="stssb-item-settings">
+						<div className="stssb-item-settings__col">
 							<IconPicker
 								label={ __('Item icon', 'stsalv-smart-schema-builder') }
 								value={ item.icon }
@@ -117,7 +117,7 @@ const ItemCard = ( { item, tags, onPatch, onMove, onRemove, isFirst, isLast } ) 
 								value={ item.bg || '#ffffff' }
 								onChange={ ( next ) => onPatch( { bg: next } ) }
 							/>
-							<fieldset className="ssb-fieldset">
+							<fieldset className="stssb-fieldset">
 								<legend>{ __('Tags', 'stsalv-smart-schema-builder') }</legend>
 								{ 0 === tags.length && (
 									<p className="description">
@@ -140,7 +140,7 @@ const ItemCard = ( { item, tags, onPatch, onMove, onRemove, isFirst, isLast } ) 
 								) ) }
 							</fieldset>
 						</div>
-						<div className="ssb-item-settings__col">
+						<div className="stssb-item-settings__col">
 							<ColorField
 								label={ __('Icon text color', 'stsalv-smart-schema-builder') }
 								value={ item.fg || '#1e293b' }
@@ -177,9 +177,9 @@ const ItemCard = ( { item, tags, onPatch, onMove, onRemove, isFirst, isLast } ) 
  * @return {Element} Card element.
  */
 const GroupCard = ( { group, tags, onPatch, onMove, onRemove, isFirst, isLast } ) => (
-	<div className="ssb-group-card" style={ { borderLeftColor: group.color } }>
-		<div className="ssb-group-card__top">
-			<div className="ssb-group-card__controls">
+	<div className="stssb-group-card" style={ { borderLeftColor: group.color } }>
+		<div className="stssb-group-card__top">
+			<div className="stssb-group-card__controls">
 				<ColorField
 					label={ __('Group color', 'stsalv-smart-schema-builder') }
 					value={ group.color }
@@ -201,14 +201,14 @@ const GroupCard = ( { group, tags, onPatch, onMove, onRemove, isFirst, isLast } 
 					onChange={ ( next ) => onPatch( { showShortDesc: next } ) }
 				/>
 			</div>
-			<div className="ssb-group-card__side">
+			<div className="stssb-group-card__side">
 				<MoveButtons onUp={ () => onMove( -1 ) } onDown={ () => onMove( 1 ) } isFirst={ isFirst } isLast={ isLast } />
 				<Button variant="tertiary" isDestructive onClick={ onRemove }>
 					{ __('Delete group', 'stsalv-smart-schema-builder') }
 				</Button>
 			</div>
 		</div>
-		<div className="ssb-group-card__items">
+		<div className="stssb-group-card__items">
 			{ ( group.items || [] ).map( ( item, itemIndex ) => (
 				<ItemCard
 					key={ item.id }
@@ -259,12 +259,12 @@ const BlocksEditor = ( { blocks, tags, onChange } ) => {
 		onChange( blocks.map( ( block, i ) => ( i === index ? { ...block, ...patch } : block ) ) );
 
 	return (
-		<div className="ssb-blocks">
+		<div className="stssb-blocks">
 			{ blocks.map( ( block, blockIndex ) => (
-				<section className="ssb-block-card" key={ block.id }>
-					<header className="ssb-block-card__head">
+				<section className="stssb-block-card" key={ block.id }>
+					<header className="stssb-block-card__head">
 						<TextControl
-							className="ssb-input--wide"
+							className="stssb-input--wide"
 							label={ __('Block name', 'stsalv-smart-schema-builder') }
 							placeholder={ __('Block name, e.g. Commercial parties', 'stsalv-smart-schema-builder') }
 							value={ block.title }
@@ -291,7 +291,7 @@ const BlocksEditor = ( { blocks, tags, onChange } ) => {
 						</Button>
 					</header>
 					{ 'separator' === block.layout ? (
-						<div className="ssb-block-card__separator">
+						<div className="stssb-block-card__separator">
 							<IconPicker
 								label={ __('Separator icon', 'stsalv-smart-schema-builder') }
 								value={ block.icon }
@@ -307,7 +307,7 @@ const BlocksEditor = ( { blocks, tags, onChange } ) => {
 							</p>
 						</div>
 					) : (
-						<div className="ssb-block-card__groups">
+						<div className="stssb-block-card__groups">
 							{ ( block.groups || [] ).map( ( group, groupIndex ) => (
 								<GroupCard
 									key={ group.id }

@@ -1,7 +1,7 @@
 /**
  * Editor tab: schema tags dictionary.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { Button, TextControl } from '@wordpress/components';
@@ -48,14 +48,14 @@ const TagsManager = ( { tags, onChange } ) => {
 	const removeTag = ( id ) => onChange( tags.filter( ( tag ) => tag.id !== id ) );
 
 	return (
-		<div className="ssb-tags">
+		<div className="stssb-tags">
 			<p className="description">
 				{ __('Tags are rendered on the front end as toggle switches. Deleting a tag also removes it from all items.', 'stsalv-smart-schema-builder') }
 			</p>
 			{ tags.map( ( tag ) => (
-				<div className="ssb-tags-row" key={ tag.id }>
+				<div className="stssb-tags-row" key={ tag.id }>
 					<TextControl
-						className="ssb-input--tag"
+						className="stssb-input--tag"
 						label={ __('Tag label', 'stsalv-smart-schema-builder') }
 						hideLabelFromVision
 						placeholder={ __('Tag label', 'stsalv-smart-schema-builder') }

@@ -2,7 +2,7 @@
 /**
  * Admin asset registration and enqueue logic.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 
@@ -17,15 +17,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * fonts, default config) via wp_localize_script. Assets are loaded only
  * on Smart Schema Builder admin pages.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
-class SSB_Admin_Assets {
+class STSSB_Admin_Assets {
 
 	/**
 	 * Singleton instance.
 	 *
-	 * @var SSB_Admin_Assets|null
+	 * @var STSSB_Admin_Assets|null
 	 */
 	private static $instance = null;
 
@@ -33,7 +33,7 @@ class SSB_Admin_Assets {
 	 * Get the singleton.
 	 *
 	 * @since 1.0.0
-	 * @return SSB_Admin_Assets
+	 * @return STSSB_Admin_Assets
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -63,12 +63,12 @@ class SSB_Admin_Assets {
 			return;
 		}
 
-		$asset_file = SSB_PLUGIN_DIR . 'build/admin.asset.php';
+		$asset_file = STSSB_PLUGIN_DIR . 'build/admin.asset.php';
 		$asset      = file_exists( $asset_file )
 			? require $asset_file
 			: array(
 				'dependencies' => array(),
-				'version'      => SSB_VERSION,
+				'version'      => STSSB_VERSION,
 			);
 
 		wp_enqueue_style( 'wp-components' );
@@ -76,15 +76,15 @@ class SSB_Admin_Assets {
 		wp_enqueue_media();
 
 		wp_enqueue_style(
-			'ssb-admin',
-			SSB_PLUGIN_URL . 'build/admin.css',
+			'stssb-admin',
+			STSSB_PLUGIN_URL . 'build/admin.css',
 			array( 'wp-components' ),
 			$asset['version']
 		);
 
 		wp_enqueue_script(
-			'ssb-admin',
-			SSB_PLUGIN_URL . 'build/admin.js',
+			'stssb-admin',
+			STSSB_PLUGIN_URL . 'build/admin.js',
 			array_merge(
 				$asset['dependencies'],
 				array(
@@ -100,24 +100,24 @@ class SSB_Admin_Assets {
 			true
 		);
 
-		wp_set_script_translations( 'ssb-admin', 'stsalv-smart-schema-builder' );
+		wp_set_script_translations( 'stssb-admin', 'stsalv-smart-schema-builder' );
 
 		wp_localize_script(
-			'ssb-admin',
-			'ssbAdmin',
+			'stssb-admin',
+			'stssbAdmin',
 			array(
-				'pluginUrl'      => SSB_PLUGIN_URL,
+				'pluginUrl'      => STSSB_PLUGIN_URL,
 				'restNonce'      => wp_create_nonce( 'wp_rest' ),
-				'adminNonce'     => wp_create_nonce( 'ssb_admin_nonce' ),
-				'themeFonts'     => SSB_Render::get_theme_fonts(),
-				'schemaPostType' => SSB_CPT::POST_TYPE,
-				'defaultConfig'  => SSB_CPT::get_default_config(),
+				'adminNonce'     => wp_create_nonce( 'stssb_admin_nonce' ),
+				'themeFonts'     => STSSB_Render::get_theme_fonts(),
+				'schemaPostType' => STSSB_CPT::POST_TYPE,
+				'defaultConfig'  => STSSB_CPT::get_default_config(),
 				'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
-				'listUrl'        => admin_url( 'admin.php?page=' . SSB_Admin::MENU_SLUG ),
-				'editUrl'        => admin_url( 'admin.php?page=' . SSB_Admin::MENU_SLUG ),
+				'listUrl'        => admin_url( 'admin.php?page=' . STSSB_Admin::MENU_SLUG ),
+				'editUrl'        => admin_url( 'admin.php?page=' . STSSB_Admin::MENU_SLUG ),
 				'userCan'        => array(
-					'edit'   => current_user_can( 'ssb_edit_schemas' ),
-					'manage' => current_user_can( 'ssb_manage_settings' ),
+					'edit'   => current_user_can( 'stssb_edit_schemas' ),
+					'manage' => current_user_can( 'stssb_manage_settings' ),
 				),
 			)
 		);

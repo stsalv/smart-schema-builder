@@ -21,7 +21,8 @@
   },
   "devDependencies": {
     "@wordpress/env": "^10.0.0",
-    "@wordpress/scripts": "^35.0.0"
+    "@wordpress/scripts": "^35.0.0",
+    "string-replace-loader": "^3.3.0"
   },
   "engines": {
     "node": ">=20.0.0",

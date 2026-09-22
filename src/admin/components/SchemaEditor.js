@@ -1,7 +1,7 @@
 /**
  * Schema editor screen: header with save actions and three tabs.
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
@@ -48,7 +48,7 @@ const SchemaEditor = ( { schemaId, onBack } ) => {
 			id: 0,
 			title: '',
 			status: 'draft',
-			config: normalizeConfig( window.ssbAdmin?.defaultConfig || {} ),
+			config: normalizeConfig( window.stssbAdmin?.defaultConfig || {} ),
 		} );
 
 		setLoaded( false );
@@ -104,7 +104,7 @@ const SchemaEditor = ( { schemaId, onBack } ) => {
 			setSchema( ( prev ) => ( { ...prev, id: result.id, status } ) );
 			setSaveState( 'saved' );
 			if ( window.history && window.history.replaceState ) {
-				const base = window.ssbAdmin?.editUrl || window.location.href;
+				const base = window.stssbAdmin?.editUrl || window.location.href;
 				const separator = base.indexOf( '?' ) === -1 ? '?' : '&';
 				window.history.replaceState( {}, '', `${ base }${ separator }action=edit&schema=${ result.id }` );
 			}
@@ -183,7 +183,7 @@ const SchemaEditor = ( { schemaId, onBack } ) => {
 
 	if ( ! loaded || ! schema ) {
 		return (
-			<div className="ssb-editor">
+			<div className="stssb-editor">
 				<Spinner />
 			</div>
 		);
@@ -197,28 +197,28 @@ const SchemaEditor = ( { schemaId, onBack } ) => {
 	};
 
 	return (
-		<div className="ssb-editor">
-			<header className="ssb-editor__header">
+		<div className="stssb-editor">
+			<header className="stssb-editor__header">
 				<Button variant="tertiary" icon="arrow-left-alt2" onClick={ onBack }>
 					{ __('Back to list', 'stsalv-smart-schema-builder') }
 				</Button>
 				<TextControl
-					className="ssb-editor__title"
+					className="stssb-editor__title"
 					label={ __('Schema title', 'stsalv-smart-schema-builder') }
 					hideLabelFromVision
 					placeholder={ __('Schema title', 'stsalv-smart-schema-builder') }
 					value={ schema.title }
 					onChange={ ( next ) => setSchema( ( prev ) => ( { ...prev, title: next } ) ) }
 				/>
-				<span className={ `ssb-status ssb-status--${ schema.status }` }>
+				<span className={ `stssb-status stssb-status--${ schema.status }` }>
 					{ 'publish' === schema.status
 						? __('Published', 'stsalv-smart-schema-builder')
 						: __('Draft', 'stsalv-smart-schema-builder') }
 				</span>
-				<span className={ `ssb-save-state ssb-save-state--${ saveState }` }>
+				<span className={ `stssb-save-state stssb-save-state--${ saveState }` }>
 					{ saveStateLabels[ saveState ] }
 				</span>
-				<span className="ssb-editor__actions">
+				<span className="stssb-editor__actions">
 					<Button variant="secondary" onClick={ () => doSave( 'draft' ) }>
 						{ __('Save draft', 'stsalv-smart-schema-builder') }
 					</Button>
@@ -237,11 +237,11 @@ const SchemaEditor = ( { schemaId, onBack } ) => {
 			) }
 
 			<TabPanel
-				className="ssb-tabs"
+				className="stssb-tabs"
 				tabs={ [
-					{ name: 'general', title: __('General', 'stsalv-smart-schema-builder'), className: 'ssb-tab' },
-					{ name: 'blocks', title: __('Blocks', 'stsalv-smart-schema-builder'), className: 'ssb-tab' },
-					{ name: 'tags', title: __('Tags', 'stsalv-smart-schema-builder'), className: 'ssb-tab' },
+					{ name: 'general', title: __('General', 'stsalv-smart-schema-builder'), className: 'stssb-tab' },
+					{ name: 'blocks', title: __('Blocks', 'stsalv-smart-schema-builder'), className: 'stssb-tab' },
+					{ name: 'tags', title: __('Tags', 'stsalv-smart-schema-builder'), className: 'stssb-tab' },
 				] }
 			>
 				{ ( tab ) => {

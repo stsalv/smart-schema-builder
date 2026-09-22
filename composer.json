@@ -1,6 +1,6 @@
 {
-  "name": "stsalv/smart-schema-builder",
-  "description": "Smart Schema Builder — interactive schema maps for WordPress.",
+  "name": "stsalv/stsalv-smart-schema-builder",
+  "description": "StSalv Smart Schema Builder — interactive schema maps for WordPress.",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "authors": [

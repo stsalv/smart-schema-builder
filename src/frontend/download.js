@@ -5,7 +5,7 @@
  * depends on the on-screen container. Every PDF page is created with an
  * explicit orientation (jsPDF addPage does not inherit it).
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  * @since   1.0.0
  */
 import { toPng } from 'html-to-image';
@@ -85,15 +85,15 @@ const capture = ( node, opts ) =>
  */
 function tagPills( root, ids ) {
 	const wrap = document.createElement( 'div' );
-	wrap.className = 'ssb-modal-tags';
+	wrap.className = 'stssb-modal-tags';
 	ids.forEach( ( id ) => {
-		const btn = root.querySelector( '.ssb-tag[data-tag="' + id + '"]' );
+		const btn = root.querySelector( '.stssb-tag[data-tag="' + id + '"]' );
 		if ( ! btn ) {
 			return;
 		}
 		const span = document.createElement( 'span' );
-		span.className = 'ssb-modal-tag';
-		span.style.setProperty( '--ssb-tag-color', btn.style.getPropertyValue( '--ssb-tag-color' ) || '#0f172a' );
+		span.className = 'stssb-modal-tag';
+		span.style.setProperty( '--stssb-tag-color', btn.style.getPropertyValue( '--stssb-tag-color' ) || '#0f172a' );
 		span.textContent = btn.textContent.trim();
 		wrap.appendChild( span );
 	} );
@@ -113,48 +113,48 @@ function tagPills( root, ids ) {
 function buildWrap( root, { withHeader, width } ) {
 	const clone = root.cloneNode( true );
 	clone.removeAttribute( 'id' );
-	clone.querySelectorAll( '.ssb-download, .ssb-tags' ).forEach( ( n ) => n.remove() );
-	const oldMeta = clone.querySelector( '.ssb-print-meta' );
+	clone.querySelectorAll( '.stssb-download, .stssb-tags' ).forEach( ( n ) => n.remove() );
+	const oldMeta = clone.querySelector( '.stssb-print-meta' );
 	if ( oldMeta ) {
 		oldMeta.remove();
 	}
 
 	if ( withHeader ) {
-		const logo = clone.querySelector( '.ssb-logo' );
+		const logo = clone.querySelector( '.stssb-logo' );
 		if ( logo ) {
-			logo.classList.remove( 'ssb-logo--screen-off' );
+			logo.classList.remove( 'stssb-logo--screen-off' );
 		}
 		// Meta line: publication date on the left, colored pills of the
 		// active filters on the right (only when filters are active).
 		const meta = document.createElement( 'div' );
-		meta.className = 'ssb-print-meta';
+		meta.className = 'stssb-print-meta';
 		const dateSpan = document.createElement( 'span' );
-		dateSpan.className = 'ssb-print-meta-date';
+		dateSpan.className = 'stssb-print-meta-date';
 		dateSpan.textContent = root.dataset.pubDate || '';
 		meta.appendChild( dateSpan );
-		const ids = Array.from( root.querySelectorAll( '.ssb-tag[aria-pressed="true"]' ) ).map(
+		const ids = Array.from( root.querySelectorAll( '.stssb-tag[aria-pressed="true"]' ) ).map(
 			( b ) => b.dataset.tag
 		);
 		if ( ids.length ) {
 			const pills = tagPills( root, ids );
-			pills.classList.add( 'ssb-print-meta-pills' );
+			pills.classList.add( 'stssb-print-meta-pills' );
 			meta.appendChild( pills );
 		}
-		const header = clone.querySelector( '.ssb-header' );
+		const header = clone.querySelector( '.stssb-header' );
 		if ( header ) {
 			header.insertAdjacentElement( 'afterend', meta );
 		} else {
 			clone.prepend( meta );
 		}
 	} else {
-		const header = clone.querySelector( '.ssb-header' );
+		const header = clone.querySelector( '.stssb-header' );
 		if ( header ) {
 			header.remove();
 		}
 	}
 
 	const wrap = document.createElement( 'div' );
-	wrap.className = 'ssb-print ssb-root';
+	wrap.className = 'stssb-print stssb-root';
 	wrap.style.width = width + 'px';
 	wrap.appendChild( clone );
 	document.body.appendChild( wrap );
@@ -170,34 +170,34 @@ function buildWrap( root, { withHeader, width } ) {
  * @return {Element|null} Offscreen wrapper or null when nothing to print.
  */
 function buildAppendixWrap( root, width ) {
-	const items = Array.from( root.querySelectorAll( '.ssb-card--clickable' ) );
+	const items = Array.from( root.querySelectorAll( '.stssb-card--clickable' ) );
 	if ( ! items.length ) {
 		return null;
 	}
 	const wrap = document.createElement( 'div' );
-	wrap.className = 'ssb-print ssb-root';
+	wrap.className = 'stssb-print stssb-root';
 	wrap.style.width = width + 'px';
 	const box = document.createElement( 'div' );
-	box.className = 'ssb-print-appendix';
+	box.className = 'stssb-print-appendix';
 	const heading = document.createElement( 'h3' );
-	heading.className = 'ssb-appendix-title';
+	heading.className = 'stssb-appendix-title';
 	heading.textContent = __('Role descriptions', 'stsalv-smart-schema-builder');
 	box.appendChild( heading );
 	items.forEach( ( card ) => {
 		const item = document.createElement( 'div' );
-		item.className = 'ssb-appendix-item';
+		item.className = 'stssb-appendix-item';
 		const title = document.createElement( 'h4' );
-		const titleSrc = card.querySelector( '.ssb-card-title' );
+		const titleSrc = card.querySelector( '.stssb-card-title' );
 		title.textContent = titleSrc ? titleSrc.textContent : '';
 		item.appendChild( title );
 		const ids = ( card.dataset.tags || '' ).split( /\s+/ ).filter( Boolean );
 		if ( ids.length ) {
 			item.appendChild( tagPills( root, ids ) );
 		}
-		const full = card.querySelector( '.ssb-card-full' );
+		const full = card.querySelector( '.stssb-card-full' );
 		if ( full ) {
 			const body = document.createElement( 'div' );
-			body.className = 'ssb-appendix-body';
+			body.className = 'stssb-appendix-body';
 			body.innerHTML = full.innerHTML;
 			item.appendChild( body );
 		}
@@ -332,4 +332,4 @@ async function downloadPdf( root, schemaId ) {
 	}
 }
 
-window.ssbDownload = { capturePng, downloadPdf };
+window.stssbDownload = { capturePng, downloadPdf };
