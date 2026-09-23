@@ -13,7 +13,7 @@
  * Text Domain:       stsalv-smart-schema-builder
  * Domain Path:       /languages
  *
- * @package SmartSchemaBuilder
+ * @package StSalvSmartSchemaBuilder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
