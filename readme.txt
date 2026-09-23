@@ -45,6 +45,15 @@ compiled assets (`build/`) with `npm install && npm run build`.
 3. Go to Smart Schemas → Add New, configure the map and Publish.
 4. Insert it with the Smart Schema block, `[stsalv_smart_schema id="123"]` or `stssb_schema( 123 )`.
 
+== Screenshots ==
+
+1. Schema list in admin dashboard with status indicators
+2. Schema editor — General tab
+3. Blocks editor with columns layout
+3. Front-end rendering with tag filters
+4. Modal dialog with full description
+5. PDF export (landscape, multi-page)
+
 == Frequently Asked Questions ==
 
 = Where are PDF/PNG files generated? =
