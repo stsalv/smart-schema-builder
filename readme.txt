@@ -50,9 +50,9 @@ compiled assets (`build/`) with `npm install && npm run build`.
 1. Schema list in admin dashboard with status indicators
 2. Schema editor — General tab
 3. Blocks editor with columns layout
-3. Front-end rendering with tag filters
-4. Modal dialog with full description
-5. PDF export (landscape, multi-page)
+4. Front-end rendering with tag filters
+5. Modal dialog with full description
+6. PDF export (landscape, multi-page)
 
 == Frequently Asked Questions ==
 
